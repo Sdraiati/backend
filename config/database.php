@@ -7,11 +7,10 @@
     // create 
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-
-    // check
-    // if ($conn->connect_error) {
-    //     die('Connection failed ' . $conn->connect_error);
-    // }
+    if ($conn->connect_error) {
+        die('Connection failed ' . $conn->connect_error);
+    }
+    echo '<h2> connected </h2>';
 
     // echo '<h2> connected </h2>';
     checkDbConnection($conn);

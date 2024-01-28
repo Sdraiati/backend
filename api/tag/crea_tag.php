@@ -10,7 +10,6 @@
 // in questo momento ci sono solo dei valori di prova.
 // devono poi essere aggiornati con i valori che
 // vengono passati dal cliente tramite pOST request.
-
 $nome = "tag di prova";
 $id_progetto = "1";
 $descrizione = "descrizione relativa a questo tag";
@@ -19,6 +18,8 @@ $descrizione = "descrizione relativa a questo tag";
 $sql = "INSERT INTO tag (nome, id_progetto, descrizione) VALUES (\"${nome}\", ${id_progetto}, \"${descrizione}\"); ";
 
 echo '<h1> ' . $sql . ' </h1>';
+
+
 
 /*
 $result = mysqli_query($conn, $sql);

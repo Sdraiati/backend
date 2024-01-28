@@ -17,8 +17,12 @@
     un tag si può eliminare: 
     1. globalmente => tutti i progetti contenenti quel tag allora devono rimuoverlo e se 
     ci sono spese correlate a quel tag, rimuovere l'associazione al tag 
+    => devono essere rimosse (in ordine):
+        1. all'interno della tabella tag_progetto (DELETE FROM tag_progetto WHERE tag_progetto.nome_tag = tag_da_eliminare)
+        2. all'interno della tabella tag  (DELETE FROM tag WHERE nome = tag_da_eliminare)
     2. dal progetto => tutte le spese associate a quel tag devono rimuovere la loro associazione 
-    ad esso e il progetto deve rimuovere l'associazione a quel tag. 
+    => devono essere rimosse solamente le associazioni all'interno della tabella tag_progetto
+       (DELETE FROM tag_progetto WHERE tag_progetto.nome_tag = tag_da_eliminare).
 */
 
 $id_progetto = "1";
@@ -28,10 +32,12 @@ $data = "2024-01-27 11:48:30"; // 2001-03-10 17:16:18 (the MySQL DATETIME format
 $sql = "DELETE FROM movimento WHERE id_progetto = ${id_progetto} AND data = \"${data}\"; "; 
 echo '<h1> ' . $sql . ' </h1>';
 
+/*
 $result = mysqli_query($conn, $sql);
 if ($result) {
     echo '<h2> transazione riuscita </h2>' ;
 } 
+*/
 
 if($conn->close()) {
     echo '<h2> connection closed </h2>';

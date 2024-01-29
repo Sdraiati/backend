@@ -4,13 +4,9 @@
 
 <?php
 
-// prendere i valori dalla POST request 
-$id_progetto = '1';
+$link = $_GET["link_condivisione"];
 
-// query al db
-$sql = "SELECT * FROM (progetto, movimento) WHERE progetto.id = movimento.id_progetto AND id = " . $id_progetto . "; ";
-echo '<h1> ' . $sql . ' </h1>';
-
+$sql = "SELECT id FROM progetto WHERE link_condivisione = \"${link}\"; ";
 
 /*
 $result = mysqli_query($conn, $sql);
@@ -23,7 +19,3 @@ if ($result) {
     }
 } 
 */
-
-if($conn->close()) {
-    echo '<h2> connection closed </h2>';
-}

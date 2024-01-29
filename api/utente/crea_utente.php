@@ -24,7 +24,7 @@ echo '<h1> ' . $sql . ' </h1>';
 /*
 $result = mysqli_query($conn, $sql);
 if ($result) {
-    echo '<h2> generare pagina html di dashboard dell'utente. </h2>';
+    echo '<h2> generare pagina html di dashboard dell'utente con una sessione all'interno della pagina che imposti un timer all'utente. </h2>';
 } else {
     echo '<h2> generare pagina di errore. </h2>';
 }

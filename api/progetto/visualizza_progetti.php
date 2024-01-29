@@ -4,13 +4,11 @@
 
 <?php
 
-// prendere i valori dalla POST request 
-$id_progetto = '1';
-
-// query al db
-$sql = "SELECT * FROM (progetto, movimento) WHERE progetto.id = movimento.id_progetto AND id = " . $id_progetto . "; ";
+// selezionare tutti i progetti associati ad un utente.
+$sql = "SELECT progetto.id, progetto.nome, progetto.descrizione FROM (utente, progetto_utente, progetto) WHERE
+        utente.email = progetto_utente.email; ";
+    
 echo '<h1> ' . $sql . ' </h1>';
-
 
 /*
 $result = mysqli_query($conn, $sql);

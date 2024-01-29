@@ -5,9 +5,8 @@
 <?php
 
 // prendere i valori dalla POST request 
-// in questo momento ci sono solo dei valori di prova.
-// devono poi essere aggiornati con i valori che
-// vengono passati dal cliente tramite pOST request.
+$id_progetto = "1";
+$nome_tag = "nome_tag"; // 2001-03-10 17:16:18 (the MySQL DATETIME format).
 
 /*
     * PROBLEMA: anche nel caso in cui un record non esiste, la transazione avviene lo stesso
@@ -16,17 +15,16 @@
 
     un tag si può eliminare: 
     1. dal progetto => tutte le spese associate a quel tag devono rimuovere la loro associazione 
-    => devono essere rimosse solamente le associazioni all'interno della tabella tag_progetto
+    => devono essere rimosse solamente le associazioni all'interno di: 
        1. tabella spese
-       1. tabella tag (DELETE FROM tag WHERE tag.id_progetto= id_progetto AND tag.nome = nome_tag_da_eliminare).
+       2. tabella tag (DELETE FROM tag WHERE tag.id_progetto= id_progetto AND tag.nome = nome_tag_da_eliminare).
 */
 
-$id_progetto = "1";
-$data = "2024-01-27 11:48:30"; // 2001-03-10 17:16:18 (the MySQL DATETIME format).
-
 // query al db
-$sql = "DELETE FROM movimento WHERE id_progetto = ${id_progetto} AND data = \"${data}\"; "; 
-echo '<h1> ' . $sql . ' </h1>';
+$sql_spesa = "UPDATE movimento SET tag = NULL WHERE id_progetto = ${id_progetto}; ";
+$sql_tag = "DELETE FROM tag WHERE id_progetto = ${id_progetto} AND tag = \"${nome_tag}\"; "; 
+echo '<h1> ' . $sql_spesa . ' </h1>';
+echo '<h1> ' . $sql_tag . ' </h1>';
 
 /*
 $result = mysqli_query($conn, $sql);

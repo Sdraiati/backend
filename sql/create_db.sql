@@ -16,6 +16,19 @@ CREATE TABLE utente (
     PRIMARY KEY (email)
 );
 
+-- creazione della relazione tag
+-- id presente in quanto all'interno della relazione movimento, 
+-- ci si riferisce a tag.id => ogni aggiornamento su tag
+-- può essere fatto in modo indipendente senza dover alterare la tabella movimento. 
+CREATE TABLE tag (
+	id INT NOT NULL AUTO_INCREMENT, 
+    nome VARCHAR(255) NOT NULL, 
+    id_progetto INT NOT NULL,
+    descrizione TEXT , 
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_progetto) REFERENCES progetto(id)
+);
+
 -- creazione della tabella movimento 
 -- spesa non sembra essere un nome adatto in quanto implica un
 -- importo sempre negativo
@@ -25,25 +38,10 @@ CREATE TABLE movimento (
     data DATETIME NOT NULL , 
     importo FLOAT NOT NULL , 
     descrizione TEXT, 
-    tag VARCHAR(255) NULL,
+    tag_id INT NULL,
     PRIMARY KEY (id_progetto, data),
     FOREIGN KEY (id_progetto) REFERENCES progetto(id),
-    FOREIGN KEY (tag_id) REFERENCES tag(id), -- modifica
-);
-
--- creazione della relazione tag
--- id presente in quanto all'interno della relazione movimento, 
--- ci si riferisce a tag.id => ogni aggiornamento su tag
--- può essere fatto in modo indipendente senza dover alterare la tabella movimento. 
-
-CREATE TABLE tag (
-	id INT NOT NULL AUTO_INCREMENT, 
-    nome VARCHAR(255) NOT NULL, 
-    id_progetto INT NOT NULL,
-    descrizione TEXT , 
-    PRIMARY KEY (id),
-    PRIMARY KEY (nome, id_progetto),
-    FOREIGN KEY (id_progetto) REFERENCES progetto(id)
+    FOREIGN KEY (tag_id) REFERENCES tag(id)
 );
 
 CREATE TABLE progetto_utente(

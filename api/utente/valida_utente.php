@@ -5,9 +5,13 @@
 <?php
 
 // prendere i valori dalla POST request 
-$email = "leonardo.basso02@gmail.com";
-$username = "bassupreme";
-$password = "password non cifrata";
+$email = $_POST['email'];
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+echo "<p> ${email} </p>";
+echo "<p> ${username} </p>";
+echo "<p> ${password} </p> <br>";
 
 $hash_email = sha1($email);
 $hash_username = sha1($username);
@@ -15,17 +19,20 @@ $hash_password = sha1($password);
 
 // query al db
 $sql = "SELECT * FROM utente WHERE email = \"${hash_email}\"; ";
-echo '<h1> ' . $sql . ' </h1>';
+// echo '<h1> ' . $sql . ' </h1>';
 $result = mysqli_query($conn, $sql);
 
 if ($result) { 
     // email corrispondente trovata => utente registrato nel db.
     $array = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-    if ($hash_password == sha1($array['password'])) {
-        // autenticazione riuscita
+    // var_dump($array);
+    if ($hash_password == $array[0]["password"]) {
+        // autenticazione riuscita => pagina di benvenuto?
+        // creare la sessione 
+        echo '<h2> WELCOME. </h2>';
     } else {
-        // autenticazione fallita
+        // autenticazione fallita => pagina di errore.
+        echo '<h2> Password sbagliata. </h2>';
     }
 
 } else {

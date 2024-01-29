@@ -19,13 +19,11 @@
 
 
 $id_progetto = "1";
-$data = "2024-01-27 11:48:30"; // 2001-03-10 17:16:18 (the MySQL DATETIME format).
-
-$nuovo_importo = "20.00";
-$nuova_descrizione = "nuova descrizione derivata da un update";
+$nuovo_nome = "nome_tag";
+$nuova_descrizione = "nuova_descrizione";
 
 // query al db
-$sql = "UPDATE movimento SET importo = ${nuovo_importo}, descrizione = \"${nuova_descrizione}\" WHERE id_progetto = ${id_progetto} AND data = \"${data}\"; "; 
+$sql = "UPDATE tag SET nome = \"${nuovo_nome}\", descrizione = \"${nuova_descrizione}\" WHERE id_progetto = ${id_progetto}; "; 
 echo '<h1> ' . $sql . ' </h1>';
 
 /*

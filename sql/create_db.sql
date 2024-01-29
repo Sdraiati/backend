@@ -32,8 +32,12 @@ CREATE TABLE movimento (
 );
 
 -- creazione della relazione tag
+-- id presente in quanto all'interno della relazione movimento, 
+-- ci si riferisce a tag.id => ogni aggiornamento su tag
+-- può essere fatto in modo indipendente senza dover alterare la tabella movimento. 
+
 CREATE TABLE tag (
-		id INT NOT NULL AUTO_INCREMENT,
+	id INT NOT NULL AUTO_INCREMENT, 
     nome VARCHAR(255) NOT NULL, 
     id_progetto INT NOT NULL,
     descrizione TEXT , 

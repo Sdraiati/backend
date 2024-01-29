@@ -18,15 +18,35 @@
     altro problema...se un utente è associato ad un progetto bisogna eliminare: 
     1. tutte le spese dell'utente
     2. tutte le associazioni dell'utente con tutti i progetti nei quali è coinvolto.
+    3. il record dell'utente all'interno della tabella dell'utente.
 */
 
 $email = "leonardo.basso02@gmail.com";
 $username = "bassupreme"; 
 
-// query al db
-$sql = "DELETE FROM utente WHERE email= \"${email}\" AND username = \"${username}\"; "; 
-$sql = "DELETE FROM utente WHERE email= \"${email}\" AND username = \"${username}\"; "; 
-echo '<h1> ' . $sql . ' </h1>';
+$hash_email = sha1($email);
+$hash_username = sha1($username);
+
+// query al db 
+$sql_spese = "DELETE FROM (utente, progetto_utente, movimento) WHERE 
+    utente.email = progetto_utente.email AND progetto_utente.id_progetto = movimento.id_progetto AND
+    email= \"${hash_email}\" ";
+
+$sql_spese_2 = "DELETE FROM movimento WHERE 
+    movimento.id_progetto = (SELECT movimento.id_progetto FROM (utente, progetto_utente, movimento) utente.email = progetto_utente.email AND progetto_utente.id_progetto = movimento.id_progetto AND
+    email= \"${hash_email}\"); ";
+
+$sql_progetto = "DELETE FROM (utente, progetto) WHERE 
+    utente.email = progetto_utente.email  AND
+    email= \"${hash_email}\" ";
+
+$sql_utente = "DELETE FROM (utente) WHERE email= \"${hash_email}\" "; 
+
+// TEST
+echo '<h1> ' . $sql_spese_2 . ' </h1>';
+echo '<h1> ' . $sql_progetto . ' </h1>';
+echo '<h1> ' . $sql_utente . ' </h1>';
+
 /*
 $result = mysqli_query($conn, $sql);
 if ($result) {

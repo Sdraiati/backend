@@ -16,7 +16,6 @@ $descrizione = "descrizione relativa a questo tag";
 
 // query al db
 $sql = "INSERT INTO tag (nome, id_progetto, descrizione) VALUES (\"${nome}\", ${id_progetto}, \"${descrizione}\"); ";
-
 echo '<h1> ' . $sql . ' </h1>';
 
 

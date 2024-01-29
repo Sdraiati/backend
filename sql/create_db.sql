@@ -5,11 +5,11 @@ CREATE TABLE progetto (
     id INT NOT NULL AUTO_INCREMENT , 
     nome VARCHAR(255) NOT NULL , 
     descrizione TEXT NOT NULL , 
-		link_condivisione VARCHAR(255) NULL UNIQUE,
+	link_condivisione VARCHAR(255) NULL UNIQUE,
     PRIMARY KEY (id));
 
--- creazione tabella user
-CREATE TABLE user (
+-- creazione tabella utente
+CREATE TABLE utente (
     email VARCHAR(255) NOT NULL , 
     username VARCHAR(255) NOT NULL , 
     password VARCHAR(255) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE progetto_utente(
     email VARCHAR(255) NOT NULL, 
     id_progetto INT NOT NULL,
     PRIMARY KEY (email, id_progetto),
-    FOREIGN KEY (email) REFERENCES user(email),
+    FOREIGN KEY (email) REFERENCES utente(email),
     FOREIGN KEY (id_progetto) REFERENCES progetto(id)
 );
 

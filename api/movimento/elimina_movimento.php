@@ -18,8 +18,8 @@
     * sia stata o meno un tentativo di eliminare un record inesistente.
 */
 
-$id_progetto = "1";
-$data = "2024-01-27 11:48:30"; // 2001-03-10 17:16:18 (the MySQL DATETIME format).
+$id_progetto = "10";
+$data = "2024-01-29 18:03:07"; // 2001-03-10 17:16:18 (the MySQL DATETIME format).
 
 // query al db
 $sql = "DELETE FROM movimento WHERE id_progetto = ${id_progetto} AND data = \"${data}\"; "; 

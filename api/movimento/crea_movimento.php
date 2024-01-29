@@ -9,9 +9,9 @@
 // devono poi essere aggiornati con i valori che
 // vengono passati dal cliente tramite pOST request.
 
-$id_progetto = "1";
+$id_progetto = "10";
 $data = date("Y-m-d H:i:s"); // 2001-03-10 17:16:18 (the MySQL DATETIME format).
-$importo = "12.50";
+$importo = "23.99";
 $descrizione = "descrizione relativa a questa spesa";
 
 // query al db

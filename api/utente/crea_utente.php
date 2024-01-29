@@ -5,10 +5,6 @@
 <?php
 
 // prendere i valori dalla POST request 
-// in questo momento ci sono solo dei valori di prova.
-// devono poi essere aggiornati con i valori che
-// vengono passati dal cliente tramite pOST request.
-
 $email = $_POST['email'];
 $username = $_POST['username'];
 $password = $_POST['password'];

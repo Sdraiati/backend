@@ -17,24 +17,21 @@
     * sia stata o meno un tentativo di eliminare un record inesistente.
 */
 
-$id_progetto = "1";
-$data = "2024-01-27 11:48:30"; // 2001-03-10 17:16:18 (the MySQL DATETIME format).
-
-$nuovo_importo = "20.00";
+$id_progetto = "10";
+$nuova_data = "2024-01-29 18:04:31"; // 2001-03-10 17:16:18 (the MySQL DATETIME format).
+$nuovo_importo = "19.99";
 $nuova_descrizione = "nuova descrizione derivata da un update";
 
 // query al db
-$sql = "UPDATE movimento SET importo = ${nuovo_importo}, descrizione = \"${nuova_descrizione}\" WHERE id_progetto = ${id_progetto} AND data = \"${data}\"; "; 
+$sql = "UPDATE movimento SET importo = ${nuovo_importo}, descrizione = \"${nuova_descrizione}\" WHERE id_progetto = ${id_progetto} AND data = \"${nuova_data}\"; "; 
 echo '<h1> ' . $sql . ' </h1>';
 
-/*
 $result = mysqli_query($conn, $sql);
 if ($result) {
-    echo '<h2> transazione riuscita </h2>' ;
+    echo '<h2> transazione riuscita </h2>';
 } else {
-    echo '<h2> transazione NON: riuscita (non esiste il record da aggiornare all'interno della tabella). </h2>' ;
+    echo '<h2> transazione NON riuscita </h2>';
 }
-*/ 
 
 if($conn->close()) {
     echo '<h2> connection closed </h2>';

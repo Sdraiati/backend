@@ -25,16 +25,18 @@ $result = mysqli_query($conn, $sql);
 if ($result) { 
     // email corrispondente trovata => utente registrato nel db.
     $array = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    // var_dump($array);
-    if ($hash_password == $array[0]["password"]) {
-        // autenticazione riuscita => pagina di benvenuto?
-        // creare la sessione 
-        echo '<h2> WELCOME. </h2>';
+    if (count($array) > 0) {
+        if ($hash_password == $array[0]["password"]) {
+            // autenticazione riuscita => pagina di benvenuto?
+            // creare la sessione 
+            echo '<h2> WELCOME. </h2>';
+        } else {
+            // autenticazione fallita => pagina di errore.
+            echo '<h2> Password sbagliata. </h2>';
+        }
     } else {
-        // autenticazione fallita => pagina di errore.
-        echo '<h2> Password sbagliata. </h2>';
+        echo '<h2> utente non trovato </h2>';
     }
-
 } else {
     echo '<h2> generare pagina di errore. </h2>';
 }

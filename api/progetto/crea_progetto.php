@@ -7,18 +7,19 @@
 // prendere i valori dalla POST request 
 $email_user = "leonardo.basso02@gmail.com"; // questo per il momento si tiene in una post request...poi è un dato appartenente alla sessione.
 $hash_email = sha1($email_user);
-$nome = "big bank mf";
-$descrizione = "questo è un progetto di prova";
+$nome = "projectY";
+$descrizione = "questo è un progetto del piripillo";
 
 // 1. creare record progetto
 $sql_progetto = "INSERT INTO progetto (nome, descrizione, link_condivisione) VALUES (\"${nome}\", \"${descrizione}\", NULL);";
-$result = mysqli_query($conn, $sql_progetto);
 
-if ($result) {
+
+
+if (mysqli_query($conn, $sql_progetto)) {
+    $last_id = $conn->insert_id;
     echo '<h2> progetto creato correttamente </h2>';
 
     // 2. inserire legame utente con progett all'interno di progetto_utente.
-    $last_id = $conn->insert_id;
     var_dump($last_id);
     $sql_legame_utenteprogetto = "INSERT INTO progetto_utente (email, id_progetto) VALUES (\"${hash_email}\", ${last_id});";
     echo $sql_legame_utenteprogetto;

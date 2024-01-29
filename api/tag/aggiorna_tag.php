@@ -18,22 +18,20 @@
 */
 
 
-$id_progetto = "1";
-$nuovo_nome = "nome_tag";
-$nuova_descrizione = "nuova_descrizione";
+$id_progetto = "17";
+$nuovo_nome = "cibbbbbboz";
+$nuova_descrizione = "cibbo pazzerello tunze tunze daje daje";
 
 // query al db
 $sql = "UPDATE tag SET nome = \"${nuovo_nome}\", descrizione = \"${nuova_descrizione}\" WHERE id_progetto = ${id_progetto}; "; 
 echo '<h1> ' . $sql . ' </h1>';
 
-/*
 $result = mysqli_query($conn, $sql);
 if ($result) {
     echo '<h2> transazione riuscita </h2>' ;
 } else {
-    echo '<h2> transazione NON: riuscita (non esiste il record da aggiornare all'interno della tabella). </h2>' ;
+    echo '<h2> transazione NON riuscita </h2>' ;
 }
-*/ 
 
 if($conn->close()) {
     echo '<h2> connection closed </h2>';

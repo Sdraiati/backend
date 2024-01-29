@@ -5,9 +5,9 @@
 <?php
 
 // prendere i valori dalla POST request 
-$email = "eghosa.basso07@gmail.com" ;
+$email = "leonardo.basso02@gmail.com";
 $hash_email = sha1($email);
-$id_progetto = "10";
+$id_progetto = "11";
 
 // query al db
 // 1. eliminare tutte le spese dell'utente relative al progetto.

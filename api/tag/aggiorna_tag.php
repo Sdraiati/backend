@@ -9,17 +9,11 @@
 // devono poi essere aggiornati con i valori che
 // vengono passati dal cliente tramite pOST request.
 /*
+    del tag si possono modificare solamente nome e descrizione.
     un tag si può modificare: 
-    1. globalmente => tutti i progetti contenenti quel tag allora devono modificarlo e se 
-    ci sono spese correlate a quel tag, modificare l'associazione al tag 
-    => devono essere modificate (in ordine):
-        1. all'interno della tabella tag_progetto (UPDATE tag_progetto SET id_progetto = id_nuovo_progetto, nome_tag = nome_tag_nuovo 
-        WHERE tag = old_tag;)
-        2. all'interno della tabella tag (UPDATE tag SET nome = nuovo_nome_tag, descrizione = nuova_descrizione WHERE tag = old_tag; )
-        3. if NOT NULL => UPDATE movimento SET tag = nuovo_nome_tag WHERE tag = old_tag; 
-    2. dal progetto => tutte le spese associate a quel tag devono modificare la loro associazione 
+    1. dal progetto => tutte le spese associate a quel tag devono modificare la loro associazione 
     => devono essere modificate in ordine: 
-       1. righe della tabella tag_progetto (UPDATE tag_progetto SET nome_tag = nome_tag_nuovo WHERE tag_progetto.id_progetto = progetto.id ).
+       1. righe della tabella tag (UPDATE tag SET nome_tag = nome_tag_nuovo descrizione = nuova_descrizione WHERE tag_progetto.id_progetto = progetto.id ...).
        2. righe della tabella spese (if NOT NULL => UPDATE movimento SET tag = nuovo_nome_tag WHERE movimento.tag = old_tag;).
 */
 

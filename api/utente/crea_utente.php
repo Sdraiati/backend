@@ -12,10 +12,13 @@
 $email = "leonardo.basso02@gmail.com";
 $username = "bassupreme";
 $password = "password non cifrata";
+
+$hash_email = sha1($email);
+$hash_username = sha1($username);
 $hash_password = sha1($password);
 
 // query al db
-$sql = "INSERT INTO utente (email, username, password) VALUES (\"${email}\", \"${username}\", \"${hash_password}\"); ";
+$sql = "INSERT INTO utente (email, username, password) VALUES (\"${hash_email}\", \"${hash_username}\", \"${hash_password}\"); ";
 echo '<h1> ' . $sql . ' </h1>';
 
 /*

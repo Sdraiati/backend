@@ -15,14 +15,10 @@
     * sia stata o meno un tentativo di eliminare un record inesistente.
 
     un tag si può eliminare: 
-    1. globalmente => tutti i progetti contenenti quel tag allora devono rimuoverlo e se 
-    ci sono spese correlate a quel tag, rimuovere l'associazione al tag 
-    => devono essere rimosse (in ordine):
-        1. all'interno della tabella tag_progetto (DELETE FROM tag_progetto WHERE tag_progetto.nome_tag = tag_da_eliminare)
-        2. all'interno della tabella tag  (DELETE FROM tag WHERE nome = tag_da_eliminare)
-    2. dal progetto => tutte le spese associate a quel tag devono rimuovere la loro associazione 
+    1. dal progetto => tutte le spese associate a quel tag devono rimuovere la loro associazione 
     => devono essere rimosse solamente le associazioni all'interno della tabella tag_progetto
-       (DELETE FROM tag_progetto WHERE tag_progetto.nome_tag = tag_da_eliminare).
+       1. tabella spese
+       1. tabella tag (DELETE FROM tag WHERE tag.id_progetto= id_progetto AND tag.nome = nome_tag_da_eliminare).
 */
 
 $id_progetto = "1";

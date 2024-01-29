@@ -10,10 +10,9 @@ $nome = "progetto di prova";
 $descrizione = "questo è un progetto di prova";
 
 // query al db
-// 1. creare record progetto
-$sql = "INSERT INTO progetto (nome, descrizione) VALUES (\"${nome}\", \"${descrizione}\");";
-// 2. inserire legame utente con progett all'interno di progetto_utente.
-$sql = "INSERT INTO progetto_utente (email, id_progetto) VALUES (\"${nome}\", \"${descrizione}\");";
+// 1. eliminare il legame da progetto_utente (è l'utente che esce dal progetto) 
+// 2. contare quanti elementi sono ancora dentro quel progetto (COUNT)
+// 3. se 0 => eliminare il record del progetto nella tabella progetto.
 
 echo '<h1> ' . $sql . ' </h1>';
 
@@ -27,4 +26,5 @@ if ($result) {
 if($conn->close()) {
     echo '<h2> connection closed </h2>';
 }
+
 

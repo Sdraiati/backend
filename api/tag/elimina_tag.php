@@ -5,8 +5,8 @@
 <?php
 
 // prendere i valori dalla POST request 
-$id_progetto = "1";
-$nome_tag = "nome_tag"; // 2001-03-10 17:16:18 (the MySQL DATETIME format).
+$id_progetto = "17";
+$nome_tag = "cibbbbbbo pazzo"; // 2001-03-10 17:16:18 (the MySQL DATETIME format).
 
 /*
     * PROBLEMA: anche nel caso in cui un record non esiste, la transazione avviene lo stesso
@@ -21,17 +21,20 @@ $nome_tag = "nome_tag"; // 2001-03-10 17:16:18 (the MySQL DATETIME format).
 */
 
 // query al db
-$sql_spesa = "UPDATE movimento SET tag = NULL WHERE id_progetto = ${id_progetto}; ";
-$sql_tag = "DELETE FROM tag WHERE id_progetto = ${id_progetto} AND tag = \"${nome_tag}\"; "; 
+$sql_spesa = "UPDATE movimento SET tag_id = NULL WHERE id_progetto = ${id_progetto}; ";
+$sql_tag = "DELETE FROM tag WHERE id_progetto = ${id_progetto} AND nome = \"${nome_tag}\"; "; 
 echo '<h1> ' . $sql_spesa . ' </h1>';
 echo '<h1> ' . $sql_tag . ' </h1>';
 
-/*
-$result = mysqli_query($conn, $sql);
+$result = mysqli_query($conn, $sql_spesa);
 if ($result) {
-    echo '<h2> transazione riuscita </h2>' ;
+    echo '<h2> spese aggiornate </h2>' ;
 } 
-*/
+
+$result_tag = mysqli_query($conn, $sql_tag);
+if ($result_tag) {
+    echo '<h2> tag eliminato </h2>' ;
+}
 
 if($conn->close()) {
     echo '<h2> connection closed </h2>';

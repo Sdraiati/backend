@@ -17,9 +17,8 @@
        2. righe della tabella spese (if NOT NULL => UPDATE movimento SET tag = nuovo_nome_tag WHERE movimento.tag = old_tag;).
 */
 
-
 $id_progetto = "17";
-$nuovo_nome = "cibbbbbboz";
+$nuovo_nome = "cibbbbbbo pazzo";
 $nuova_descrizione = "cibbo pazzerello tunze tunze daje daje";
 
 // query al db

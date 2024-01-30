@@ -1,16 +1,35 @@
+<?php
+    include '../api/config/database.php';
+?>
 <!-- Elenco dei progetti -->
 <section>
 	<h2>Elenco dei Progetti</h2>
 	<button data-button-kind="newProject">Nuovo Progetto</button>
-	<!-- Inserisci qui l'elenco dei progetti, dinamicamente -->
-	<ul id="project-list">
+	<ul>
+<?php
+$email = $_SESSION['email'];
+$query = "SELECT progetto.id, progetto.nome
+			FROM progetto JOIN progetto_utente ON progetto.id = progetto_utente.id_progetto
+			WHERE progetto_utente.email_utente = '$email'";
+
+$result = mysqli_query($conn, $query);
+if ($result) {
+	$array = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	foreach ($array as $row) {
+		$id = $row['id'];
+		$nome = $row['nome'];
+		echo "<li><a href='project_home.php?id=$id'>$nome</a></li>";
+	}
+}
+?>
 	</ul>
 </section>
 
 <!-- Crea un Nuovo Progetto -->
 <section id="newProject" class="hidden">
 	<h2>Crea un Nuovo Progetto</h2>
-	<form id="newProjectForm" action="api/progetto/crea_progetto.php" >
+	<form id="newProjectForm" action="backend/api/progetto/crea_progetto.php" method="post">
+		<input type="hidden" name="emailUtente" value="<?php echo $email ?>">
 		<label for="inputNomeProgetto">Nome Progetto:</label>
 		<input type="text" id="inputNomeProgetto" name="nomeProgetto" required>
 		<label for="inputDescrizioneProgetto">Descrizione:</label>
@@ -21,5 +40,3 @@
 		</div>
 	</form>
 </section>
-
-<script type="module" src="assets/js/project_list.js"></script>

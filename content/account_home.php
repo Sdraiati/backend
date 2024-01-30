@@ -21,11 +21,7 @@
 		include "../layout/account_info.php";
 	?>
 
-
-	<!-- import project_list.html -->
-	<?php
-		include "../layout/project_list.html";
-	?>
+	import project_list.html
 	</main>
 
 	import footer.html

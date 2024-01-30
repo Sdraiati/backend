@@ -13,7 +13,6 @@
 				<th>Descrizione</th>
 			</tr>
 		</thead>
-		<!-- Corpo della tabella -->
 		<tbody>
 		</tbody>
 	</table>
@@ -22,7 +21,7 @@
 <!-- Registra una Nuova Transazione -->
 <section id="newTransaction" class="hidden">
 	<h2>Registra una Nuova Transazione</h2>
-	<form id="newTransactionForm" action="javascript:void(0)">
+	<form id="newTransactionForm" action="backend/api/movimento/crea_movimento.php" method="post">
 		<label for="newData">Data:</label>
 		<input type="date" id="newData" name="data" required>
 		<label for="newImporto">Importo:</label>
@@ -42,7 +41,7 @@
 <!-- Modifica Transazione -->
 <section id="editTransaction" class="hidden">
 	<h2>Modifica Transazione</h2>
-	<form id="editTransactionForm" action="javascript:void(0)">
+	<form id="editTransactionForm" action="backend/api/movimento/aggiorna_movimento.php" method="post">
 		<label for="editData">Nuova Data:</label>
 		<input type="date" id="editData" name="data">
 		<label for="editCosto">Nuovo Importo (€):</label>

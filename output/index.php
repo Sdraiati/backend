@@ -1,4 +1,16 @@
 <!-- <title>Home - Penny Wise</title> -->
+<?php
+	include "../scripts/generate_header.php";
+
+	generate_header("Home");
+?>
+	<header>
+		<h1>Penny Wise</h1>
+	</header>
+
+
+	<main>
+<!-- <title>Home - Penny Wise</title> -->
 <section>
 	<div>
 		<img src="assets/img/screenshot.jpg" alt="Screenshot dell'homepage di Penny Wise">
@@ -56,3 +68,32 @@
 		</ul>
 	</div>
 </section>
+
+
+	</main>
+<footer>
+	<div class="footer-list">
+		<h3>Prodotto</h3>
+		<ul>
+			<li><a href="account_home.html">I Miei Progetti</a></li>
+			<li><a href="about_us.html">About Us</a></li>
+		</ul>
+	</div>
+	<div class="footer-list">
+		<h3>Risorse</h3>
+		<ul>
+			<li><a href="index.html">Homepage</a></li>
+			<li><a href="release_notes.html">Release Notes</a></li>
+			<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
+						id="github-mark"> GitHub </a></li>
+		</ul>
+	</div>
+</footer>
+
+<script src="assets/js/modifica.js"></script>
+<script src="assets/js/footerColors.js"></script>
+
+
+</body>
+
+</html>

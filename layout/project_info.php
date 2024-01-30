@@ -1,9 +1,17 @@
-<!-- <title>{{Project Name}}</title> -->
-<!-- Riferimento al file JavaScript esterno per la generazione del line chart -->
-<!-- <script src="line_chart_script.js"></script> -->
+<?php
+include "../api/config/database.php";
+?>
 
-<header>
-	<h1>{{ Project Name }}</h1>
+<?php
+$project_id = $_GET['id'];
+$sql = "SELECT * FROM progetto WHERE progetto.id = $project_id;";
+$result = mysqli_query($conn, $sql);
+$project = mysqli_fetch_assoc($result);
+
+echo "<header>
+	<h1>" . $project['nome'] . "</h1>";
+?>
+
 	<button type="button" data-button-kind="editProject">Modifica Progetto</button>
 	<button type="button" data-button-kind="shareProject">Condividi Progetto</button>
 </header>
@@ -11,11 +19,12 @@
 <!-- Modifica Progetto -->
 <section id="editProject" class="hidden">
 	<h2>Modifica Progetto</h2>
-	<form id="editProjectForm" action="javascript:void(0)">
+	<form id="editProjectForm" action="backend/api/progetto/modifica_progetto.php" method="post">
+		<input type="hidden" name="idProgetto" value="<?php echo $project['id'] ?>">
 		<label for="inputNewNomeProgetto">Nuovo Nome Progetto:</label>
-		<input type="text" id="inputNewNomeProgetto" name="newNomeProgetto">
+		<input type="text" id="inputNewNomeProgetto" name="newNomeProgetto" placeholder="<?php echo $project['nome'] ?>" required>
 		<label for="inputNewDescrizioneProgetto">Nuova Descrizione:</label>
-		<textarea id="inputNewDescrizioneProgetto" name="newDescrizioneProgetto"></textarea>
+		<textarea id="inputNewDescrizioneProgetto" name="newDescrizioneProgetto" placeholder="<?php echo $project['descrizione'] ?>"></textarea>
 		<div class="form-buttons">
 			<button type="button" data-button-kind="deleteProject">Elimina Progetto</button>
 			<button type="button" data-button-kind="editProjectHide">Annulla</button>
@@ -27,7 +36,7 @@
 <!-- Elimina Progetto -->
 <section id="deleteProject" class="hidden">
 	<h2>Conferma Eliminazione Progetto</h2>
-	<form id="deleteProjectForm" action="javascript:void(0)">
+	<form id="deleteProjectForm" action="backend/apiu/progetto/elimina_progetto.php" method="post">
 		<label for="inputPassword">Inserisci la Password:</label>
 		<input type="password" id="inputPassword" name="password" required>
 		<div class="form-buttons">

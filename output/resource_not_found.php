@@ -1,3 +1,19 @@
+<!-- <title>Home - Penny Wise</title> -->
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title> {{ Title }} </title>
+	<base href="/backend/" />
+	<meta name="description" content="un sito per mostrare cose">
+	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+
+<body>
 <nav>
 	<div class="Logo">
 		<a href="index.html"><img src="assets/img/logo.jpeg" alt="logo"></a>
@@ -41,3 +57,41 @@
 </section>
 
 <script type="module" src="assets/js/nav.js"></script>
+
+
+	<header>
+		<h1>Penny Wise</h1>
+	</header>
+
+	<main>
+
+		<h1>Risorsa non trovata - 404</h1>
+        <img src="./assets/img/angry_paperone.png" alt="Paperone dice: Ahia, ahia, ahia! Sembra che la mia preziosa risorsa sia svanita nel nulla">
+
+	</main>
+<footer>
+	<div class="footer-list">
+		<h3>Prodotto</h3>
+		<ul>
+			<li><a href="account_home.html">I Miei Progetti</a></li>
+			<li><a href="about_us.html">About Us</a></li>
+		</ul>
+	</div>
+	<div class="footer-list">
+		<h3>Risorse</h3>
+		<ul>
+			<li><a href="index.html">Homepage</a></li>
+			<li><a href="release_notes.html">Release Notes</a></li>
+			<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
+						id="github-mark"> GitHub </a></li>
+		</ul>
+	</div>
+</footer>
+
+<script src="assets/js/modifica.js"></script>
+<script src="assets/js/footerColors.js"></script>
+
+
+</body>
+
+</html>

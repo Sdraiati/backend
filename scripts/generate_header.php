@@ -85,11 +85,5 @@ echo "
 <script type=\"module\" src=\"assets/js/nav.js\"></script>
 ";
 }
-
-
-
-
 }
-
-
 ?>

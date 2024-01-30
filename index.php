@@ -4,68 +4,6 @@
 
 	generate_header("Home");
 ?>
-<!--
-<!DOCTYPE html>
-<html lang="it">
-
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title> Home </title>
-	<base href="/backend/" />
-	<meta name="description" content="un sito per mostrare cose">
-	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
-	<link href="index.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-<nav>
-	<div class="Logo">
-		<a href="index.html"><img src="assets/img/logo.jpeg" alt="logo"></a>
-	</div>
-	<div class="Login">
-		<ul class="login-list">
-			<li><button data-button-kind="accedi">Accedi</button></li>
-			<li><button data-button-kind="registrati">Registrati</button></li>
-			<li class="hidden"><a href="account_home.html" id="utente">Utente</a></li>
-		</ul>
-</nav>
-
-<section id="accedi" class="hidden">
-	<h2>Login</h2>
-	<form id="loginForm" action="api/utente/valida_utente.php" method="POST">
-		<label for="loginEmail">Email:</label>
-		<input type="email" id="loginEmail" name="email" required autocomplete="email">
-		<label for="loginPassword">Password:</label>
-		<input type="password" id="loginPassword" name="password" required autocomplete="current-password">
-		<button type="button" data-button-kind="accediHide">Annulla</button>
-		<button type="submit">Accedi</button>
-	</form>
-</section>
-
-<section id="registrati" class="hidden">
-	<h2>Registrazione</h2>
-	<form id="registratiForm" action="api/utente/crea_utente.php">
-		<label for="signupUsername">Nome Utente:</label>
-		<input type="text" id="signupUsername" name="username" required autocomplete="username">
-		<label for="signupEmail">Email:</label>
-		<input type="email" id="signupEmail" name="email" required autocomplete="email">
-		<label for="signupPassword">Password:</label>
-		<input type="password" id="signupPassword" name="password" required autocomplete="new-password">
-		<span id="passwordError" class="hidden">Le due password non coincidono.</span>
-		<label for="signupConfirmPassword">Ripeti Password:</label>
-		<input type="password" id="signupConfirmPassword" name="password" required autocomplete="new-password">
-		<button type="button" data-button-kind="registratiHide">Annulla</button>
-		<button type="submit">Registrati</button>
-	</form>
-</section>
--->
-
-<!--
-<script type="module" src="assets/backend/js/nav.js"></script>
--->
-
-
 	<header>
 		<h1>Penny Wise</h1>
 	</header>

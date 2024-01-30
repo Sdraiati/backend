@@ -13,9 +13,9 @@
 	<h2>Modifica informazioni dell'account</h2>
 	<form id="modificaCredenzialiForm" action="api/utente/aggiorna_utente.php">
 		<label for="newEmail">Nuova Email:</label>
-		<input type="email" id="newEmail" name="newEmail">
+		<input type="email" id="newEmail" name="newEmail" placeholder="<?php echo $_SESSION["email"] ?>">
 		<label for="newUsername">Nuovo Nome Utente:</label>
-		<input type="text" id="newUsername" name="newUsername">
+		<input type="text" id="newUsername" name="newUsername" placeholder="<?php echo $_SESSION["username"] ?>">
 		<label for="newPassword">Nuova Password:</label>
 		<input type="password" id="newPassword" name="newPassword">
 		<label for="confirmNewPassword">Conferma Nuova Password:</label>

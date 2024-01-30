@@ -1,13 +1,13 @@
 <!-- <title>Home - Penny Wise</title> -->
-import head.html
+<?php
+	include "../scripts/generate_header.php";
 
-<body>
-
-	import nav.html
-
+	generate_header("Home");
+?>
 	<header>
 		<h1>Penny Wise</h1>
 	</header>
+
 
 	<main>
 

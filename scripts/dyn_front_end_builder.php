@@ -45,9 +45,5 @@ function get_html($path) {
 	return $content;
 }
 
-echo "Operazione completata!\n";
-$base_html = get_html("account_home");
-var_dump($base_html);
-
 ?>
 

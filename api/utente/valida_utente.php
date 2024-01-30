@@ -28,6 +28,7 @@ if ($result) {
             // creare la sessione 
             $_SESSION['email'] = $email;
             $_SESSION['username'] = $username;
+            $base_html = get_html("account_home");
             echo '<h2> WELCOME. </h2>';
         } else {
             // autenticazione fallita => pagina di errore.

@@ -6,10 +6,10 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title> {{ Title }} </title>
-	<base href="/" />
+	<base href="/backend/" />
 	<meta name="description" content="un sito per mostrare cose">
 	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
-	<link rel="stylesheet" type="text/css" href="index.css">
+	<link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -54,7 +54,9 @@
 	</form>
 </section>
 
-<script type="module" src="assets/js/nav.js"></script>
+<!--
+<script type="module" src="assets/backend/js/nav.js"></script>
+-->
 
 
 	<header>
@@ -132,9 +134,10 @@
 	</div>
 </footer>
 
+<!--
 <script src="assets/js/modifica.js"></script>
 <script src="assets/js/footerColors.js"></script>
-
+-->
 
 </body>
 

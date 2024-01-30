@@ -15,11 +15,12 @@ foreach ($contentFiles as $file) {
         $content = file_get_contents($contentDir . $file);
         
         // Cerca e sostituisci le righe di import
+        // function($matches) => callback che definisce come rimpiazzare un match.
         $content = preg_replace_callback('/^\s*import\s+(.+)$/m', function($matches) use ($layoutDir) {
-            $layoutFile = trim($matches[1]);
+            $layoutFile = trim($matches[1]); 
             $layoutContent = file_get_contents($layoutDir . $layoutFile);
             return $layoutContent;
-        }, $content);
+        }, $content); // content è il subject
         
         // Salva il contenuto generato nella cartella "output"
         file_put_contents($outputDir . $file, $content);

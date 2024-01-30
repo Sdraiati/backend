@@ -1,5 +1,6 @@
 <?php
     include '../config/database.php'
+    include '../scripts/dyn_front_end_builder.php'; // script per generare la pagina html
 ?>
 
 <?php
@@ -8,12 +9,6 @@
 $email = $_POST['email'];
 $username = $_POST['username'];
 $password = $_POST['password'];
-
-/*
-echo "<p> ${email} </p>";
-echo "<p> ${username} </p>";
-echo "<p> ${password} </p> <br>";
-*/
 
 $hash_email = sha1($email);
 $hash_username = sha1($username);

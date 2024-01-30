@@ -1,17 +1,6 @@
 <?php
 
 // Definisci le directory di origine e destinazione
-$contentDir = 'content/';
-$layoutDir = 'layout/';
-
-$array = [
-    ["path" => "accout_home", "title" => "Account Home"],
-    ["path" => "project_home", "title" => "Project Home"],
-	["path" => "project_cake", "title" => "Project Cake"],
-    ["path" => "project_shared", "title" => "Shared Project"]
-    ["path" => "tag_page", "title" => "Tag Page"]
-];
-
 // project_cake
 // project_home
 // project_shared
@@ -21,12 +10,21 @@ $array = [
 // {{ Account Name }}
 
 // Leggi tutti i file nella cartella "content"
-$contentFiles = scandir($contentDir);
+//  $contentFiles = scandir($contentDir);
 
 function get_html($path) {
 	// Leggi il contenuto del file HTML
-	$content = file_get_contents($contentDir . $path);
-	
+	$contentDir = 'content/';
+	$layoutDir = 'layout/';
+	$array = [
+    	["path" => "account_home", "title" => "Account Home"],
+    	["path" => "project_home", "title" => "Project Home"],
+		["path" => "project_cake", "title" => "Project Cake"],
+    	["path" => "project_shared", "title" => "Shared Project"],
+    	["path" => "tag_page", "title" => "Tag Page"]
+	];
+
+	$content = file_get_contents($contentDir . $path . ".html");
 	// Cerca e sostituisci le righe di import
 	// function($matches) => callback che definisce come rimpiazzare un match.
 	$content = preg_replace_callback('/^\s*import\s+(.+)$/m', function($matches) use ($layoutDir) {
@@ -35,16 +33,21 @@ function get_html($path) {
 		return $layoutContent;
 	}, $content);
 
-	$title = null;
+	$title = "";
 	foreach ($array as $row) {
-		if ($row['path'] === $path) {
+		if ($row["path"] == $path) {
 			$title = $row;
 			break;
 		}
 	}
-	$content = str_replace("{{ Title Name }}, $title, $content);
+
+	$content = str_replace("{{ Title }}", $title["title"], $content);
+	return $content;
 }
 
 echo "Operazione completata!\n";
+$base_html = get_html("account_home");
+var_dump($base_html);
+
 ?>
 

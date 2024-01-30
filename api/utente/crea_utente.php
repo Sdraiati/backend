@@ -18,7 +18,8 @@ $sql = "INSERT INTO utente (email, username, password) VALUES (\"${hash_email}\"
 echo '<h1> ' . $sql . ' </h1>';
 try {
     $result = mysqli_query($conn, $sql);
-    echo '<h2> WELCOME </h2>';
+    
+    echo '<h2> pagina di login </h2>';
 } catch(mysqli_sql_exception) {
     echo '<h2> error utente già esistente </h2>';
 }

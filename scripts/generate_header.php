@@ -55,7 +55,7 @@ echo "
 
 <section id=\"accedi\" class=\"hidden\">
 	<h2>Login</h2>
-	<form id=\"loginForm\" action=\"javascript:void(0)\">
+	<form id=\"loginForm\" action=\"api/utente/valida_utente.php\" method=\"POST\">
 		<label for=\"loginEmail\">Email:</label>
 		<input type=\"email\" id=\"loginEmail\" name=\"email\" required autocomplete=\"email\">
 		<label for=\"loginPassword\">Password:</label>
@@ -67,7 +67,7 @@ echo "
 
 <section id=\"registrati\" class=\"hidden\">
 	<h2>Registrazione</h2>
-	<form id=\"registratiForm\" action=\"javascript:void(0)\">
+	<form id=\"registratiForm\" action=\"api/utente/crea_utente.php\" method=\"POST\">
 		<label for=\"signupUsername\">Nome Utente:</label>
 		<input type=\"text\" id=\"signupUsername\" name=\"username\" required autocomplete=\"username\">
 		<label for=\"signupEmail\">Email:</label>

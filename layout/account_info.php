@@ -2,8 +2,8 @@
 <section>
 	<h2>Informazioni dell'Account</h2>
 	<ul>
-		<li>Nome Utente: <span id="username">...</span></li>
-		<li>Email: <span id="email">...</span></li>
+		<li>Nome Utente: <span id="username"> <?php echo $_SESSION["username"] ?> <span></li>
+		<li>Email: <span id="email"> <?php echo $_SESSION["email"] ?> </span></li>
 	</ul>
 	<button data-button-kind="modificaCredenziali">Modifica Credenziali</button>
 </section>
@@ -11,7 +11,7 @@
 <!-- Modifica informazioni dell'account -->
 <section id="modificaCredenziali" class="hidden">
 	<h2>Modifica informazioni dell'account</h2>
-	<form id="modificaCredenzialiForm" action="javascript:void(0)">
+	<form id="modificaCredenzialiForm" action="api/utente/aggiorna_utente.php">
 		<label for="newEmail">Nuova Email:</label>
 		<input type="email" id="newEmail" name="newEmail">
 		<label for="newUsername">Nuovo Nome Utente:</label>
@@ -27,4 +27,6 @@
 	</form>
 </section>
 
-<script type="module" src="assets/js/account_info.js"></script>
+<!-- <script type="module" src="assets/js/account_info.js"></script> -->
+<script type="module" src="assets/js/modifica.js"></script> 
+

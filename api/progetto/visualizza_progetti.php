@@ -10,18 +10,10 @@ $sql = "SELECT progetto.id, progetto.nome, progetto.descrizione FROM (utente, pr
     
 echo '<h1> ' . $sql . ' </h1>';
 
-/*
 $result = mysqli_query($conn, $sql);
 if ($result) {
     $array = mysqli_fetch_all($result, MYSQLI_ASSOC); // array associativo
-    if (count($array) > 0) {
-        var_dump($array);
-    } else {
-        echo '<h2> non sono stati trovati movimenti associati al progetto </h2>';
-    }
+    echo json_encode($array);
 } 
-*/
 
-if($conn->close()) {
-    echo '<h2> connection closed </h2>';
-}
+$conn->close();

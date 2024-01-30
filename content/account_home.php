@@ -1,13 +1,12 @@
 <!-- <title>Account Page</title> -->
 <?php
-	include "../layout/head.html";
+	include "../scripts/generate_header.php";
+
+	generate_header("account_home");
 ?>
 
-<body>
-	import nav.html
 	<?php
 
-	session_start();
 	echo "<header>
 		<h1>Benvenuto/a " . $_SESSION["username"] . "</h1>
 	</header> ";
@@ -16,10 +15,17 @@
 
 	<main>
 
-		import account_info.html
 
-		import project_list.html
+	<!-- import account_info.html -->
+	<?php
+		include "../layout/account_info.php";
+	?>
 
+
+	<!-- import project_list.html -->
+	<?php
+		include "../layout/project_list.html";
+	?>
 	</main>
 
 	import footer.html

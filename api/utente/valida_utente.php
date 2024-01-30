@@ -30,7 +30,7 @@ if ($result) {
             session_start();
             $_SESSION["email"] = $email;
             $_SESSION["username"] = $array[0]["username"];
-            header("Location: /backend/scripts/content/account_home.php");
+            header("Location: /backend/content/account_home.php");
         } else {
             // autenticazione fallita => pagina di errore.
             echo '<h2> Password sbagliata. </h2>';

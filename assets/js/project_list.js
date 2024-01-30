@@ -25,39 +25,43 @@ function add_progetto(parent, name, id) {
 
 let progetti = document.getElementById("project-list")
 
-async function get_progetti() {
-	return [{
-		name: "personale",
-		id: 1
-	},
-	{
-		name: "start_up1",
-		id: 2
-	},
-	{
-		name: "start_up2",
-		id: 3
-	}]
-}
+// async function get_progetti() {
+// 	return [{
+// 		name: "personale",
+// 		id: 1
+// 	},
+// 	{
+// 		name: "start_up1",
+// 		id: 2
+// 	},
+// 	{
+// 		name: "start_up2",
+// 		id: 3
+// 	}]
+// }
 
 let projs = document.getElementById("project-list")
-get_progetti()
-	.then((value) =>
-		value.forEach(proj => add_progetto(projs, proj.name, proj.id)))
+
+ fetch("api/progetto/visualizza_progetti.php")
+	.then((res) => res.json())
+	.then((json) => {
+		// value.forEach(proj => add_progetto(projs, proj.name, proj.id)))
+		console.log(json);
+	})
 	.catch(error => console.error(error))
 
-form.addEventListener('submit', function(event) {
-	event.preventDefault();
+// form.addEventListener('submit', function(event) {
+// 	event.preventDefault();
 
-	let inputNomeProgetto = document.getElementById('inputNomeProgetto').value;
-	let inputDescrizioneProgetto = document.getElementById('inputDescrizioneProgetto').value;
+// 	let inputNomeProgetto = document.getElementById('inputNomeProgetto').value;
+// 	let inputDescrizioneProgetto = document.getElementById('inputDescrizioneProgetto').value;
 
-	let projectData = {
-		id: sessionStorage.getItem("user"),
-		nomeProgetto: inputNomeProgetto,
-		descrizioneProgetto: inputDescrizioneProgetto
-	};
+// 	let projectData = {
+// 		id: sessionStorage.getItem("user"),
+// 		nomeProgetto: inputNomeProgetto,
+// 		descrizioneProgetto: inputDescrizioneProgetto
+// 	};
 
-	console.log(JSON.stringify(projectData));
-	// TODO: send request to server
-});
+// 	console.log(JSON.stringify(projectData));
+// 	// TODO: send request to server
+// });

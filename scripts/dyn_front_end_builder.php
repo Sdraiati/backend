@@ -14,9 +14,10 @@
 
 function get_html($path) {
 	// Leggi il contenuto del file HTML
-	$contentDir = 'content/';
-	$layoutDir = 'layout/';
+	$contentDir = '../../scripts/content/';
+	$layoutDir = '../../scripts/layout/';
 	$array = [
+    	["path" => "index", "title" => "Home"],
     	["path" => "account_home", "title" => "Account Home"],
     	["path" => "project_home", "title" => "Project Home"],
 		["path" => "project_cake", "title" => "Project Cake"],
@@ -44,6 +45,7 @@ function get_html($path) {
 	$content = str_replace("{{ Title }}", $title["title"], $content);
 	return $content;
 }
+
 
 ?>
 

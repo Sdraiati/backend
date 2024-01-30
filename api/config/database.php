@@ -10,6 +10,5 @@
     if ($conn->connect_error) {
         die('Connection failed ' . $conn->connect_error);
     }
-    echo '<h2> connected to penny_wise_db</h2>';
 
 ?>

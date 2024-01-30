@@ -1,17 +1,16 @@
-<!-- <title>Release Notes - Versione 0.1</title> -->
+<!-- <title>About Us - Penny Wise</title> -->
 <!DOCTYPE html>
 <html lang="it">
 
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title> {{ Title }} </title>
-	<base href="/" />
+	<title> About us </title>
+	<base href="/backend/" />
 	<meta name="description" content="un sito per mostrare cose">
 	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
 	<link rel="stylesheet" type="text/css" href="index.css">
 </head>
-
 
 <body>
 <nav>
@@ -59,27 +58,66 @@
 
 
 	<header>
-		<h1><span lang="en">Release Notes</span> - Versione 0.1</h1>
+		<h1>Chi Siamo e Il Nostro Progetto</h1>
 	</header>
 
 	<main>
+<!-- <title>About Us - Penny Wise</title> -->
 <section>
-	<h2>Aggiornamenti della Versione 0.1</h2>
-	<p>In questa versione, abbiamo completato la struttura
-		progettata per il nostro sito web. I seguenti HTML sono stati
-		creati:</p>
-	<ul>
-		<li><span lang="en">Homepage</span></li>
-		<li><span lang="en">About Us</span></li>
-		<li><span lang="en">Release Notes</span></li>
-		<li><span lang="en">Account Home</span></li>
-		<li><span lang="en">Project Home</span></li>
-		<li><span lang="en">Project Cake</span></li>
-		<li><span lang="en">Project Shared</span></li>
-		<li><span lang="en">Tag page</span></li>
-	</ul>
-	<img src="assets/img/mappa_del_sito.svg" alt="Mappa del sito e azioni
-	possibili per ogni pagina" />
+	<h2>La Nostra Storia</h2>
+	<p>Benvenuti su <strong>Penny Wise</strong>, una
+		<span lang="en">web app</span>
+		sviluppata da un gruppo di studenti di informatica presso l'
+		Università degli Studi di Padova. Il nostro obiettivo
+		principale è creare uno strumento efficace per la gestione
+		delle finanze personali, che sia utile sia per le nostre
+		esigenze personali sia come progetto accademico.
+	</p>
+
+	<h3>I Nostri Clienti</h3>
+	<p>Il nostro <span lang="en">target</span> principale sono altri
+		studenti universitari o giovani adulti che desiderano gestire
+		efficacemente le proprie finanze. Sappiamo che a questa età l'
+		adozione di tecnologie digitali è veloce e naturale, ed è per
+		questo che abbiamo progettato la nostra applicazione per
+		essere intuitiva e facile da usare.</p>
+
+	<h3>Il Nostro Prodotto</h3>
+	<p><strong>Penny Wise</strong> è stato ideato per soddisfare
+		le esigenze dei giovani adulti che vogliono gestire le proprie
+		finanze in modo semplice ed efficace. Concentrandoci sulle
+		funzionalità essenziali, abbiamo sviluppato un'applicazione
+		intuitiva che consente di catalogare le spese, visualizzare i
+		dati in modo chiaro e prendere decisioni finanziarie informate
+		senza complicazioni.</p>
+
+	<h3>Tecnologie Utilizzate</h3>
+	<p>Per lo sviluppo di <strong>Penny Wise</strong>, abbiamo
+		adottato un approccio focalizzato sull'apprendimento e
+		l'utilizzo di tecnologie essenziali. Il
+		<span lang="en">front-end</span> è stato
+		sviluppato utilizzando <span lang="en">HTML</span> e
+		<span lang="en">JavaScript</span> puro, senza
+		l'ausilio di librerie esterne, al fine di consolidare le
+		nostre competenze di base in queste tecnologie fondamentali.
+		Sul lato <span lang="en">back-end</span>, abbiamo scelto PHP per
+		mantenere una base solida e minimale, con il supporto del
+		database PostgreSQL, con cui abbiamo una conoscenza approfondita
+		grazie ai nostri studi accademici precedenti.
+	</p>
+</section>
+
+<section>
+	<h2>Il Nostro Team</h2>
+
+	<h3>Carlo</h3>
+	<p>Sono appassionato di informatica e ho una particolare
+		curiosità per il <span lang="en">machine learning</span>, che
+		approfondirò durante la magistrale.
+		Crede che la curiosità sia la chiave per imparare e crescere
+		nel campo dell'informatica.</p>
+
+	<!-- Include le informazioni sugli altri membri del team qui -->
 </section>
 
 
@@ -105,7 +143,6 @@
 
 <script src="assets/js/modifica.js"></script>
 <script src="assets/js/footerColors.js"></script>
-
 
 </body>
 

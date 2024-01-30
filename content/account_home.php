@@ -1,12 +1,18 @@
 <!-- <title>Account Page</title> -->
-import head.html
+<?php
+	include "../layout/head.html";
+?>
 
 <body>
 	import nav.html
+	<?php
 
-	<header>
-		<h1>Benvenuto/a {{ username }}</h1>
-	</header>
+	session_start();
+	echo "<header>
+		<h1>Benvenuto/a " . $_SESSION["username"] . "</h1>
+	</header> ";
+
+	?>
 
 	<main>
 

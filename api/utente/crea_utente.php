@@ -11,11 +11,10 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 
 $hash_email = sha1($email);
-$hash_username = sha1($username);
 $hash_password = sha1($password);
 
 // query al db
-$sql = "INSERT INTO utente (email, username, password) VALUES (\"${hash_email}\", \"${hash_username}\", \"${hash_password}\"); ";
+$sql = "INSERT INTO utente (email, username, password) VALUES (\"${hash_email}\", \"${username}\", \"${hash_password}\"); ";
 echo '<h1> ' . $sql . ' </h1>';
 try {
     $result = mysqli_query($conn, $sql);

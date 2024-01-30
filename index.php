@@ -1,15 +1,21 @@
 <!-- <title>Home - Penny Wise</title> -->
+<?php
+	include "scripts/generate_header.php";
+
+	generate_header("Home");
+?>
+<!--
 <!DOCTYPE html>
 <html lang="it">
 
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title> {{ Title }} </title>
+	<title> Home </title>
 	<base href="/backend/" />
 	<meta name="description" content="un sito per mostrare cose">
 	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
-	<link href="style.css" rel="stylesheet" type="text/css" />
+	<link href="index.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -27,7 +33,7 @@
 
 <section id="accedi" class="hidden">
 	<h2>Login</h2>
-	<form id="loginForm" action="javascript:void(0)">
+	<form id="loginForm" action="api/utente/valida_utente.php" method="POST">
 		<label for="loginEmail">Email:</label>
 		<input type="email" id="loginEmail" name="email" required autocomplete="email">
 		<label for="loginPassword">Password:</label>
@@ -39,7 +45,7 @@
 
 <section id="registrati" class="hidden">
 	<h2>Registrazione</h2>
-	<form id="registratiForm" action="javascript:void(0)">
+	<form id="registratiForm" action="api/utente/crea_utente.php">
 		<label for="signupUsername">Nome Utente:</label>
 		<input type="text" id="signupUsername" name="username" required autocomplete="username">
 		<label for="signupEmail">Email:</label>
@@ -53,6 +59,7 @@
 		<button type="submit">Registrati</button>
 	</form>
 </section>
+-->
 
 <!--
 <script type="module" src="assets/backend/js/nav.js"></script>
@@ -134,10 +141,8 @@
 	</div>
 </footer>
 
-<!--
 <script src="assets/js/modifica.js"></script>
 <script src="assets/js/footerColors.js"></script>
--->
 
 </body>
 

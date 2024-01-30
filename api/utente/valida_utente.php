@@ -1,17 +1,17 @@
 <?php
-    include '../config/database.php'
-    include '../scripts/dyn_front_end_builder.php'; // script per generare la pagina html
+    include '../config/database.php';
+?>
+<?php
+    include '../../scripts/dyn_front_end_builder.php'; // script per generare la pagina html
 ?>
 
 <?php
 
 // prendere i valori dalla POST request 
 $email = $_POST['email'];
-$username = $_POST['username'];
 $password = $_POST['password'];
 
 $hash_email = sha1($email);
-$hash_username = sha1($username);
 $hash_password = sha1($password);
 
 // query al db
@@ -26,10 +26,11 @@ if ($result) {
         if ($hash_password == $array[0]["password"]) {
             // autenticazione riuscita => pagina di benvenuto?
             // creare la sessione 
-            $_SESSION['email'] = $email;
-            $_SESSION['username'] = $username;
-            $base_html = get_html("account_home");
-            echo '<h2> WELCOME. </h2>';
+
+            session_start();
+            $_SESSION["email"] = $email;
+            $_SESSION["username"] = $array[0]["username"];
+            header("Location: /backend/scripts/content/account_home.php");
         } else {
             // autenticazione fallita => pagina di errore.
             echo '<h2> Password sbagliata. </h2>';
@@ -41,8 +42,4 @@ if ($result) {
     echo '<h2> generare pagina di errore. </h2>';
 }
 
-if($conn->close()) {
-    echo '<h2> connection closed </h2>';
-}
-
-
+$conn->close();

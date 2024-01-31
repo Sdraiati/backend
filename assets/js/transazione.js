@@ -30,20 +30,28 @@ class Transazione {
 	}
 
 	/** Restituisce un array di oggetti Transazione
-	* @returns {Transazione[]} Array di oggetti Transazione dal server
+	* setta transazioni in sessionStorage
 	*/
-	static fetch() {
-		return [
-			new Transazione(1, new Date(2023, 0, 1), 200, "Alimentari", "Spesa generica 1"),
-			new Transazione(2, new Date(2024, 0, 1), 20, "Alimentari", "Spesa generica 1"),
-			new Transazione(3, new Date(2024, 0, 2), 200, "Alimentari", "Spesa generica 1"),
-			new Transazione(4, new Date(2024, 0, 3), 200, "Alimentari", "Spesa generica 1"),
-			new Transazione(5, new Date(2024, 0, 4), 200, "Alimentari", "Spesa generica 1"),
-			new Transazione(6, new Date(2024, 0, 5), -200, "Alimentari", "Spesa generica 1"),
-			new Transazione(7, new Date(2024, 0, 6), 15.5, "Trasporti", "Spesa generica 2")
-		]
+	static async fetch() {
+		let project_id = get_project_id()
+		let options = {
+			method: "POST",
+			body: JSON.stringify({ id_progetto: project_id }),
+		}
 
-		// bisogna riordinare le transazioni per data!!
+		fetch(`api/progetto/movimenti_progetto.php`, options)
+			.then(async response => {
+				if (response.ok) {
+					let data = await response.json()
+					return data
+				} else {
+					throw new Error("Errore nella richiesta")
+				}
+			})
+			.then((data) => {
+				sessionStorage.setItem(`${project_id}`, JSON.stringify(data))
+				Transazione.update()
+			})
 	}
 
 	/** Restituisce un array di oggetti Transazione
@@ -52,13 +60,12 @@ class Transazione {
 	*/
 	static get() {
 		// Supponiamo che tu abbia un array di oggetti che rappresentano le transazioni
-		let transazioni = JSON.parse(sessionStorage.getItem("transazioni"))
-
-		if (transazioni == null) {
-			transazioni = Transazione.fetch()
-			sessionStorage.setItem("transazioni", JSON.stringify(transazioni))
-			return transazioni
+		let project_id = get_project_id()
+		if (sessionStorage.getItem(`${project_id}`) == null) {
+			Transazione.fetch()
 		}
+
+		let transazioni = JSON.parse(sessionStorage.getItem(`${project_id}`))
 
 		// Convert the parsed data back into an array of Transazione objects
 		let res = transazioni.map((obj) =>
@@ -133,6 +140,11 @@ function dateToString(date) {
 	// Formatta la data nel formato "GG/MM/YYYY"
 	let dataFormattata = (giorno < 10 ? '0' : '') + giorno + '/' + (mese < 10 ? '0' : '') + mese + '/' + anno
 	return dataFormattata
+}
+
+function get_project_id() {
+	let url = new URL(window.location.href)
+	return parseInt(url.searchParams.get("id"))
 }
 
 export { Transazione }

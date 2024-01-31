@@ -4,13 +4,13 @@
 <?php
 	include "scripts/generate_header.php";
 
+
 	generate_header("Home");
 ?>
+<script type="module" src="assets/js/tag_sidebar.js"></script>
 <?php
-include "../api/config/database.php";
-?>
+include "api/config/database.php";
 
-<?php
 $project_id = $_GET['id'];
 $sql = "SELECT * FROM progetto WHERE progetto.id = $project_id;";
 $result = mysqli_query($conn, $sql);
@@ -111,6 +111,7 @@ echo "<header>
 <section id="editTransaction" class="hidden">
 	<h2>Modifica Transazione</h2>
 	<form id="editTransactionForm" action="backend/api/movimento/aggiorna_movimento.php" method="post">
+		<input type="hidden" id="editId" name="id" readonly>
 		<label for="editData">Nuova Data:</label>
 		<input type="date" id="editData" name="data">
 		<label for="editCosto">Nuovo Importo (€):</label>
@@ -130,7 +131,7 @@ echo "<header>
 <script type="module" src="assets/js/transazioni_list.js"></script>
 
 <?php
-include "../api/config/database.php";
+include "api/config/database.php";
 ?>
 
 <!-- Filtri per tag -->
@@ -154,10 +155,11 @@ if ($result) {
 ?>
 	</form>
 
-	<a href="tag_page.html">Vai alla Pagina dei Tag</a>
+	<a href="tag_page.php?id=
+<?php 
+echo $_GET['id'];
+?>">Vai alla Pagina dei Tag</a>
 </aside>
-
-<script type="module" src="assets/js/tag_sidebar.js"></script>
 
 <?php
 include "../api/config/database.php";

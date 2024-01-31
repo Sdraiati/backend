@@ -1,12 +1,13 @@
-<!-- <title>{{Project Name}}</title> -->
-<!-- Riferimento al file JavaScript esterno per la generazione del line chart -->
-<!-- <script src="line_chart_script.js"></script> -->
-import head.html
+<?php
+	include "scripts/generate_header.php";
 
-<body>
-	import nav.html
+	generate_header("Home");
+?>
+<script type="module" src="assets/js/line-chart-main.js"></script>
+<script type="module" src="assets/js/line-chart-interactions.js"></script>
+<script type="module" src="assets/js/tag_sidebar.js"></script>
 
-	import project_info.html
+	import project_info.php
 
 	<ul id="line-chart-buttons">
 		<li><button id="transazioni-precedenti">Precedente</button></li>
@@ -20,13 +21,11 @@ import head.html
 
 	import transazioni_list.html
 
-	import tag_sidebar.html
+	import tag_sidebar.php
 
-	import partecipanti_sidebar.html
+	import partecipanti_sidebar.php
 
 	import footer.html
 </body>
-<script type="module" src="assets/js/line-chart-main.js"></script>
-<script type="module" src="assets/js/line-chart-interactions.js"></script>
 
 </html>

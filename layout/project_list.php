@@ -1,5 +1,5 @@
 <?php
-    include '../api/config/database.php';
+    include 'api/config/database.php';
 ?>
 <!-- Elenco dei progetti -->
 <section>
@@ -7,10 +7,10 @@
 	<button data-button-kind="newProject">Nuovo Progetto</button>
 	<ul>
 <?php
-$email = $_SESSION['email'];
+$email = sha1($_SESSION['email']);
 $query = "SELECT progetto.id, progetto.nome
 			FROM progetto JOIN progetto_utente ON progetto.id = progetto_utente.id_progetto
-			WHERE progetto_utente.email_utente = '$email'";
+			WHERE progetto_utente.email = '$email'";
 
 $result = mysqli_query($conn, $query);
 if ($result) {
@@ -28,12 +28,11 @@ if ($result) {
 <!-- Crea un Nuovo Progetto -->
 <section id="newProject" class="hidden">
 	<h2>Crea un Nuovo Progetto</h2>
-	<form id="newProjectForm" action="backend/api/progetto/crea_progetto.php" method="post">
-		<input type="hidden" name="emailUtente" value="<?php echo $email ?>">
+	<form id="newProjectForm" action="api/progetto/crea_progetto.php" method="post">
 		<label for="inputNomeProgetto">Nome Progetto:</label>
-		<input type="text" id="inputNomeProgetto" name="nomeProgetto" required>
+		<input type="text" id="inputNomeProgetto" name="nome" required>
 		<label for="inputDescrizioneProgetto">Descrizione:</label>
-		<textarea id="inputDescrizioneProgetto" name="descrizioneProgetto" required></textarea>
+		<textarea id="inputDescrizioneProgetto" name="descrizione" required></textarea>
 		<div class="form-buttons">
 			<button type="button" data-button-kind="newProjectHide">Annulla</button>
 			<button type="submit" id="submitNewProject">Crea Progetto</button>

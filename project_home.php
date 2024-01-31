@@ -1,16 +1,14 @@
-<!-- <title>{{Project Name}}</title> -->
-<!-- Riferimento al file JavaScript esterno per la generazione del line chart -->
-<!-- <script src="line_chart_script.js"></script> -->
 <?php
 	include "scripts/generate_header.php";
 
 	generate_header("Home");
 ?>
+<script type="module" src="assets/js/line-chart-main.js"></script>
+<script type="module" src="assets/js/line-chart-interactions.js"></script>
+<script type="module" src="assets/js/tag_sidebar.js"></script>
 <?php
-include "../api/config/database.php";
-?>
+include "api/config/database.php";
 
-<?php
 $project_id = $_GET['id'];
 $sql = "SELECT * FROM progetto WHERE progetto.id = $project_id;";
 $result = mysqli_query($conn, $sql);
@@ -65,8 +63,15 @@ echo "<header>
 </section>
 
 
+	<ul id="line-chart-buttons">
+		<li><button id="transazioni-precedenti">Precedente</button></li>
+		<li><button id="transazioni-periodo-1-mese">1 mese</button></li>
+		<li><button id="transazioni-periodo-6-mesi">6 mesi</button></li>
+		<li><button id="transazioni-periodo-1-anno">1 anno</button></li>
+		<li><button id="transazioni-successive">Successivo</button></li>
+	</ul>
 	<!-- Canvas per il line chart -->
-	<canvas id="cake-chart-canvas" class="cake-chart-container"></canvas>
+	<canvas id="line-chart" class="line-chart"></canvas>
 <!-- Tabella delle transazioni -->
 <section>
 	<h2>Tabella delle Transazioni</h2>
@@ -111,6 +116,7 @@ echo "<header>
 <section id="editTransaction" class="hidden">
 	<h2>Modifica Transazione</h2>
 	<form id="editTransactionForm" action="backend/api/movimento/aggiorna_movimento.php" method="post">
+		<input type="hidden" id="editId" name="id" readonly>
 		<label for="editData">Nuova Data:</label>
 		<input type="date" id="editData" name="data">
 		<label for="editCosto">Nuovo Importo (€):</label>
@@ -130,7 +136,7 @@ echo "<header>
 <script type="module" src="assets/js/transazioni_list.js"></script>
 
 <?php
-include "../api/config/database.php";
+include "api/config/database.php";
 ?>
 
 <!-- Filtri per tag -->
@@ -154,10 +160,11 @@ if ($result) {
 ?>
 	</form>
 
-	<a href="tag_page.html">Vai alla Pagina dei Tag</a>
+	<a href="tag_page.php?id=
+<?php 
+echo $_GET['id'];
+?>">Vai alla Pagina dei Tag</a>
 </aside>
-
-<script type="module" src="assets/js/tag_sidebar.js"></script>
 
 <?php
 include "../api/config/database.php";

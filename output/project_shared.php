@@ -1,63 +1,8 @@
-<!-- title: Shared Project -->
-<!DOCTYPE html>
-<html lang="it">
+<?php
+	include "scripts/generate_header.php";
 
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title> {{ Title }} </title>
-	<base href="/backend/" />
-	<meta name="description" content="un sito per mostrare cose">
-	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
-	<link rel="stylesheet" type="text/css" href="index.css">
-</head>
-
-
-<body>
-<nav>
-	<div class="Logo">
-		<a href="index.html"><img src="assets/img/logo.jpeg" alt="logo"></a>
-	</div>
-	<div class="Login">
-		<ul class="login-list">
-			<li><button data-button-kind="accedi">Accedi</button></li>
-			<li><button data-button-kind="registrati">Registrati</button></li>
-			<li class="hidden"><a href="account_home.html" id="utente">Utente</a></li>
-		</ul>
-	</div>
-</nav>
-
-<section id="accedi" class="hidden">
-	<h2>Login</h2>
-	<form id="loginForm" action="javascript:void(0)">
-		<label for="loginEmail">Email:</label>
-		<input type="email" id="loginEmail" name="email" required autocomplete="email">
-		<label for="loginPassword">Password:</label>
-		<input type="password" id="loginPassword" name="password" required autocomplete="current-password">
-		<button type="button" data-button-kind="accediHide">Annulla</button>
-		<button type="submit">Accedi</button>
-	</form>
-</section>
-
-<section id="registrati" class="hidden">
-	<h2>Registrazione</h2>
-	<form id="registratiForm" action="javascript:void(0)">
-		<label for="signupUsername">Nome Utente:</label>
-		<input type="text" id="signupUsername" name="username" required autocomplete="username">
-		<label for="signupEmail">Email:</label>
-		<input type="email" id="signupEmail" name="email" required autocomplete="email">
-		<label for="signupPassword">Password:</label>
-		<input type="password" id="signupPassword" name="password" required autocomplete="new-password">
-		<span id="passwordError" class="hidden">Le due password non coincidono.</span>
-		<label for="signupConfirmPassword">Ripeti Password:</label>
-		<input type="password" id="signupConfirmPassword" name="password" required autocomplete="new-password">
-		<button type="button" data-button-kind="registratiHide">Annulla</button>
-		<button type="submit">Registrati</button>
-	</form>
-</section>
-
-<script type="module" src="assets/js/nav.js"></script>
-
+	generate_header("Home");
+?>
 
 	<header>
 		<h1>Shared Project - {{ Project Name }}</h1>
@@ -79,7 +24,6 @@
 				<th>Descrizione</th>
 			</tr>
 		</thead>
-		<!-- Corpo della tabella -->
 		<tbody>
 		</tbody>
 	</table>
@@ -88,7 +32,7 @@
 <!-- Registra una Nuova Transazione -->
 <section id="newTransaction" class="hidden">
 	<h2>Registra una Nuova Transazione</h2>
-	<form id="newTransactionForm" action="javascript:void(0)">
+	<form id="newTransactionForm" action="backend/api/movimento/crea_movimento.php" method="post">
 		<label for="newData">Data:</label>
 		<input type="date" id="newData" name="data" required>
 		<label for="newImporto">Importo:</label>
@@ -108,7 +52,7 @@
 <!-- Modifica Transazione -->
 <section id="editTransaction" class="hidden">
 	<h2>Modifica Transazione</h2>
-	<form id="editTransactionForm" action="javascript:void(0)">
+	<form id="editTransactionForm" action="backend/api/movimento/aggiorna_movimento.php" method="post">
 		<label for="editData">Nuova Data:</label>
 		<input type="date" id="editData" name="data">
 		<label for="editCosto">Nuovo Importo (€):</label>
@@ -127,13 +71,19 @@
 
 <script type="module" src="assets/js/transazioni_list.js"></script>
 
+<?php
+// dovrebbe essere l'hash del progetto
+$shared_project_id = $_GET['project_id'];
+?>
+
 <footer class="message-footer">
 	<button type="button" data-button-kind="joinProject">Partecipa</button>
 </footer>
 
 <section id="joinProject" class="hidden">
 	<h1>Partecipa al progetto</h1>
-	<form id="joinProjectForm" action="javascript:void(0)">
+	<form id="joinProjectForm" action="backend/api/entra_nel_progetto.php" method="post">
+		<input type="hidden" name="idProgetto" value="<?php echo $shared_project_id ?>">
 		<div class="form-buttons">
 			<button type="button" data-button-kind="joinProjectHide">Annulla</button>
 			<button type="submit" id="submitJoinProject">Partecipa</button>

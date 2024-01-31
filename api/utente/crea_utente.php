@@ -1,9 +1,13 @@
 <?php
     include '../config/database.php';
-    include '../scripts/dyn_front_end_builder.php';
 ?>
 
 <?php
+
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+	header("Location: /404.html");
+	exit();
+}
 
 // prendere i valori dalla POST request 
 $email = $_POST['email'];
@@ -15,17 +19,19 @@ $hash_password = sha1($password);
 
 // query al db
 $sql = "INSERT INTO utente (email, username, password) VALUES (\"${hash_email}\", \"${username}\", \"${hash_password}\"); ";
-echo '<h1> ' . $sql . ' </h1>';
+
 try {
     $result = mysqli_query($conn, $sql);
+	session_start();
+	$_SESSION["email"] = $email;
+	$_SESSION["username"] = $username;
+	header("Location: /backend/content/account_home.php");
 
-    echo '<h2> pagina di login </h2>';
 } catch(mysqli_sql_exception) {
-    echo '<h2> error utente già esistente </h2>';
-}
+	json_encode(["error" => "Email già in uso"]);
+	exit();
+} 
 
+$conn->close();
 
-if($conn->close()) {
-    echo '<h2> connection closed </h2>';
-}
-
+?>

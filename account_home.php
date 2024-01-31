@@ -48,7 +48,7 @@
 
 
 <?php
-    include '../api/config/database.php';
+    include 'api/config/database.php';
 ?>
 <!-- Elenco dei progetti -->
 <section>

@@ -1,11 +1,10 @@
 <?php
-    include '../config/database.php';
-?>
-<?php
-    include '../../scripts/dyn_front_end_builder.php'; // script per generare la pagina html
-?>
+include '../config/database.php';
 
-<?php
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+	header("Location: /404.html");
+	exit();
+}
 
 // prendere i valori dalla POST request 
 $email = $_POST['email'];
@@ -15,31 +14,21 @@ $hash_email = sha1($email);
 $hash_password = sha1($password);
 
 // query al db
-$sql = "SELECT * FROM utente WHERE email = \"${hash_email}\"; ";
-// echo '<h1> ' . $sql . ' </h1>';
+$sql = "SELECT * FROM utente WHERE 
+	email = \"$hash_email\" and password = \"$hash_password}\";";
+
 $result = mysqli_query($conn, $sql);
+$array = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-if ($result) { 
-    // email corrispondente trovata => utente registrato nel db.
-    $array = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    if (count($array) > 0) {
-        if ($hash_password == $array[0]["password"]) {
-            // autenticazione riuscita => pagina di benvenuto?
-            // creare la sessione 
-
-            session_start();
-            $_SESSION["email"] = $email;
-            $_SESSION["username"] = $array[0]["username"];
-            header("Location: /backend/content/account_home.php");
-        } else {
-            // autenticazione fallita => pagina di errore.
-            echo '<h2> Password sbagliata. </h2>';
-        }
-    } else {
-        echo '<h2> utente non trovato </h2>';
-    }
+if (!$array || count($array) == 0) {
+    echo json_encode(["error" => "Email o password errati"]);
+	http_response_code(400); // Bad Request
+	exit();
 } else {
-    echo '<h2> generare pagina di errore. </h2>';
+	session_start();
+	$_SESSION["email"] = $email;
+	$_SESSION["username"] = $array[0]["username"];
+	header("Location: /backend/account_home.php");
+	$conn->close();
 }
-
-$conn->close();
+?>

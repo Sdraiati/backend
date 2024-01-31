@@ -1,27 +1,58 @@
 <?php
-    include '../config/database.php'
-?>
+include '../config/database.php';
 
-<?php
+session_start();
 
-// prendere i valori dalla POST request 
-$id_progetto = "10";
-
-// query al db
-$sql = "SELECT * FROM (progetto, movimento) WHERE progetto.id = movimento.id_progetto AND progetto.id = " . $id_progetto . "; ";
-echo '<h1> ' . $sql . ' </h1>';
-
-$result = mysqli_query($conn, $sql);
-if ($result) {
-    $array = mysqli_fetch_all($result, MYSQLI_ASSOC); // array associativo
-    $json_array = json_encode($array);
-    if (count($array) > 0) {
-        var_dump($json_array);
-    } else {
-        echo '<h2> non sono stati trovati movimenti associati al progetto </h2>';
-    }
-} 
-
-if($conn->close()) {
-    echo '<h2> connection closed </h2>';
+if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_SESSION['email'])) {
+    header("Location: /404.html");
+    exit();
 }
+
+$email = sha1($_SESSION['email']);
+
+$json_data = json_decode(file_get_contents('php://input'), true);
+$id_progetto = $json_data['id_progetto'];
+
+// Check if the user is the owner of the project
+$sql_check = "SELECT * FROM progetto_utente WHERE id_progetto = '$id_progetto' AND email = '$email';";
+
+$result_check = mysqli_query($conn, $sql_check);
+
+if (!$result_check) {
+	http_response_code(500); // Internal Server Error
+	echo json_encode(array('error' => 'Database query failed'));
+	exit;
+}
+
+if (mysqli_num_rows($result_check) == 0) {
+	echo json_encode(array('email' => $email, 'id_progetto' => $id_progetto));
+	exit;
+}
+
+// Prepare the SQL query
+$sql = "SELECT movimento.id, movimento.data, movimento.importo, movimento.descrizione, tag.nome 
+        FROM movimento JOIN tag ON movimento.tag_id = tag.id
+        WHERE movimento.id_progetto = '$id_progetto';";
+
+// Execute the SQL query
+$result = mysqli_query($conn, $sql);
+
+// Check for errors
+if (!$result) {
+    http_response_code(500); // Internal Server Error
+    echo json_encode(array('error' => 'Database query failed'));
+    exit;
+}
+
+// Fetch the results as an associative array
+$array = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+// Close the database connection
+$conn->close();
+
+// Set the response header to indicate JSON content
+header('Content-Type: application/json');
+
+// Encode the array as JSON and output it
+echo json_encode($array);
+?>

@@ -1,34 +1,76 @@
-let user = JSON.parse(sessionStorage.getItem('user'));
-
-if (user != null) {
-	let accediLi = document.querySelector('.login-list li:nth-child(1)');
-	let registratiLi = document.querySelector('.login-list li:nth-child(2)');
-	let utenteLi = document.querySelector('.login-list li.hidden');
-
-	accediLi.classList.add('hidden');
-	registratiLi.classList.add('hidden');
-	utenteLi.classList.remove('hidden');
-}
-
 // Event listener per il form di registrazione
-document.getElementById("registratiForm").addEventListener("submit", function(event) {
+document.addEventListener("DOMContentLoaded", function() {
+	document.getElementById("registratiForm").addEventListener("submit", function(event) {
+		let password = document.getElementById("signupPassword").value;
+		let confirmPassword = document.getElementById("signupConfirmPassword").value;
 
-	let password = document.getElementById("signupPassword").value;
-	let confirmPassword = document.getElementById("signupConfirmPassword").value;
+		if (password !== confirmPassword) {
+			console.log(password, confirmPassword)
+			document.getElementById("signupConfirmPassword")
+				.setCustomValidity("Le password non coincidono")
+			event.preventDefault();
+			return false;
+		} else {
+			document.getElementById("signupConfirmPassword")
+				.setCustomValidity("")
+		}
+	})
 
-	if (password !== confirmPassword) {
-		document.getElementById("signupConfirmPassword")
-			.setCustomValidity("Le password non coincidono")
-		return
-	}
-})
+	document.getElementById("signupConfirmPassword").addEventListener("input", function(_) {
+		let password = document.getElementById("signupPassword").value;
+		let confirmPassword = document.getElementById("signupConfirmPassword").value;
 
-document.getElementById("signupConfirmPassword").addEventListener("input", function(_) {
-	let password = document.getElementById("signupPassword").value;
-	let confirmPassword = document.getElementById("signupConfirmPassword").value;
+		if (password !== confirmPassword) {
+			console.log(password, confirmPassword)
+			document.getElementById("signupConfirmPassword")
+				.setCustomValidity("Le password non coincidono")
+		} else {
+			document.getElementById("signupConfirmPassword")
+				.setCustomValidity("")
+		}
+	})
 
-	if (password !== confirmPassword) {
-		document.getElementById("signupConfirmPassword")
-			.setCustomValidity("Le password non coincidono")
-	}
+	document.getElementById("loginForm").addEventListener("submit", function(event) {
+		event.preventDefault();
+
+		let formData = new FormData(event.target);
+		fetch(event.target.action, {
+			method: "post",
+			body: formData,
+		}).then(response => {
+			if (!response.ok) {
+				document.getElementById("error-text").innerText = response.body.error;
+				document.getElementById("error-message").classList.remove("hidden");
+				document.getElementById("error-message").classList.add("allert");
+				console.log(response, response.body);
+			}
+			else {
+				window.location.href = '/backend/output/account_home.php';
+			}
+		}).catch(error => {
+			console.error('There was a problem with the fetch operation:', error);
+		});
+	})
+
+	document.getElementById("registratiForm").addEventListener("submit", function(event) {
+		event.preventDefault();
+
+		let formData = new FormData(event.target);
+		fetch(event.target.action, {
+			method: "post",
+			body: formData,
+		}).then(response => {
+			if (!response.ok) {
+				document.getElementById("error-text").innerText = response.body.error;
+				document.getElementById("error-message").classList.remove("hidden");
+				document.getElementById("error-message").classList.add("allert");
+				console.log(response, response.body);
+			}
+			else {
+				window.location.href = '/backend/output/account_home.php';
+			}
+		}).catch(error => {
+			console.error('There was a problem with the fetch operation:', error);
+		});
+	})
 })

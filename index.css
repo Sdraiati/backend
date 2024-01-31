@@ -18,6 +18,7 @@
     --paddingElements: 20px;
     --paddingElementsSmall: 10px;
     --withPopUp: 20%;
+	--error-message-text-color: #ff0000;
 }
 html{
     font-family: var(--fontFamily);
@@ -244,6 +245,15 @@ button[disabled]
     padding: 30px 20px;
     margin: 8px 0;
     box-sizing: border-box;
+}
+
+.allert .form-buttons{
+    margin-top: 50px;
+}
+
+.error-message
+{
+	color: var(--error-message-text-color);
 }
 
 #line-chart {

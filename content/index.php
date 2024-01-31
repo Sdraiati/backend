@@ -1,6 +1,6 @@
 <!-- <title>Home - Penny Wise</title> -->
 <?php
-	include "../scripts/generate_header.php";
+	include "scripts/generate_header.php";
 
 	generate_header("Home");
 ?>
@@ -16,7 +16,6 @@
 	</main>
 
 	import footer.html
-
 </body>
 
 </html>

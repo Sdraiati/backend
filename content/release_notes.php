@@ -1,9 +1,8 @@
-<!-- <title>Release Notes - Versione 0.1</title> -->
-import head.html
+<?php
+	include "../scripts/generate_header.php";
 
-<body>
-
-	import nav.html
+	generate_header("Home");
+?>
 
 	<header>
 		<h1><span lang="en">Release Notes</span> - Versione 0.1</h1>

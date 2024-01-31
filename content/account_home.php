@@ -1,6 +1,6 @@
 <!-- <title>Account Page</title> -->
 <?php
-	include "../scripts/generate_header.php";
+	include "scripts/generate_header.php";
 
 	generate_header("account_home");
 ?>
@@ -15,13 +15,9 @@
 
 	<main>
 
+	import account_info.php
 
-	<!-- import account_info.html -->
-	<?php
-		include "../layout/account_info.php";
-	?>
-
-	import project_list.html
+	import project_list.php
 	</main>
 
 	import footer.html

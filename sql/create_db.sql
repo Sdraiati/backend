@@ -34,9 +34,10 @@ CREATE TABLE tag (
 -- importo sempre negativo
 -- il campo tag può essere nullo
 CREATE TABLE movimento (
-    id_progetto INT NOT NULL , 
-    data DATETIME NOT NULL , 
-    importo FLOAT NOT NULL , 
+	id INT NOT NULL AUTO_INCREMENT,
+    id_progetto INT NOT NULL, 
+    data DATETIME NOT NULL, 
+    importo FLOAT NOT NULL, 
     descrizione TEXT, 
     tag_id INT NULL,
     PRIMARY KEY (id_progetto, data),

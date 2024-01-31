@@ -1,8 +1,8 @@
-<!-- title: Shared Project -->
-import head.html
+<?php
+	include "../scripts/generate_header.php";
 
-<body>
-	import nav.html
+	generate_header("Home");
+?>
 
 	<header>
 		<h1>Shared Project - {{ Project Name }}</h1>
@@ -12,7 +12,7 @@ import head.html
 
 	import transazioni_list.html
 
-	import project_join.html
+	import project_join.php
 
 </body>
 <script src="assets/js/modifica.js"></script>

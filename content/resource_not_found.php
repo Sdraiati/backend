@@ -1,22 +1,22 @@
-<!-- <title>Home - Penny Wise</title> -->
-import head.html
+<?php
+	include "scripts/generate_header.php";
 
-<body>
+	generate_header("Risorsa non trovata - 404");
+?>
 
-	import nav.html
+<header>
+	<h1>Penny Wise</h1>
+</header>
 
-	<header>
-		<h1>Penny Wise</h1>
-	</header>
+<main>
 
-	<main>
+	<h1>Risorsa non trovata - 404</h1>
+	<img src="assets/img/angry_paperone.png"
+		alt="Paperone dice: Ahia, ahia, ahia! Sembra che la mia preziosa risorsa sia svanita nel nulla">
 
-		<h1>Risorsa non trovata - 404</h1>
-        <img src="./assets/img/angry_paperone.png" alt="Paperone dice: Ahia, ahia, ahia! Sembra che la mia preziosa risorsa sia svanita nel nulla">
+</main>
 
-	</main>
-
-	import footer.html
+import footer.html
 
 </body>
 

@@ -1,63 +1,10 @@
-<!-- <title>Home - Penny Wise</title> -->
-<!DOCTYPE html>
-<html lang="it">
+<?php
+	include "scripts/generate_header.php";
 
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title> {{ Title }} </title>
-	<base href="/backend/" />
-	<meta name="description" content="un sito per mostrare cose">
-	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
-	<link rel="stylesheet" type="text/css" href="index.css">
-</head>
+	generate_header("404 - Pagina non trovata");
+?>
 
-
-<body>
-<nav>
-	<div class="Logo">
-		<a href="index.html"><img src="assets/img/logo.jpeg" alt="logo"></a>
-	</div>
-	<div class="Login">
-		<ul class="login-list">
-			<li><button data-button-kind="accedi">Accedi</button></li>
-			<li><button data-button-kind="registrati">Registrati</button></li>
-			<li class="hidden"><a href="account_home.html" id="utente">Utente</a></li>
-		</ul>
-	</div>
-</nav>
-
-<section id="accedi" class="hidden">
-	<h2>Login</h2>
-	<form id="loginForm" action="javascript:void(0)">
-		<label for="loginEmail">Email:</label>
-		<input type="email" id="loginEmail" name="email" required autocomplete="email">
-		<label for="loginPassword">Password:</label>
-		<input type="password" id="loginPassword" name="password" required autocomplete="current-password">
-		<button type="button" data-button-kind="accediHide">Annulla</button>
-		<button type="submit">Accedi</button>
-	</form>
-</section>
-
-<section id="registrati" class="hidden">
-	<h2>Registrazione</h2>
-	<form id="registratiForm" action="javascript:void(0)">
-		<label for="signupUsername">Nome Utente:</label>
-		<input type="text" id="signupUsername" name="username" required autocomplete="username">
-		<label for="signupEmail">Email:</label>
-		<input type="email" id="signupEmail" name="email" required autocomplete="email">
-		<label for="signupPassword">Password:</label>
-		<input type="password" id="signupPassword" name="password" required autocomplete="new-password">
-		<span id="passwordError" class="hidden">Le due password non coincidono.</span>
-		<label for="signupConfirmPassword">Ripeti Password:</label>
-		<input type="password" id="signupConfirmPassword" name="password" required autocomplete="new-password">
-		<button type="button" data-button-kind="registratiHide">Annulla</button>
-		<button type="submit">Registrati</button>
-	</form>
-</section>
-
-<script type="module" src="assets/js/nav.js"></script>
-
+<?php
 
 	<header>
 		<h1>Penny Wise</h1>
@@ -66,30 +13,30 @@
 	<main>
 
 		<h1>Risorsa non trovata - 404</h1>
-        <img src="./assets/img/angry_paperone.png" alt="Paperone dice: Ahia, ahia, ahia! Sembra che la mia preziosa risorsa sia svanita nel nulla">
+		<img src="./assets/img/angry_paperone.png"
+			alt="Paperone dice: Ahia, ahia, ahia! Sembra che la mia preziosa risorsa sia svanita nel nulla">
 
 	</main>
-<footer>
-	<div class="footer-list">
-		<h3>Prodotto</h3>
-		<ul>
-			<li><a href="account_home.html">I Miei Progetti</a></li>
-			<li><a href="about_us.html">About Us</a></li>
-		</ul>
-	</div>
-	<div class="footer-list">
-		<h3>Risorse</h3>
-		<ul>
-			<li><a href="index.html">Homepage</a></li>
-			<li><a href="release_notes.html">Release Notes</a></li>
-			<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
-						id="github-mark"> GitHub </a></li>
-		</ul>
-	</div>
-</footer>
+	<footer>
+		<div class="footer-list">
+			<h3>Prodotto</h3>
+			<ul>
+				<li><a href="account_home.php">I Miei Progetti</a></li>
+				<li><a href="about_us.php">About Us</a></li>
+			</ul>
+		</div>
+		<div class="footer-list">
+			<h3>Risorse</h3>
+			<ul>
+				<li><a href="index.php">Homepage</a></li>
+				<li><a href="release_notes.php">Release Notes</a></li>
+				<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
+							id="github-mark"> GitHub </a></li>
+			</ul>
+		</div>
+	</footer>
 
-<script src="assets/js/modifica.js"></script>
-<script src="assets/js/footerColors.js"></script>
+	<script src="assets/js/modifica.js"></script>
 
 
 </body>

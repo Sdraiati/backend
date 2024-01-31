@@ -1,5 +1,5 @@
 <?php
-include "../api/config/database.php";
+include "api/config/database.php";
 ?>
 
 <!-- Filtri per tag -->
@@ -23,7 +23,8 @@ if ($result) {
 ?>
 	</form>
 
-	<a href="tag_page.html">Vai alla Pagina dei Tag</a>
+	<a href="tag_page.php?id=
+<?php 
+echo $_GET['id'];
+?>">Vai alla Pagina dei Tag</a>
 </aside>
-
-<script type="module" src="assets/js/tag_sidebar.js"></script>

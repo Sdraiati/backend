@@ -1,7 +1,6 @@
 <?php
 include "../api/config/database.php";
 ?>
-<!-- tabella dei tag -->
 <section>
 	<h2>Tabella dei Tag</h2>
 	<button data-button-kind="newTag">Nuovo Tag</button>

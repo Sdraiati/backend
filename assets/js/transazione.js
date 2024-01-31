@@ -54,7 +54,7 @@ class Transazione {
 						new Transazione(
 							obj.id,
 							new Date(obj.data),
-							obj.importo,
+							parseFloat(obj.importo),
 							obj.tag,
 							obj.descrizione)
 					)
@@ -73,25 +73,23 @@ class Transazione {
 		let transazioni = []
 		if (sessionStorage.getItem(`${project_id}`) == null) {
 			transazioni = await Transazione.fetch()
+		} else {
+			transazioni = JSON.parse(sessionStorage.getItem(`${project_id}`))
+
+			// Convert the parsed data back into an array of Transazione objects
+			transazioni = transazioni.map((obj) =>
+				new Transazione(
+					obj.id,
+					new Date(obj.data),
+					parseFloat(obj.importo),
+					obj.tag,
+					obj.descrizione)
+			)
 		}
-
-		transazioni = JSON.parse(sessionStorage.getItem(`${project_id}`))
-
-		// Convert the parsed data back into an array of Transazione objects
-		let res = transazioni.map((obj) =>
-			new Transazione(
-				obj.id,
-				new Date(obj.data),
-				obj.importo,
-				obj.tag,
-				obj.descrizione)
-		)
-
 		if (Transazione.tag != null) {
-			res = res.filter((transazione) => transazione.tag == Transazione.tag)
+			transazioni = transazioni.filter((transazione) => transazione.tag == Transazione.tag)
 		}
-
-		return res
+		return transazioni
 	}
 
 	static setTag(tag) {

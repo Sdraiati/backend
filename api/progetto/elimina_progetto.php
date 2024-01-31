@@ -1,55 +1,50 @@
 <?php
-    include '../config/database.php'
+include '../config/database.php';
+
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_SESSION['email'])) {
+	header("location: /404.html");
+	exit();
+}
+
+
+$id = filter_var($_POST['id_progetto'], FILTER_SANITIZE_NUMBER_INT);
+$password = sha1($_POST["password"]);
+$email = sha1($_SESSION['email']);
+
+// check if the user is the owner of the project
+$sql = "SELECT * FROM progetto_utente
+		JOIN utente ON utente.email = progetto_utente.email
+			WHERE id_progetto = '$id'
+			AND utente.email = '$email'
+			AND password = '$password'";
+
+try {
+$result = mysqli_query($conn, $sql);
+} catch (Exception $e) {
+	echo $e;
+}
+
+if (mysqli_num_rows($result) == 0) {
+	header("location: /404.html");
+	exit();
+}
+
+
+// Prepare the SQL query
+$sql = "
+	DELETE FROM progetto_utente WHERE id_progetto = '$id';
+	DELETE FROM movimento WHERE id_progetto = '$id';
+	DELETE FROM tag WHERE id_progetto = '$id';
+	DELETE FROM progetto WHERE id = '$id';
+";
+
+try {
+	$result = mysqli_multi_query($conn, $sql);
+} catch (Exception $e) {
+	echo $e;
+}
+
+header("Location: /backend/account_home.php");
 ?>
-
-<?php
-
-// prendere i valori dalla POST request 
-$email = "leonardo.basso02@gmail.com";
-$hash_email = sha1($email);
-$id_progetto = "11";
-
-// query al db
-// 1. eliminare tutte le spese dell'utente relative al progetto.
-// 2. eliminare il legame da progetto_utente (è l'utente che esce dal progetto) 
-// 3. contare quanti elementi sono ancora dentro quel progetto (COUNT)
-// 4. se 0 => eliminare il record del progetto nella tabella progetto.
-
-$sql_delete_spese = "DELETE FROM movimento WHERE id_progetto = (SELECT id_progetto FROM progetto_utente WHERE id_progetto = ${id_progetto} AND email = \"${hash_email}\"); ";
-$sql_delete_legame = "DELETE FROM progetto_utente WHERE email = \"${hash_email}\" AND id_progetto = ${id_progetto}; "; // utente che esce dal progetto 
-$sql_count = "SELECT COUNT(id_progetto) FROM progetto_utente WHERE id_progetto = ${id_progetto}; ";
-
-echo '<h1> ' . $sql_delete_spese . ' </h1>';
-echo '<h1> ' . $sql_delete_legame . ' </h1>';
-echo '<h1> ' . $sql_count . ' </h1>';
-
-$result = mysqli_query($conn, $sql_delete_spese);
-if ($result) {
-    echo '<h2> spese rimosse </h2>';
-} 
-
-$result_legame = mysqli_query($conn, $sql_delete_legame);
-if ($result_legame) {
-    echo '<h2> legame rimosso </h2>';
-} 
-
-$result_count = mysqli_query($conn, $sql_count);
-$array = mysqli_fetch_all($result_count, MYSQLI_ASSOC); // array associativo
-$n_users_left = intval($array[0]['COUNT(id_progetto)']);
-
-if ($n_users_left == 0) {
-    // eseguire sql_delete_project
-    $sql_delete_project = "DELETE FROM progetto WHERE id = ${id_progetto}; ";
-    $result_delete = mysqli_query($conn, $sql_delete_project);
-    if ($result_delete) {
-        echo '<h2> progetto rimosso </h2>';
-    }
-} else {
-    echo '<h2> ci sono ancora utenti legati al progetto. </h2>';
-}
-
-if($conn->close()) {
-    echo '<h2> connection closed </h2>';
-}
-
-

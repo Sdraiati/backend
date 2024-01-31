@@ -1,14 +1,11 @@
 <?php
-	include "../scripts/generate_header.php";
+include "api/config/database.php";
 
-	generate_header("Home");
+$project_id = $_GET['id'];
+$sql = "SELECT * FROM progetto WHERE progetto.id = $project_id;";
+$result = mysqli_query($conn, $sql);
+$project = mysqli_fetch_assoc($result);
 ?>
-
-	<header>
-		<h1>Shared Project - {{ Project Name }}</h1>
-	</header>
-
-	<canvas id="line-chart-canvas" class="line-chart-container"></canvas>
 <!-- Tabella delle transazioni -->
 <section>
 	<h2>Tabella delle Transazioni</h2>
@@ -32,7 +29,8 @@
 <!-- Registra una Nuova Transazione -->
 <section id="newTransaction" class="hidden">
 	<h2>Registra una Nuova Transazione</h2>
-	<form id="newTransactionForm" action="backend/api/movimento/crea_movimento.php" method="post">
+	<form id="newTransazioneForm" action="api/movimento/crea_movimento.php" method="post">
+		<input type="hidden" name="id_progetto" value="<?php echo $project['id'] ?>" readonly>
 		<label for="newData">Data:</label>
 		<input type="date" id="newData" name="data" required>
 		<label for="newImporto">Importo:</label>
@@ -52,12 +50,13 @@
 <!-- Modifica Transazione -->
 <section id="editTransaction" class="hidden">
 	<h2>Modifica Transazione</h2>
-	<form id="editTransactionForm" action="backend/api/movimento/aggiorna_movimento.php" method="post">
-		<input type="hidden" id="editId" name="id" readonly>
+	<form id="editTransazioneForm" action="api/movimento/aggiorna_movimento.php" method="post">
+		<input type="hidden" name="id_progetto" value="<?php echo $project['id'] ?>" readonly>
+		<input type="hidden" id="editId" name="id_transazione" readonly>
 		<label for="editData">Nuova Data:</label>
 		<input type="date" id="editData" name="data">
-		<label for="editCosto">Nuovo Importo (€):</label>
-		<input type="number" id="editCosto" name="costo" step="0.01">
+		<label for="editImporto">Nuovo Importo (€):</label>
+		<input type="number" id="editImporto" name="importo" step="0.01">
 		<label for="editTag">Nuovo Tag:</label>
 		<input list="tags-datalist" id="editTag" name="tag" required>
 		<label for="editDescrizione">Nuova Descrizione:</label>
@@ -69,29 +68,4 @@
 		</div>
 	</form>
 </section>
-
 <script type="module" src="assets/js/transazioni_list.js"></script>
-
-<?php
-// dovrebbe essere l'hash del progetto
-$shared_project_id = $_GET['project_id'];
-?>
-
-<footer class="message-footer">
-	<button type="button" data-button-kind="joinProject">Partecipa</button>
-</footer>
-
-<section id="joinProject" class="hidden">
-	<h1>Partecipa al progetto</h1>
-	<form id="joinProjectForm" action="backend/api/entra_nel_progetto.php" method="post">
-		<input type="hidden" name="idProgetto" value="<?php echo $shared_project_id ?>">
-		<div class="form-buttons">
-			<button type="button" data-button-kind="joinProjectHide">Annulla</button>
-			<button type="submit" id="submitJoinProject">Partecipa</button>
-		</div>
-</section>
-
-
-</body>
-
-</html>

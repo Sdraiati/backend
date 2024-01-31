@@ -21,11 +21,34 @@ if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_SESSION['email'])) {
 	exit();
 }
 
-$id = $_POST['id'];
-$id_progetto = $_POST['id_progetto'];
+$data = file_get_contents('php://input');
+$id = json_decode($data)->id_transazione;
+$id_progetto = json_decode($data)->id_progetto;
+$email = sha1($_SESSION['email']);
+
+// check if the user is the owner of the project
+$sql = "SELECT * FROM progetto_utente
+			WHERE id_progetto = '$id_progetto'
+			AND email = '$email'";
+
+try {
+	$result = mysqli_query($conn, $sql);
+} catch (Exception $e) {
+	echo $e;
+}
+
+if (mysqli_num_rows($result) == 0) {
+	header("Location: /404.html");
+	exit();
+}
+
+echo json_encode([
+	"id" => $id,
+	"id_progetto" => $id_progetto
+]);
 
 // query al db
-$sql = "DELETE FROM movimento WHERE id= '${id}';";
+$sql = "DELETE FROM movimento WHERE id='${id}';";
 $result = mysqli_query($conn, $sql);
 
 if (!$result) {
@@ -34,7 +57,6 @@ if (!$result) {
 }
 
 header("Location: /backend/project_home.php?id=${id_progetto}");
-
 
 $conn->close();
 ?>

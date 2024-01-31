@@ -30,7 +30,7 @@ if (mysqli_num_rows($result_check) == 0) {
 }
 
 // Prepare the SQL query
-$sql = "SELECT movimento.id, movimento.data, movimento.importo, movimento.descrizione, tag.nome 
+$sql = "SELECT movimento.id, movimento.data, movimento.importo, movimento.descrizione, tag.nome as tag 
         FROM movimento JOIN tag ON movimento.tag_id = tag.id
         WHERE movimento.id_progetto = '$id_progetto';";
 

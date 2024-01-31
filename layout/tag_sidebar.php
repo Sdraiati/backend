@@ -3,8 +3,6 @@ include "api/config/database.php";
 ?>
 
 <!-- Filtri per tag -->
-<aside class="filtri-tag-container">
-	<a href="project_cake.html">Vai al Grafico a Torta</a>
 	<h2>Filtri per Tag</h2>
 	<form id="tag_sidebar">
 <?php

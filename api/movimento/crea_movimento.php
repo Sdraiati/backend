@@ -1,32 +1,64 @@
 <?php
-    include '../config/database.php'
-?>
+include '../config/database.php';
 
-<?php
+session_start();
 
-// prendere i valori dalla POST request 
-// in questo momento ci sono solo dei valori di prova.
-// devono poi essere aggiornati con i valori che
-// vengono passati dal cliente tramite pOST request.
+if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_SESSION['email'])) {
+	header("location: /404.html");
+	exit();
+}
 
-$id_progetto = "17";
-$data = date("Y-m-d H:i:s"); // 2001-03-10 17:16:18 (the MySQL DATETIME format).
-$importo = "1.99";
-$descrizione = "descrizione relativa a questa spesa";
+$email = sha1($_SESSION['email']);
+$id = $_POST['id_progetto'];
+$data = $_POST['data'];
+$importo = $_POST['importo'];
+$descrizione = $_POST['descrizione'];
+$tag = $_POST['tag'];
 
-// query al db
-$sql = "INSERT INTO movimento (id_progetto, data, importo, descrizione) VALUES (${id_progetto}, \"${data}\", ${importo}, \"${descrizione}\");";
+// check if the user is the owner of the project
+$sql = "SELECT * FROM progetto_utente
+			WHERE id_progetto = '$id'
+			AND email = '$email'";
 
-echo '<h1> ' . $sql . ' </h1>';
+try {
+$result = mysqli_query($conn, $sql);
+} catch (Exception $e) {
+	echo $e;
+}
+
+if (mysqli_num_rows($result) == 0) {
+	header("location: /404.html");
+	exit();
+}
+
+$sql = "SELECT * FROM tag
+			WHERE nome = '$tag'
+			AND id_progetto = '$id'";
 
 $result = mysqli_query($conn, $sql);
-if ($result) {
-    echo '<h2> transazione riuscita </h2>';
+$tag_id = 0;
+
+if ($result->num_rows > 0) {
+	$row = $result->fetch_assoc();
+	$tag_id = $row['id'];
 } else {
-    echo '<h2> transazione NON riuscita </h2>';
+	$sql = "INSERT INTO tag (nome, id_progetto)
+			VALUES ('$tag', '$id')";
+	$result = mysqli_query($conn, $sql);
+	$tag_id = $conn->insert_id;
 }
 
-if($conn->close()) {
-    echo '<h2> connection closed </h2>';
+// Prepare the SQL query
+$sql = "INSERT INTO movimento (id_progetto, data, importo, descrizione, tag_id)
+		VALUES ('$id', '$data', '$importo', '$descrizione', '$tag_id')
+";
+
+try {
+	$result = mysqli_multi_query($conn, $sql);
+} catch (Exception $e) {
+	echo $e;
+	exit();
 }
 
+header("Location: /backend/project_home.php?id=$id");
+?>

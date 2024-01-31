@@ -6,6 +6,7 @@
 <script type="module" src="assets/js/line-chart-main.js"></script>
 <script type="module" src="assets/js/line-chart-interactions.js"></script>
 <script type="module" src="assets/js/tag_sidebar.js"></script>
+<script type="module" src="assets/js/share_project.js"></script>
 <?php
 include "api/config/database.php";
 
@@ -25,12 +26,12 @@ echo "<header>
 <!-- Modifica Progetto -->
 <section id="editProject" class="hidden">
 	<h2>Modifica Progetto</h2>
-	<form id="editProjectForm" action="backend/api/progetto/modifica_progetto.php" method="post">
-		<input type="hidden" name="idProgetto" value="<?php echo $project['id'] ?>">
+	<form id="editProjectForm" action="api/progetto/modifica_progetto.php" method="post">
+		<input type="hidden" name="id_progetto" value="<?php echo $project['id'] ?>">
 		<label for="inputNewNomeProgetto">Nuovo Nome Progetto:</label>
-		<input type="text" id="inputNewNomeProgetto" name="newNomeProgetto" placeholder="<?php echo $project['nome'] ?>" required>
+		<input type="text" id="inputNewNomeProgetto" name="nome_progetto" placeholder="<?php echo $project['nome'] ?>" required>
 		<label for="inputNewDescrizioneProgetto">Nuova Descrizione:</label>
-		<textarea id="inputNewDescrizioneProgetto" name="newDescrizioneProgetto" placeholder="<?php echo $project['descrizione'] ?>"></textarea>
+		<textarea id="inputNewDescrizioneProgetto" name="descrizione_progetto" placeholder="<?php echo $project['descrizione'] ?>"></textarea>
 		<div class="form-buttons">
 			<button type="button" data-button-kind="deleteProject">Elimina Progetto</button>
 			<button type="button" data-button-kind="editProjectHide">Annulla</button>
@@ -42,7 +43,8 @@ echo "<header>
 <!-- Elimina Progetto -->
 <section id="deleteProject" class="hidden">
 	<h2>Conferma Eliminazione Progetto</h2>
-	<form id="deleteProjectForm" action="backend/apiu/progetto/elimina_progetto.php" method="post">
+	<form id="deleteProjectForm" action="api/progetto/elimina_progetto.php" method="post">
+		<input type="hidden" name="id_progetto" value="<?php echo $project['id'] ?>">
 		<label for="inputPassword">Inserisci la Password:</label>
 		<input type="password" id="inputPassword" name="password" required>
 		<div class="form-buttons">
@@ -56,7 +58,20 @@ echo "<header>
 <section id="shareProject" class="hidden">
 	<h2>Condividi Progetto</h2>
 	<form id="linkForm">
-		<input type="text" id="linkField" value="https://example.com" readonly>
+	<input type="text" id="linkField"
+<?php
+$sql = "SELECT link_condivisione FROM progetto WHERE progetto.id = $project_id;";
+$result = mysqli_query($conn, $sql);
+$share = mysqli_fetch_assoc($result)['link_condivisione'];
+if ($share == null) {
+	echo "placeholder=\"https://example.com\"";
+} else {
+	echo "value=http://localhost/backend/project_share.php?id=${share}";
+}
+?> readonly>
+<button type="button" id="sharingOption" data-sharing-state="<?php echo ($share == null) ? 'not-shared' : 'shared'; ?>">
+    <?php echo ($share == null) ? 'Condividi Progetto' : 'Interrompi Condivisione'; ?>
+</button>
 		<button type="button" data-button-kind="shareProjectHide">Annulla</button>
 		<button type="button" id="copyShareProject">Copy Link</button>
 	</form>
@@ -72,6 +87,14 @@ echo "<header>
 	</ul>
 	<!-- Canvas per il line chart -->
 	<canvas id="line-chart" class="line-chart"></canvas>
+<?php
+include "api/config/database.php";
+
+$project_id = $_GET['id'];
+$sql = "SELECT * FROM progetto WHERE progetto.id = $project_id;";
+$result = mysqli_query($conn, $sql);
+$project = mysqli_fetch_assoc($result);
+?>
 <!-- Tabella delle transazioni -->
 <section>
 	<h2>Tabella delle Transazioni</h2>
@@ -95,7 +118,8 @@ echo "<header>
 <!-- Registra una Nuova Transazione -->
 <section id="newTransaction" class="hidden">
 	<h2>Registra una Nuova Transazione</h2>
-	<form id="newTransactionForm" action="backend/api/movimento/crea_movimento.php" method="post">
+	<form id="newTransazioneForm" action="api/movimento/crea_movimento.php" method="post">
+		<input type="hidden" name="id_progetto" value="<?php echo $project['id'] ?>" readonly>
 		<label for="newData">Data:</label>
 		<input type="date" id="newData" name="data" required>
 		<label for="newImporto">Importo:</label>
@@ -115,12 +139,13 @@ echo "<header>
 <!-- Modifica Transazione -->
 <section id="editTransaction" class="hidden">
 	<h2>Modifica Transazione</h2>
-	<form id="editTransactionForm" action="backend/api/movimento/aggiorna_movimento.php" method="post">
-		<input type="hidden" id="editId" name="id" readonly>
+	<form id="editTransazioneForm" action="api/movimento/aggiorna_movimento.php" method="post">
+		<input type="hidden" name="id_progetto" value="<?php echo $project['id'] ?>" readonly>
+		<input type="hidden" id="editId" name="id_transazione" readonly>
 		<label for="editData">Nuova Data:</label>
 		<input type="date" id="editData" name="data">
-		<label for="editCosto">Nuovo Importo (€):</label>
-		<input type="number" id="editCosto" name="costo" step="0.01">
+		<label for="editImporto">Nuovo Importo (€):</label>
+		<input type="number" id="editImporto" name="importo" step="0.01">
 		<label for="editTag">Nuovo Tag:</label>
 		<input list="tags-datalist" id="editTag" name="tag" required>
 		<label for="editDescrizione">Nuova Descrizione:</label>
@@ -132,16 +157,18 @@ echo "<header>
 		</div>
 	</form>
 </section>
-
 <script type="module" src="assets/js/transazioni_list.js"></script>
 
+
+	<aside class="filtri-tag-container">
+	<a href="project_cake.php?id=<?php
+echo $_GET['id'];
+?>">Vai al Grafico a Torta</a>
 <?php
 include "api/config/database.php";
 ?>
 
 <!-- Filtri per tag -->
-<aside class="filtri-tag-container">
-	<a href="project_cake.html">Vai al Grafico a Torta</a>
 	<h2>Filtri per Tag</h2>
 	<form id="tag_sidebar">
 <?php

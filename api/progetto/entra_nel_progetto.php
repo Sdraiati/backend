@@ -1,39 +1,35 @@
 <?php
-    include '../config/database.php'
-?>
+    include '../config/database.php';
 
-<?php
+session_start();
+if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_SESSION["email"])) {
+	header("Location: /404.html");
+	exit();
+}
 
-$user_email = "eghosa.basso07@gmail.com"; // l'email dell'utente all'interno del progetto sono salvate all'interno salvate all'interno di 
-$hash_email = sha1($user_email);
-$hash = $_GET["project"];
+$email = sha1($_SESSION["email"]);
+echo file_get_contents("php://input");
 
-echo $hash;
-$sql = "SELECT id, link_condivisione FROM progetto WHERE link_condivisione = \"${hash}\"; ";
+$hash = $_POST["id_progetto"];
+
+$sql = "SELECT id FROM progetto WHERE link_condivisione = \"$hash\"; ";
 $result = mysqli_query($conn, $sql);
 
-if ($result) { // quindi il progetto esiste.
-    // inserire l'utente all'interno del progetto. 
-    // => inserire associazione all'interno della tabella progetto_utente.
-    $array = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    $id_project = $array[0]['id'];
+if (!$result) {
+echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
 
-    echo "<p> id progetto: ${id_project} </p>";
-    $insert_user = "INSERT INTO progetto_utente (email, id_progetto) VALUES (\"${hash_email}\", ${id_project}); ";
-    try {
-        $insert_result = mysqli_query($conn, $insert_user);
-        if ($insert_result) {
-            echo '<h2> pagina del progetto <h2>';
-        }
-    } catch (mysqli_sql_exception) { // vuol dire che l'utente è giá inserito nel progetto.
-        echo '<h2> L\'utente esiste è giá inserito all\'interno del progetto. <h2>';
-    }
+$id_progetto = mysqli_fetch_assoc($result)['id'];
+
+$insert_user = "INSERT INTO progetto_utente (email, id_progetto) VALUES (\"$email\", $id_progetto); ";
+
+try {
+	$insert_result = mysqli_query($conn, $insert_user);
+} catch (Exception $e) {
+}
+
+header("Location: /backend/project_home.php?id=${id_progetto}");
 
     
-} else {
-    echo '<h2> Il link di condivisione è scaduto...  </h2>';
-}
-
-if($conn->close()) {
-    echo '<h2> connection closed </h2>';
-}
+$conn->close()
+?>

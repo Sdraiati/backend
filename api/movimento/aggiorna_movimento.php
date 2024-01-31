@@ -1,38 +1,69 @@
 <?php
-    include '../config/database.php'
-?>
+include '../config/database.php';
 
-<?php
+session_start();
 
-// prendere i valori dalla POST request 
-// in questo momento ci sono solo dei valori di prova.
-// devono poi essere aggiornati con i valori che
-// vengono passati dal cliente tramite pOST request.
+if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_SESSION['email'])) {
+	header("location: /404.html");
+	exit();
+}
 
-/*
-    * in questo momento l'elminiazione di un movimento si basa solamente sulla chiave
-    * di conseguenza solo su id_progetto e sulla data nella quale è stato inserito quel movimento
-    * PROBLEMA: anche nel caso in cui un record non esiste, la transazione avviene lo stesso
-    * di conseguenza ci deve essere un modo di capire dall'oggetto $result se la transazione
-    * sia stata o meno un tentativo di eliminare un record inesistente.
-*/
+$email = sha1($_SESSION['email']);
+$id_progetto = $_POST['id_progetto'];
+$nuovo_importo = $_POST['importo'];
+$nuova_descrizione = $_POST['descrizione'];
+$tag = $_POST['tag'];
+$nuova_data = $_POST['data'];
+$id_movimento = $_POST['id_transazione'];
 
-$id_progetto = "10";
-$nuova_data = "2024-01-29 18:04:31"; // 2001-03-10 17:16:18 (the MySQL DATETIME format).
-$nuovo_importo = "19.99";
-$nuova_descrizione = "nuova descrizione derivata da un update";
+// check if the user is the owner of the project
+$sql = "SELECT * FROM progetto_utente
+			WHERE id_progetto = '$id_progetto'
+			AND email = '$email'";
 
-// query al db
-$sql = "UPDATE movimento SET importo = ${nuovo_importo}, descrizione = \"${nuova_descrizione}\" WHERE id_progetto = ${id_progetto} AND data = \"${nuova_data}\"; "; 
-echo '<h1> ' . $sql . ' </h1>';
+try {
+$result = mysqli_query($conn, $sql);
+} catch (Exception $e) {
+	echo $e;
+}
+
+if (mysqli_num_rows($result) == 0) {
+	header("location: /404.html");
+	exit();
+}
+
+$sql = "SELECT * FROM tag
+			WHERE nome = '$tag'
+			AND id_progetto = '$id_progetto'";
 
 $result = mysqli_query($conn, $sql);
-if ($result) {
-    echo '<h2> transazione riuscita </h2>';
+$tag_id = 0;
+
+if ($result->num_rows > 0) {
+	$row = $result->fetch_assoc();
+	$tag_id = $row['id'];
 } else {
-    echo '<h2> transazione NON riuscita </h2>';
+	$sql = "INSERT INTO tag (nome, id_progetto)
+			VALUES ('$tag', '$id_progetto')";
+	$result = mysqli_query($conn, $sql);
+	$tag_id = $conn->insert_id;
 }
 
-if($conn->close()) {
-    echo '<h2> connection closed </h2>';
+// query al db
+$sql = "UPDATE movimento 
+		SET importo = ?, descrizione = ?, data = ?, tag_id = ?
+		WHERE id = ${id_movimento}"; 
+
+$stmt = mysqli_prepare($conn, $sql);
+
+mysqli_stmt_bind_param($stmt, "dssi", $nuovo_importo, $nuova_descrizione, $nuova_data, $tag_id);
+
+try {
+	$stmt->execute();
+} catch (Exception $e) {
+	echo $e;
+	exit();
 }
+
+header("location: /backend/project_home.php?id=${id_progetto}");
+?>

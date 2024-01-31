@@ -5,12 +5,12 @@
 ?>
 
 	<header>
-		<h1><span lang="en">Release Notes</span> - Versione 0.1</h1>
+		<h1><span lang="en">About Us</span> - Versione 0.1</h1>
 	</header>
 
 	<main>
 
-		import release_notes.html
+		import about_us.html
 
 	</main>
 

@@ -1,5 +1,5 @@
 <?php
-	include "../scripts/generate_header.php";
+	include "scripts/generate_header.php";
 
 	generate_header("Home");
 ?>

@@ -9,6 +9,7 @@
 	<meta name="description" content="un sito per mostrare cose">
 	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
 	<link rel="stylesheet" type="text/css" href="index.css">
+	<script src="assets/js/modifica.js"></script>
 </head>
 
 <nav>
@@ -17,6 +18,16 @@
 	</div>
 	<div class="Login">
 		<ul class="login-list">
-			<li><a href="account_home.php" id="utente">Utente</a></li>
+			<button type="button" data-button-kind="logout">Utente</button>
 		</ul>
+	</div>
 </nav>
+
+<section id="logout" class="hidden">
+	<h2><span lang="en">Logout</span></h2>
+	<a href="account_home.php" id="utente"><span lang="en">Homepage</span> dell'utente</a>
+	<form id="logoutForm" action="api/utente/logout.php" method="post">
+		<button type="button" data-button-kind="logoutHide">Annulla</button>
+		<button type="submit">Logout</button>
+	</form>
+</section>

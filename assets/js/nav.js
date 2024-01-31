@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				console.log(response, response.body);
 			}
 			else {
-				window.location.href = '/backend/output/account_home.php';
+				window.location.href = '/backend/account_home.php';
 			}
 		}).catch(error => {
 			console.error('There was a problem with the fetch operation:', error);
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				console.log(response, response.body);
 			}
 			else {
-				window.location.href = '/backend/output/account_home.php';
+				window.location.href = '/backend/account_home.php';
 			}
 		}).catch(error => {
 			console.error('There was a problem with the fetch operation:', error);

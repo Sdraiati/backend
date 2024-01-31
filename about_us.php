@@ -87,8 +87,6 @@
 	</div>
 </footer>
 
-<script src="assets/js/modifica.js"></script>
-
 
 </body>
 

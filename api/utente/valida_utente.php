@@ -15,7 +15,7 @@ $hash_password = sha1($password);
 
 // query al db
 $sql = "SELECT * FROM utente WHERE 
-	email = \"$hash_email\" and password = \"$hash_password}\";";
+	email = '$hash_email' and password = '$hash_password';";
 
 $result = mysqli_query($conn, $sql);
 $array = mysqli_fetch_all($result, MYSQLI_ASSOC);

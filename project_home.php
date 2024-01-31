@@ -210,8 +210,6 @@ include "../api/config/database.php";
 	</div>
 </footer>
 
-<script src="assets/js/modifica.js"></script>
-
 </body>
 
 </html>

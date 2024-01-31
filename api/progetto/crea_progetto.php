@@ -4,7 +4,7 @@ include '../config/database.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_SESSION["email"])) {
-	echo "Error: invalid HTTP method or user not logged in";
+	header("Location: /404.html");
 	exit();
 }
 
@@ -26,7 +26,7 @@ $stmt = $conn->prepare($sql_utenteprogetto);
 $stmt->bind_param("si", $email, $proj_id);
 $stmt->execute();
 
-header("Location: /backend/output/account_home.php");
+header("Location: /backend/account_home.php");
 
 $conn->close();
 ?>

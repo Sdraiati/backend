@@ -93,6 +93,5 @@ $shared_project_id = $_GET['project_id'];
 
 
 </body>
-<script src="assets/js/modifica.js"></script>
 
 </html>

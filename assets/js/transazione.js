@@ -39,33 +39,43 @@ class Transazione {
 			body: JSON.stringify({ id_progetto: project_id }),
 		}
 
-		fetch(`api/progetto/movimenti_progetto.php`, options)
-			.then(async response => {
-				if (response.ok) {
-					let data = await response.json()
+		return await
+			fetch(`api/progetto/movimenti_progetto.php`, options)
+				.then(async response => {
+					if (response.ok) {
+						let data = await response.json()
+						return data
+					} else {
+						throw new Error("Errore nella richiesta")
+					}
+				})
+				.then((data) => {
+					data = data.map((obj) =>
+						new Transazione(
+							obj.id,
+							new Date(obj.data),
+							obj.importo,
+							obj.tag,
+							obj.descrizione)
+					)
+					sessionStorage.setItem(`${project_id}`, JSON.stringify(data))
 					return data
-				} else {
-					throw new Error("Errore nella richiesta")
-				}
-			})
-			.then((data) => {
-				sessionStorage.setItem(`${project_id}`, JSON.stringify(data))
-				Transazione.update()
-			})
+				})
 	}
 
 	/** Restituisce un array di oggetti Transazione
 	* @returns {Transazione[]} Array di oggetti Transazione dal server e setta
 		* transazioni in sessionStorage
 	*/
-	static get() {
+	static async get() {
 		// Supponiamo che tu abbia un array di oggetti che rappresentano le transazioni
 		let project_id = get_project_id()
+		let transazioni = []
 		if (sessionStorage.getItem(`${project_id}`) == null) {
-			Transazione.fetch()
+			transazioni = await Transazione.fetch()
 		}
 
-		let transazioni = JSON.parse(sessionStorage.getItem(`${project_id}`))
+		transazioni = JSON.parse(sessionStorage.getItem(`${project_id}`))
 
 		// Convert the parsed data back into an array of Transazione objects
 		let res = transazioni.map((obj) =>
@@ -100,7 +110,9 @@ class Transazione {
 	* @param {Transazione[]} transazioni - Array di oggetti Transazione
 	*/
 	static update() {
-		transazioni_observers_fn.forEach((observer_fn) => observer_fn(Transazione.get()));
+		Transazione.get().then((transazioni) => {
+			transazioni_observers_fn.forEach((observer_fn) => observer_fn(transazioni))
+		})
 	}
 }
 

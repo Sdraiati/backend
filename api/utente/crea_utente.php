@@ -1,8 +1,5 @@
 <?php
-    include '../config/database.php';
-?>
-
-<?php
+include '../config/database.php';
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
 	header("Location: /404.html");
@@ -18,14 +15,15 @@ $hash_email = sha1($email);
 $hash_password = sha1($password);
 
 // query al db
-$sql = "INSERT INTO utente (email, username, password) VALUES (\"${hash_email}\", \"${username}\", \"${hash_password}\"); ";
+$sql = "INSERT INTO utente (email, username, password) 
+		VALUES ('$hash_email', '$username', '$hash_password');";
 
 try {
     $result = mysqli_query($conn, $sql);
 	session_start();
 	$_SESSION["email"] = $email;
 	$_SESSION["username"] = $username;
-	header("Location: /backend/content/account_home.php");
+	header("Location: /backend/account_home.php");
 
 } catch(mysqli_sql_exception) {
 	json_encode(["error" => "Email già in uso"]);

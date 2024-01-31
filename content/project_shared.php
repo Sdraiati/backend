@@ -15,6 +15,5 @@
 	import project_join.php
 
 </body>
-<script src="assets/js/modifica.js"></script>
 
 </html>

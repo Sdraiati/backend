@@ -17,7 +17,7 @@ include '../config/database.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_SESSION['email'])) {
-	header("Location: /404.html");
+	redirect("resource_not_found.php");
 	exit();
 }
 
@@ -38,7 +38,7 @@ try {
 }
 
 if (mysqli_num_rows($result) == 0) {
-	header("Location: /404.html");
+	redirect("resource_not_found.php");
 	exit();
 }
 
@@ -56,7 +56,7 @@ if (!$result) {
 	exit();
 }
 
-header("Location: project_home.php?id=${id_progetto}");
+redirect("project_home.php?id=${id_progetto}");
 
 $conn->close();
 ?>

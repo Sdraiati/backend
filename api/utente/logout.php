@@ -11,11 +11,11 @@ if(isset($_SESSION['email'])) {
     session_destroy();
 
     // Redirect to a login page or any other page as needed
-    header("Location: index.php");
+    redirect("index.php");
     exit();
 } else {
     // If the user is not logged in, redirect to a login page or any other page as needed
-    header("Location: index.php");
+    redirect("index.php");
     exit();
 }
 ?>

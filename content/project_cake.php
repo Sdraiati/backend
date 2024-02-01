@@ -24,8 +24,6 @@ echo $_GET['id'];
 	import tag_sidebar.php
 
 	import partecipanti_sidebar.php
-
-	import footer.html
 </body>
 
 </html>

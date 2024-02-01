@@ -4,7 +4,7 @@ include '../config/database.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_SESSION["email"])) {
-	header("Location: /404.html");
+	redirect("resource_not_found.php");
 	exit();
 }
 
@@ -27,7 +27,7 @@ $result = mysqli_query($conn, $sql);
 }
 
 if (mysqli_num_rows($result) == 0) {
-	header("Location: /404.html");
+	redirect("resource_not_found.php");
 	exit();
 }
 

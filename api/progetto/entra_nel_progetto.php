@@ -3,7 +3,7 @@
 
 session_start();
 if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_SESSION["email"])) {
-	header("Location: /404.html");
+	redirect("resource_not_found.php");
 	exit();
 }
 
@@ -28,7 +28,7 @@ try {
 } catch (Exception $e) {
 }
 
-header("Location: project_home.php?id=${id_progetto}");
+redirect("project_home.php?id=${id_progetto}");
 
     
 $conn->close()

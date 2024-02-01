@@ -25,7 +25,7 @@ class Chart {
 			width: computedStyle.getPropertyValue('--decorationWidth'),
 		}
 
-		this.fontSize = computedStyle.getPropertyValue('--fontSize') * this.canvas.width / (100 * this.devicePixelRatio)
+		this.fontSize = computedStyle.getPropertyValue('--fontSize') * this.canvas.width / (400 * this.devicePixelRatio)
 
 
 		// improve the pixel ratio

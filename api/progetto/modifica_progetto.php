@@ -4,7 +4,7 @@ include '../../api/config/database.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_SESSION['email'])) {
-	header("location: /404.html");
+	redirect("page_not_found.php");
 	exit();
 }
 
@@ -41,7 +41,7 @@ $result = mysqli_query($conn, $sql);
 	echo $e;
 }
 
-header("Location: project_home.php?id=$id");
+redirect("project_home.php?id=$id");
 
 $conn->close();
 ?>

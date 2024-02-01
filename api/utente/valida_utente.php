@@ -2,7 +2,7 @@
 include '../config/database.php';
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-	header("Location: /404.html");
+	redirect("resource_not_found.php");
 	exit();
 }
 
@@ -28,7 +28,7 @@ if (!$array || count($array) == 0) {
 	session_start();
 	$_SESSION["email"] = $email;
 	$_SESSION["username"] = $array[0]["username"];
-	header("Location: account_home.php");
+	redirect("account_home.php");
 	$conn->close();
 }
 ?>

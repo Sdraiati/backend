@@ -4,8 +4,7 @@ include '../config/database.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_SESSION['email'])) {
-	header("Location: /404.html");
-	exit();
+	redirect("resource_not_found.php");
 }
 
 $old_email = sha1($_SESSION['email']);
@@ -40,7 +39,7 @@ try {
 	$result = mysqli_query($conn, $sql);
 	$_SESSION["email"] = $email;
 	$_SESSION["username"] = $username;
-	header("Location: account_home.php");
+	redirect("account_home.php");
 
 } catch(mysqli_sql_exception) {
 	json_encode(["error" => "Email già in uso"]);

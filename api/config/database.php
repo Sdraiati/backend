@@ -1,8 +1,8 @@
 <?php
     define('DB_HOST', 'localhost');
-    define('DB_USER', 'root');
-    define('DB_PASS', '');
-    define('DB_NAME', 'penny_wise_db');
+    define('DB_USER', 'crosso');
+    define('DB_PASS', 'eaqu8agaega0iBie');
+    define('DB_NAME', 'crosso');
 
     // create 
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -32,7 +32,7 @@ function get_email() {
 }
 
 function redirect($param) {
-	header("Location: ${param}");
+	header("Location: /crosso/${param}");
 	exit();
 }
 ?>

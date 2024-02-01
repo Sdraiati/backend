@@ -1,6 +1,3 @@
-<?php
-include "../api/config/database.php";
-?>
 <!-- Partecipanti -->
 <aside class="partecipanti-container">
 	<h2>Partecipanti</h2>
@@ -10,7 +7,7 @@ include "../api/config/database.php";
 	$sql = "SELECT utente.username 
 				FROM (utente INNER JOIN progetto_utente 
 					ON utente.email = progetto_utente.email) 
-				WHERE progetto_utente.progetto_id = $id;";
+				WHERE id_progetto = $id;";
 
 	$result = mysqli_query($conn, $sql);
 	if ($result) {

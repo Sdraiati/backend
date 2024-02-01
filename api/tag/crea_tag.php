@@ -1,31 +1,27 @@
-
 <?php
-    include '../config/database.php'
+include '../config/database.php';
 
-?>
-
-<?php
+$email = get_email();
 
 // prendere i valori dalla POST request 
 // in questo momento ci sono solo dei valori di prova.
 // devono poi essere aggiornati con i valori che
 // vengono passati dal cliente tramite pOST request.
-$nome = "cibo";
-$id_progetto = "17";
-$descrizione = "spese che riguardano il cibbo";
+
+$nome = post('nome');
+$id_progetto = post('id_progetto');
+$descrizione = post('descrizione');
+
+echo json_encode("$nome, $id_progetto, $descrizione");
 
 // query al db
 $sql = "INSERT INTO tag (nome, id_progetto, descrizione) VALUES (\"${nome}\", ${id_progetto}, \"${descrizione}\"); ";
-echo '<h1> ' . $sql . ' </h1>';
 
+try {
 $result = mysqli_query($conn, $sql);
-if ($result) {
-    echo '<h2> transazione riuscita </h2>';
-} else {
-    echo '<h2> transazione NON riuscita </h2>';
+} catch (Exception $e) {
+	echo $e;
 }
 
-if($conn->close()) {
-    echo '<h2> connection closed </h2>';
-}
-
+redirect('tag_page.php?id=' . $id_progetto);
+?>

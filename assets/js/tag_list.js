@@ -22,23 +22,32 @@ function add_tag_table(parent, name, description, index) {
 	parent.appendChild(row)
 }
 
-function get_tags() {
-	let tags = Transazione.get()
-		.map(t => {
+async function get_tags() {
+	let url = new URL(window.location.href)
+	let id = parseInt(url.searchParams.get("id"))
+	return await fetch("api/tag/visualizza_tag.php", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ project_id: id, }),
+	}).then(async response => response.json()
+	).then(async data => {
+		console.log(await data)
+		return await data.map(t => {
 			return {
-				name: t.tag,
-				descrizione: "una descrizione",
+				id: t.id,
+				name: t.nome,
+				descrizione: t.descrizione,
 			}
 		})
-	let unique_tags = []
-	tags.forEach(t => {
-		if (!unique_tags.find(u => u.name == t.name)) {
-			unique_tags.push(t)
-		}
+	}).catch(error => {
+		console.error(error)
 	})
-	return unique_tags
 }
 
-get_tags().forEach((tag, index) => {
-	add_tag_table(document.querySelector("#tag-table tbody"), tag.name, tag.descrizione, index)
+get_tags().then(tags => {
+	tags.forEach((tag, index) => {
+		add_tag_table(document.querySelector("#tag-table tbody"), tag.name, tag.descrizione, index)
+	})
 })

@@ -35,10 +35,11 @@ if ($result) {
 <section id="newTag" class="hidden" action="backend/tag/crea_tag.php" method="post">
 	<h2>Nuovo Tag</h2>
 	<form>
+		<input type="hidden" name="id_progetto" value="<?php echo $id ?>">
 		<label for="newTagName">Nome</label>
-		<input type="text" id="newTagName" name="tagName" placeholder="Nome del Tag" required>
+		<input type="text" id="newTagName" name="nome" placeholder="Nome del Tag" required>
 		<label for="newTagDescription">Descrizione</label>
-		<textarea id="newTagDescription" name="tagDescription" placeholder="Descrizione del Tag" required></textarea>
+		<textarea id="newTagDescription" name="descrizione" placeholder="Descrizione del Tag" required></textarea>
 		<button type="button" data-button-kind="newTagHide">Annulla</button>
 		<button type="submit" id="submitNewTag">Salva</button>
 	</form>
@@ -48,6 +49,7 @@ if ($result) {
 	<h2>Modifica Tag</h2>
 	<form>
 		<label for="editTagName">Nuovo Nome</label>
+		<input type="hidden" name="id_progetto" value="<?php echo $id ?>">
 		<input type="text" id="editTagName" name="tagName" placeholder="Nome del Tag" required>
 		<label for="editTagDescription">Nuova Descrizione</label>
 		<textarea id="editTagDescription" name="tagDescription" required></textarea>

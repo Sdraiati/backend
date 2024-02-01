@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	document.getElementById('editTransazioneForm').addEventListener('submit', function(event) {
 		event.preventDefault()
+		let url = new URL(window.location.href)
 
 		fetch(event.target.action, {
 			method: event.target.method,

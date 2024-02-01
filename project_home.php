@@ -87,14 +87,6 @@ if ($share == null) {
 	</ul>
 	<!-- Canvas per il line chart -->
 	<canvas id="line-chart" class="line-chart"></canvas>
-<?php
-include "api/config/database.php";
-
-$project_id = $_GET['id'];
-$sql = "SELECT * FROM progetto WHERE progetto.id = $project_id;";
-$result = mysqli_query($conn, $sql);
-$project = mysqli_fetch_assoc($result);
-?>
 <!-- Tabella delle transazioni -->
 <section>
 	<h2>Tabella delle Transazioni</h2>
@@ -164,18 +156,13 @@ $project = mysqli_fetch_assoc($result);
 	<a href="project_cake.php?id=<?php
 echo $_GET['id'];
 ?>">Vai al Grafico a Torta</a>
-<?php
-include "api/config/database.php";
-?>
-
 <!-- Filtri per tag -->
 	<h2>Filtri per Tag</h2>
 	<form id="tag_sidebar">
 <?php
-$id = $_GET['id'];
-$query = "SELECT tag.nome FROM tag
-			WHERE tag.id_progetto = '$id'";
-$result = mysqli_query($conn, $query);
+$sql = "SELECT tag.nome FROM tag
+			WHERE id_progetto = '${project['id']}'";
+$result = mysqli_query($conn, $sql);
 if ($result) {
 	$array = mysqli_fetch_all($result, MYSQLI_ASSOC);
 	foreach ($array as $row) {
@@ -187,10 +174,8 @@ if ($result) {
 ?>
 	</form>
 
-	<a href="tag_page.php?id=
-<?php 
-echo $_GET['id'];
-?>">Vai alla Pagina dei Tag</a>
+	<a href="tag_page.php?id= <?php echo $_GET['id']; ?>">
+Vai alla Pagina dei Tag</a>
 </aside>
 
 <?php

@@ -1,11 +1,3 @@
-<?php
-include "api/config/database.php";
-
-$project_id = $_GET['id'];
-$sql = "SELECT * FROM progetto WHERE progetto.id = $project_id;";
-$result = mysqli_query($conn, $sql);
-$project = mysqli_fetch_assoc($result);
-?>
 <!-- Tabella delle transazioni -->
 <section>
 	<h2>Tabella delle Transazioni</h2>

@@ -1,9 +1,6 @@
 import { setPeriod, nextPeriod, getPeriod } from './lineChart.js';
 import { Transazione } from './transazione.js';
 
-document.getElementById("transazioni-successive").disabled = true
-document.getElementById("transazioni-periodo-1-mese").disabled = true
-
 function update_period(int) {
 	setPeriod(int)
 	document.getElementById("transazioni-precedenti").disabled = false
@@ -12,9 +9,10 @@ function update_period(int) {
 	document.getElementById("transazioni-periodo-1-anno").disabled = false
 }
 
-document.getElementById("transazioni-precedenti").addEventListener("click", function() {
+document.getElementById("transazioni-precedenti").addEventListener("click", async function() {
 	nextPeriod(false)
-	if (Transazione.get().filter((transazione) => transazione.data < getPeriod().begin).length == 0)
+	let t = await Transazione.get()
+	if (t.filter((transazione) => transazione.data < getPeriod().begin).length == 0)
 		document.getElementById("transazioni-precedenti").disabled = true
 	document.getElementById("transazioni-successive").disabled = false
 })

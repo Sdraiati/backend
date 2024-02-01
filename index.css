@@ -232,7 +232,7 @@ button[disabled]
 .allert
 {
     text-align: center;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     position: fixed;
@@ -293,7 +293,7 @@ button[disabled]
     .allert
     {
         text-align: center;
-        display: flex;
+        display: none;
         flex-direction: column;
         justify-content: center;
         position: fixed;

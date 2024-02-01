@@ -40,7 +40,7 @@ CREATE TABLE movimento (
     importo FLOAT NOT NULL, 
     descrizione TEXT, 
     tag_id INT NULL,
-    PRIMARY KEY (id_progetto, data),
+	PRIMARY KEY (id),
     FOREIGN KEY (id_progetto) REFERENCES progetto(id),
     FOREIGN KEY (tag_id) REFERENCES tag(id)
 );

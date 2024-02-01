@@ -26,7 +26,7 @@ if ($result) {
 </section>
 
 <!-- Crea un Nuovo Progetto -->
-<section id="newProject" class="hidden">
+<section id="newProject" class="allert">
 	<h2>Crea un Nuovo Progetto</h2>
 	<form id="newProjectForm" action="api/progetto/crea_progetto.php" method="post">
 		<label for="inputNomeProgetto">Nome Progetto:</label>

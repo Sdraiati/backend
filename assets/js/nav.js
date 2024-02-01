@@ -40,8 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		}).then(response => {
 			if (!response.ok) {
 				document.getElementById("error-text").innerText = response.body.error;
-				document.getElementById("error-message").classList.remove("hidden");
-				document.getElementById("error-message").classList.add("allert");
+				document.getElementById("error-message").style.display = "flex";
 				console.log(response, response.body);
 			}
 			else {
@@ -62,8 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		}).then(response => {
 			if (!response.ok) {
 				document.getElementById("error-text").innerText = response.body.error;
-				document.getElementById("error-message").classList.remove("hidden");
-				document.getElementById("error-message").classList.add("allert");
+				document.getElementById("error-message").style.display = "flex";
 				console.log(response, response.body);
 			}
 			else {

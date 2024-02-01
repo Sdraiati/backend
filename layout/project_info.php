@@ -15,7 +15,7 @@ echo "<header>
 </header>
 
 <!-- Modifica Progetto -->
-<section id="editProject" class="hidden">
+<section id="editProject" class="allert">
 	<h2>Modifica Progetto</h2>
 	<form id="editProjectForm" action="api/progetto/modifica_progetto.php" method="post">
 		<input type="hidden" name="id_progetto" value="<?php echo $project['id'] ?>">
@@ -32,7 +32,7 @@ echo "<header>
 </section>
 
 <!-- Elimina Progetto -->
-<section id="deleteProject" class="hidden">
+<section id="deleteProject" class="allert">
 	<h2>Conferma Eliminazione Progetto</h2>
 	<form id="deleteProjectForm" action="api/progetto/elimina_progetto.php" method="post">
 		<input type="hidden" name="id_progetto" value="<?php echo $project['id'] ?>">
@@ -46,7 +46,7 @@ echo "<header>
 </section>
 
 <!-- Condividi Progetto -->
-<section id="shareProject" class="hidden">
+<section id="shareProject" class="allert">
 	<h2>Condividi Progetto</h2>
 	<form id="linkForm">
 	<input type="text" id="linkField"

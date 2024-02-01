@@ -19,7 +19,7 @@
 </section>
 
 <!-- Registra una Nuova Transazione -->
-<section id="newTransaction" class="hidden">
+<section id="newTransaction" class="allert">
 	<h2>Registra una Nuova Transazione</h2>
 	<form id="newTransazioneForm" action="api/movimento/crea_movimento.php" method="post">
 		<input type="hidden" name="id_progetto" value="<?php echo $project['id'] ?>" readonly>
@@ -40,7 +40,7 @@
 </section>
 
 <!-- Modifica Transazione -->
-<section id="editTransaction" class="hidden">
+<section id="editTransaction" class="allert">
 	<h2>Modifica Transazione</h2>
 	<form id="editTransazioneForm" action="api/movimento/aggiorna_movimento.php" method="post">
 		<input type="hidden" name="id_progetto" value="<?php echo $project['id'] ?>" readonly>

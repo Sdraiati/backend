@@ -8,13 +8,9 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				return
 			} else if (id.endsWith("Hide")) {
 				id = id.replace("Hide", "")
-				let section = document.getElementById(id)
-				section.classList.remove("allert")
-				section.classList.add("hidden")
+				document.getElementById(id).style.display = "none"
 			} else {
-				let section = document.getElementById(id)
-				section.classList.remove("hidden")
-				section.classList.add("allert")
+				document.getElementById(id).style.display = "flex"
 			}
 		}
 	});

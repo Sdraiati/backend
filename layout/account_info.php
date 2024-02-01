@@ -9,7 +9,7 @@
 </section>
 
 <!-- Modifica informazioni dell'account -->
-<section id="modificaCredenziali" class="hidden">
+<section id="modificaCredenziali" class="allert">
 	<h2>Modifica informazioni dell'account</h2>
 	<form id="modificaCredenzialiForm" action="api/utente/aggiorna_utente.php" method="post">
 		<label for="newEmail">Nuova Email:</label>

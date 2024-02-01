@@ -22,7 +22,7 @@
 	</div>
 </nav>
 
-<section id="accedi" class="hidden">
+<section id="accedi" class="allert">
 	<h2>Login</h2>
 	<form id="loginForm" action="api/utente/valida_utente.php" method="POST">
 		<label for="loginEmail">Email:</label>
@@ -34,7 +34,7 @@
 	</form>
 </section>
 
-<section id="registrati" class="hidden">
+<section id="registrati" class="allert">
 	<h2>Registrazione</h2>
 	<form id="registratiForm" action="api/utente/crea_utente.php" method="POST">
 		<label for="signupEmail">Email:</label>
@@ -51,7 +51,7 @@
 	</form>
 </section>
 
-<section id="error-message" class="hidden">
+<section id="error-message" class="allert">
 	<h2>Errore</h2>
 	<p id="error-text" class="error-message"></p>
 	<button type="button" data-button-kind="error-messageHide">Ok</button>

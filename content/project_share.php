@@ -24,7 +24,7 @@ echo $project['nome'];
 </h1>
 	</header>
 
-<section id="joinProject">
+<section id="joinProject" class='allert'>
 	<h1>Partecipa al progetto</h1>
 	<form id="joinProjectForm" action="api/progetto/entra_nel_progetto.php" method="post">
 		<input type="hidden" name="id_progetto" value="<?php echo $_GET['id'] ?>">

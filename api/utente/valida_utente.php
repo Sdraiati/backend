@@ -28,7 +28,7 @@ if (!$array || count($array) == 0) {
 	session_start();
 	$_SESSION["email"] = $email;
 	$_SESSION["username"] = $array[0]["username"];
-	header("Location: /backend/account_home.php");
+	header("Location: account_home.php");
 	$conn->close();
 }
 ?>

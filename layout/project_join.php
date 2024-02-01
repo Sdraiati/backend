@@ -9,7 +9,7 @@ $shared_project_id = $_GET['project_id'];
 
 <section id="joinProject" class="hidden">
 	<h1>Partecipa al progetto</h1>
-	<form id="joinProjectForm" action="backend/api/entra_nel_progetto.php" method="post">
+	<form id="joinProjectForm" action="api/entra_nel_progetto.php" method="post">
 		<input type="hidden" name="idProgetto" value="<?php echo $shared_project_id ?>">
 		<div class="form-buttons">
 			<button type="button" data-button-kind="joinProjectHide">Annulla</button>

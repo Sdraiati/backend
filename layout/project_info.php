@@ -57,7 +57,7 @@ $share = mysqli_fetch_assoc($result)['link_condivisione'];
 if ($share == null) {
 	echo "placeholder=\"https://example.com\"";
 } else {
-	echo "value=http://localhost/backend/project_share.php?id=${share}";
+	echo "value=http://localhost/project_share.php?id=${share}";
 }
 ?> readonly>
 <button type="button" id="sharingOption" data-sharing-state="<?php echo ($share == null) ? 'not-shared' : 'shared'; ?>">

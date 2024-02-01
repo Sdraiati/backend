@@ -65,5 +65,5 @@ try {
 	exit();
 }
 
-header("location: /backend/project_home.php?id=${id_progetto}");
+header("location: project_home.php?id=${id_progetto}");
 ?>

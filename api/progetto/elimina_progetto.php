@@ -46,5 +46,5 @@ try {
 	echo $e;
 }
 
-header("Location: /backend/account_home.php");
+header("Location: account_home.php");
 ?>

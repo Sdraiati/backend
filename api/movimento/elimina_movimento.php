@@ -56,7 +56,7 @@ if (!$result) {
 	exit();
 }
 
-header("Location: /backend/project_home.php?id=${id_progetto}");
+header("Location: project_home.php?id=${id_progetto}");
 
 $conn->close();
 ?>

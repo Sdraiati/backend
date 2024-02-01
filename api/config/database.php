@@ -32,7 +32,7 @@ function get_email() {
 }
 
 function redirect($param) {
-	header("Location: /backend/${param}");
+	header("Location: ${param}");
 	exit();
 }
 ?>

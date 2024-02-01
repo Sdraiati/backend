@@ -41,7 +41,7 @@ $result = mysqli_query($conn, $sql);
 	echo $e;
 }
 
-header("Location: /backend/project_home.php?id=$id");
+header("Location: project_home.php?id=$id");
 
 $conn->close();
 ?>

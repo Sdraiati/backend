@@ -36,7 +36,7 @@ $sql = "UPDATE progetto SET link_condivisione = \"${hash_share}\" WHERE id = ${i
 
 $result = mysqli_query($conn, $sql);
 
-$link = "http://localhost/backend/project_shared?project_id=${hash_share}";
+$link = "http://localhost/project_shared?project_id=${hash_share}";
 
 header("Content-Type: application/json");
 echo json_encode(["link" => $link]);

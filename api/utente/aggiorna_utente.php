@@ -40,7 +40,7 @@ try {
 	$result = mysqli_query($conn, $sql);
 	$_SESSION["email"] = $email;
 	$_SESSION["username"] = $username;
-	header("Location: /backend/account_home.php");
+	header("Location: account_home.php");
 
 } catch(mysqli_sql_exception) {
 	json_encode(["error" => "Email già in uso"]);

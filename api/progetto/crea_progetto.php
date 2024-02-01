@@ -26,7 +26,7 @@ $stmt = $conn->prepare($sql_utenteprogetto);
 $stmt->bind_param("si", $email, $proj_id);
 $stmt->execute();
 
-header("Location: /backend/account_home.php");
+header("Location: account_home.php");
 
 $conn->close();
 ?>

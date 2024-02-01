@@ -32,7 +32,7 @@ if ($result) {
 	</table>
 </section>
 
-<section id="newTag" class="hidden" action="backend/tag/crea_tag.php" method="post">
+<section id="newTag" class="hidden" action="tag/crea_tag.php" method="post">
 	<h2>Nuovo Tag</h2>
 	<form>
 		<input type="hidden" name="id_progetto" value="<?php echo $id ?>">
@@ -45,7 +45,7 @@ if ($result) {
 	</form>
 </section>
 
-<section id="editTag" class="hidden" action="backend/tag/aggiorna_tag.php" method="post">
+<section id="editTag" class="hidden" action="tag/aggiorna_tag.php" method="post">
 	<h2>Modifica Tag</h2>
 	<form>
 		<label for="editTagName">Nuovo Nome</label>

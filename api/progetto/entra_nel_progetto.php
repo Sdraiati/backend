@@ -1,5 +1,5 @@
 <?php
-    include '../config/database.php';
+include_once '../config/database.php';
 
 session_start();
 if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_SESSION["email"])) {

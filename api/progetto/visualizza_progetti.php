@@ -1,8 +1,5 @@
 <?php
-    include '../config/database.php'
-?>
-
-<?php
+include_once '../config/database.php';
 
 // selezionare tutti i progetti associati ad un utente.
 $sql = "SELECT progetto.id, progetto.nome, progetto.descrizione FROM (utente, progetto_utente, progetto) WHERE

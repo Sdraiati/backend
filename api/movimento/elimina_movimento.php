@@ -1,5 +1,5 @@
 <?php
-include '../config/database.php';
+include_once '../config/database.php';
 
 // prendere i valori dalla POST request 
 // in questo momento ci sono solo dei valori di prova.

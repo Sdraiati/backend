@@ -1,6 +1,5 @@
 <?php
-
-include "../config/database.php";
+include_once "../config/database.php";
 
 $email = get_email();
 $project_id = post("project_id");

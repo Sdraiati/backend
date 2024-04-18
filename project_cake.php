@@ -150,7 +150,7 @@ if ($share == null) {
 	<aside class="filtri-tag-container">
 	<a href="project_home.php?id=<?php
 echo $_GET['id'];
-?>">Vai al <span lang"en">homepage<span> del progetto</a>
+?>">Vai al <span lang="en">homepage<span> del progetto</a>
 <!-- Filtri per tag -->
 	<h2>Filtri per Tag</h2>
 	<form id="tag_sidebar">

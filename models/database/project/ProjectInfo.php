@@ -9,8 +9,21 @@ class ProjectInfo {
     }
 
     public function isProjectOwner($projectId, $email) : bool {
-        $sql = "SELECT * FROM progetto_utente WHERE id_progetto = '$projectId' AND email = '$email'";
-        $result = $this->db->query($sql);
-        return mysqli_num_rows($result) > 0;
+        // check if the user exists
+        if (!$this->userInfo->exists($email))
+            die("ProjectInfo: user not found with email $email");
+
+        $sql = "SELECT * FROM progetto_utente WHERE id_progetto = ? AND email = ?";
+
+        $params = [
+            ['type' => 'i', 'value' => $projectId],
+            ['type' => 's', 'value' => $email]
+        ];
+
+        $stmt = $this->db->prepareAndBindParams($sql, $params);
+
+        $stmt->execute() or die($stmt->error);
+
+        return $stmt->num_rows > 0;
     }
 }

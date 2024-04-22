@@ -15,7 +15,7 @@ try {
     $nome = 'risparmio1';
     $descrizione = 'provaprova';
     $email = 'simone@mail.com';
-    $link_condivisione = 'ciao.com';
+    $link_condivisione = 'ciaooo.com';
 
     // Creazione del progetto
      $newProject->createProject($email, $nome, $link_condivisione, $descrizione);

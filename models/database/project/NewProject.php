@@ -1,12 +1,12 @@
 <?php
-define('__ROOT__', dirname(dirname(dirname(dirname(__FILE__)))));
-require_once(__ROOT__.'/api/config/database.php');
+define('__PROJECTROOT__', dirname(__FILE__, 4));
+require_once(__PROJECTROOT__.'/api/config/database.php');
 
-require_once (__ROOT__.'/models/database/user/UserInfo.php');
+require_once (__PROJECTROOT__.'/models/database/user/UserInfo.php');
 
 class NewProject {
-    private $db;
-    private $userInfo;
+    private Database $db;
+    private UserInfo $userInfo;
 
     public function __construct(Database $db) {
         $this->db = $db;
@@ -27,6 +27,19 @@ class NewProject {
         ];
 
         $stmt = $this->db->prepareAndBindParams($sql_progetto, $params);
+
+        $stmt->execute() or die($stmt->error);
+
+        // insert the project into the progetto_utente table
+        $project_id = $stmt->insert_id;
+        $sql_progetto_utente = "INSERT INTO progetto_utente (id_progetto, email) VALUES (?, ?)";
+
+        $params = [
+            ['type' => 'i', 'value' => $project_id],
+            ['type' => 's', 'value' => $email]
+        ];
+
+        $stmt = $this->db->prepareAndBindParams($sql_progetto_utente, $params);
 
         $stmt->execute() or die($stmt->error);
 

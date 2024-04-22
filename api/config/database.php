@@ -20,7 +20,7 @@ class Database {
         }
     }
 
-    public static function getInstance($host, $db_name, $username, $password) {
+    public static function getInstance($host, $db_name, $username, $password) : Database {
         // check if the instance is already created
         if (self::$instance == null) {
             try {
@@ -32,12 +32,25 @@ class Database {
         return self::$instance;
     }
 
-    public function query($sql) {
+    public function query(string $sql) : mysqli_result {
         $result = $this->conn->query($sql);
-        if ($result === false) {
-            die("query error: " . $this->conn->error);
-        }
         return $result;
     }
+    public function prepareAndBindParams(string $sql, array $params) : mysqli_stmt | false {
+        $stmt = $this->conn->prepare($sql);
+
+        $types = "";
+        $values = [];
+        foreach ($params as $param) {
+            // bind_param requires the type in a string
+            $types .= $param['type'];
+            $values[] = $param['value'];
+        }
+
+        if(strlen($types))
+            //... is the spread operator, it allows to pass an array as a list of arguments
+            $stmt->bind_param($types, ...$values);
+
+        return $stmt;
+    }
 }
-?>

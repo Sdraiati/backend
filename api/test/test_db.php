@@ -1,9 +1,9 @@
 <?php
 // Includi il file che contiene la definizione della classe Database
-require_once 'database.php';
+require_once '../config/database.php';
 
 // Definisci le credenziali di accesso al database
-require_once 'db_config.php';
+require_once '../config/db_config.php';
 
 // Variabile per memorizzare il messaggio di errore
 $error_message = '';

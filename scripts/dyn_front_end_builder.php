@@ -4,7 +4,7 @@
 // project_cake
 // project_home
 // project_shared
-// {{ Project Name }}
+// {{ ProjectInfo Name }}
 
 // accout_home
 // {{ Account Name }}
@@ -19,9 +19,9 @@ function get_html($path) {
 	$array = [
     	["path" => "index", "title" => "Home"],
     	["path" => "account_home", "title" => "Account Home"],
-    	["path" => "project_home", "title" => "Project Home"],
-		["path" => "project_cake", "title" => "Project Cake"],
-    	["path" => "project_shared", "title" => "Shared Project"],
+    	["path" => "project_home", "title" => "ProjectInfo Home"],
+		["path" => "project_cake", "title" => "ProjectInfo Cake"],
+    	["path" => "project_shared", "title" => "Shared ProjectInfo"],
     	["path" => "tag_page", "title" => "Tag Page"]
 	];
 

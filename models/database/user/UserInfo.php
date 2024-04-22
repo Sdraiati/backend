@@ -10,8 +10,7 @@ class UserInfo
     {
         $this->db = $db;
     }
-    public function exists(string $email)
-    {
+    public function exists(string $email) : bool {
         $sql = "SELECT * FROM utente WHERE email = '$email'";
         $result = $this->db->query($sql);
         return $result->num_rows > 0;

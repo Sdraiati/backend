@@ -1,18 +1,10 @@
 <?php
-define('__PROJECTROOT__', dirname(__FILE__, 4));
-require_once(__PROJECTROOT__.'/api/config/database.php');
+require_once ('Project.php');
 
-require_once (__PROJECTROOT__.'/models/database/user/UserInfo.php');
-
-class NewProject {
-    private Database $db;
-    private UserInfo $userInfo;
-
+class NewProject extends Project {
     public function __construct(Database $db) {
-        $this->db = $db;
-        $this->userInfo = new UserInfo($db);
+        parent::__construct($db);
     }
-
     public function createProject($email, $nome, $link_condivisione, $descrizione='') : bool {
         // check if the user exists
         if (!$this->userInfo->exists($email))

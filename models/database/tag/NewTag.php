@@ -4,7 +4,7 @@ require_once(__PROJECTROOT__.'/api/config/database.php');
 
 require_once (__PROJECTROOT__.'/models/database/user/UserInfo.php');
 
-class TagInfo {
+class NewTag {
     private Database $db;
 
     public function __construct(Database $db) {

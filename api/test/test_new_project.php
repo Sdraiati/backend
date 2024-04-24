@@ -31,4 +31,3 @@ if ($error_message != '') {
     echo "<h1>Errore:</h1>";
     echo "<p>" . $error_message . "</p>";
 }
-?>

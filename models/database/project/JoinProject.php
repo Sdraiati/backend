@@ -1,5 +1,7 @@
 <?php
 require_once ('Project.php');
+require_once (__PROJECTROOT__.'/models/database/user/UserInfo.php');
+require_once (__PROJECTROOT__.'/models/database/project/ProjectInfo.php');
 class JoinProject extends Project {
     protected UserInfo $userInfo;
     protected ProjectInfo $projectInfo;

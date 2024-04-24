@@ -1,8 +1,7 @@
 <?php
 require_once ('Tag.php');
 class TagInfo extends Tag {
-    public function __construct(Database $db)
-    {
+    public function __construct(Database $db) {
         parent::__construct($db);
     }
 

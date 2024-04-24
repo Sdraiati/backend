@@ -12,10 +12,9 @@ try {
     // Crea un'istanza della classe ProjectInfo
     $projectInfo = new ProjectInfo($database);
 
-    $email = 'simone@mail.com';
-    $id_progetto = 6;
+    $id_progetto = 2;
 
-    echo "esito: " . $projectInfo->isProjectOwner($id_progetto, $email);
+    echo "esito: " . $projectInfo->exists($id_progetto);
 } catch (Exception $e) {
     // Memorizza il messaggio di errore
     $error_message = $e->getMessage();

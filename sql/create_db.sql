@@ -26,7 +26,7 @@ CREATE TABLE tag (
     id_progetto INT NOT NULL,
     descrizione TEXT , 
     PRIMARY KEY (id),
-    FOREIGN KEY (id_progetto) REFERENCES progetto(id)
+    FOREIGN KEY (id_progetto) REFERENCES progetto(id) ON DELETE CASCADE
 );
 
 -- creazione della tabella movimento 
@@ -41,16 +41,16 @@ CREATE TABLE movimento (
     descrizione TEXT, 
     tag_id INT NULL,
 	PRIMARY KEY (id),
-    FOREIGN KEY (id_progetto) REFERENCES progetto(id),
-    FOREIGN KEY (tag_id) REFERENCES tag(id)
+    FOREIGN KEY (id_progetto) REFERENCES progetto(id) ON DELETE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES tag(id) ON DELETE SET NULL
 );
 
 CREATE TABLE progetto_utente(
     email VARCHAR(255) NOT NULL, 
     id_progetto INT NOT NULL,
     PRIMARY KEY (email, id_progetto),
-    FOREIGN KEY (email) REFERENCES utente(email),
-    FOREIGN KEY (id_progetto) REFERENCES progetto(id)
+    FOREIGN KEY (email) REFERENCES utente(email) ON DELETE CASCADE,
+    FOREIGN KEY (id_progetto) REFERENCES progetto(id) ON DELETE CASCADE
 );
 
 -- un tag può essere appartenente a più progetti e  

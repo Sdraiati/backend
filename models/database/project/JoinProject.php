@@ -1,14 +1,10 @@
 <?php
-require_once ('Project.php');
-require_once (__PROJECTROOT__.'/models/database/user/UserInfo.php');
-require_once (__PROJECTROOT__.'/models/database/project/ProjectInfo.php');
-class JoinProject extends Project {
+require_once ('UserProject.php');
+class JoinProject extends UserProject {
     protected UserInfo $userInfo;
     protected ProjectInfo $projectInfo;
     public function __construct(Database $db) {
         parent::__construct($db);
-        $this->userInfo = new UserInfo($db);
-        $this->projectInfo = new ProjectInfo($db);
     }
 
     public function joinProject($email, $project_id) : bool {

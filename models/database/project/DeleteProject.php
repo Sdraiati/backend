@@ -1,6 +1,7 @@
 <?php
-require_once ('Project.php');
-class DeleteProject extends Project {
+define('__PROJECTROOT__', dirname(__FILE__, 4));
+require_once (__PROJECTROOT__.'/models/database/DatabaseManager.php');
+class DeleteProject extends DatabaseManager {
     public function __construct(Database $db) {
         parent::__construct($db);
     }

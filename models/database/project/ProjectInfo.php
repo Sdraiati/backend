@@ -1,14 +1,13 @@
 <?php
-require_once ('Project.php');
-class ProjectInfo extends Project
-{
+define('__PROJECTROOT__', dirname(__FILE__, 4));
+require_once (__PROJECTROOT__.'/models/database/DatabaseManager.php');
+class ProjectInfo extends DatabaseManager {
     public function __construct(Database $db)
     {
         parent::__construct($db);
     }
 
-    public function exists($projectId): bool
-    {
+    public function exists($projectId): bool {
         $sql = "SELECT * FROM progetto WHERE id = ?";
         $params = [
             ['type' => 'i', 'value' => $projectId]

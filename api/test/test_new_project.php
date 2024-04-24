@@ -20,7 +20,6 @@ try {
     // Creazione del progetto
      $newProject->createProject($email, $nome, $link_condivisione, $descrizione);
 
-    // Visualizza l'ID del progetto creato
     echo "Il progetto è stato creato con successo";
 } catch (Exception $e) {
     // Memorizza il messaggio di errore

@@ -1,24 +1,18 @@
 <?php
-define('__PROJECTROOT__', dirname(__FILE__, 4));
-require_once(__PROJECTROOT__.'/api/config/database.php');
-
-require_once (__PROJECTROOT__.'/models/database/user/UserInfo.php');
-
-class NewTag {
-    private Database $db;
-
+require_once ('Tag.php');
+class NewTag extends Tag {
     public function __construct(Database $db) {
-        $this->db = $db;
+        parent::__construct($db);
     }
 
-    public function createTag($id_progetto, $nome, $descrizione='') : bool {
+    public function createTag($projectId, $tagName, $tagDescription='') : bool {
 
         $sql_tag = "INSERT INTO tag (id_progetto, nome, descrizione) VALUES (?, ?, ?)";
 
         $params = [
-            ['type' => 'i', 'value' => $id_progetto],
-            ['type' => 's', 'value' => $nome],
-            ['type' => 's', 'value' => $descrizione]
+            ['type' => 'i', 'value' => $projectId],
+            ['type' => 's', 'value' => $tagName],
+            ['type' => 's', 'value' => $tagDescription]
         ];
 
         $stmt = $this->db->prepareAndBindParams($sql_tag, $params);

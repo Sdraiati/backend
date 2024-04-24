@@ -11,7 +11,7 @@ try {
 
     $newTag = new NewTag($database);
 
-    $nome = 'bollette';
+    $nome = 'trasporti';
     $projectID = 6;
     $descrizione = 'provaprova';
 

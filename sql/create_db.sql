@@ -1,5 +1,7 @@
 -- queries in sql per creare le tabelle
-
+DROP DATABASE IF EXISTS penny_wise_db;
+CREATE DATABASE penny_wise_db;
+USE penny_wise_db;
 -- crezione tabella progetto
 CREATE TABLE progetto (
     id INT NOT NULL AUTO_INCREMENT , 
@@ -19,7 +21,7 @@ CREATE TABLE utente (
 -- creazione della relazione tag
 -- id presente in quanto all'interno della relazione movimento, 
 -- ci si riferisce a tag.id => ogni aggiornamento su tag
--- può essere fatto in modo indipendente senza dover alterare la tabella movimento. 
+-- può essere fatto in modo indipendente senza dover alterare la tabella movimento.
 CREATE TABLE tag (
 	id INT NOT NULL AUTO_INCREMENT, 
     nome VARCHAR(255) NOT NULL, 

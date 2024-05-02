@@ -16,7 +16,7 @@ try {
     $userInfo = new UserInfo($database);
 
     // Esegui il test per verificare se l'email esiste
-    $email = 'simone@mail.com';
+    $email = "email2@example.com";
     $exists = $userInfo->exists($email);
 
     // Visualizza il risultato del test

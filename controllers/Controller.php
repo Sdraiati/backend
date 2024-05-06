@@ -11,7 +11,7 @@ class Controller
 
     public function renderPageTitle(): void {
         $pageTitle = "IL TITOLO"; // Titolo della pagina
-        $content = file_get_contents("index.php");
+        $content = file_get_contents("views/index.html");
         $replacements = ['{title}' => $pageTitle];
 
         echo strtr($content, $replacements);
@@ -20,11 +20,15 @@ class Controller
     public function renderAboutUsPage(): void
     {
         $pageTitle = "Penny Wise"; // Titolo della pagina
-        $content = file_get_contents("about_us.html"); // Contenuto della pagina about_us.html
+        $content = file_get_contents("views/about_us.html"); // Contenuto della pagina about_us.html
         $replacements = ['{title}' => $pageTitle]; // Sostituzione del placeholder {title}
 
         echo strtr($content, $replacements); // Stampare il contenuto con i placeholder sostituiti
     }
 
     // Altri metodi per gestire altre pagine, se necessario...
+
+    public function renderPage($page): void{
+        echo $page;
+    }
 }

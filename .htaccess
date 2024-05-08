@@ -1,1 +1,6 @@
-ErrorDocument 404 /backend/output/resource_not_found.html
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    #RewriteBase /backend
+    RewriteRule ^ /index.php [L]
+</IfModule>
+

@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     #RewriteBase /backend
-    RewriteRule ^ /index.php [L]
+    RewriteRule ^ /bachend/index.php [L]
 </IfModule>
 

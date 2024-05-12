@@ -1,24 +1,20 @@
 <?php
 
 include "controllers/Controller.php";
-include "scripts/generate_header.php";
 
-$coso = new Controller();
+$controller = new Controller();
 
-#print $_SERVER['REQUEST_URI'];
-
-if($_SERVER['REQUEST_METHOD'] == "GET" && $_SERVER['REQUEST_URI'] == "/index.php")
+if($_SERVER['REQUEST_METHOD'] == "GET" && $_SERVER['REQUEST_URI'] == "/backend/index.php")
 {
-    $html_content = file_get_contents('views/index.html');
-    $header = generate_header("index");
-    $html_content = $header . $html_content;
-    $coso->renderPage($html_content);
+    $controller->renderPage("index", "IL TITOLO");
 }
-else if($_SERVER['REQUEST_METHOD'] == "GET" && $_SERVER['REQUEST_URI'] == "/about_us")
+else if($_SERVER['REQUEST_METHOD'] == "GET" && $_SERVER['REQUEST_URI'] == "/backend/about_us")
 {
-    print $_SERVER['REQUEST_URI'];
-    $coso->renderAboutUsPage();
+    $controller->renderPage("about_us", "Penny Wise");
 }
 else{
+    //scommentare la riga sotto quando sarà disponibile il file error.html
+    //$controller->renderPage("error");
     print $_SERVER['REQUEST_URI'];
+    //error 404
 }

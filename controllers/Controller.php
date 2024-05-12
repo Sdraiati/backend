@@ -1,5 +1,6 @@
 <?php
 
+include "scripts/generate_header.php";
 class Controller
 {
     protected string $baseUrl;
@@ -28,7 +29,11 @@ class Controller
 
     // Altri metodi per gestire altre pagine, se necessario...
 
-    public function renderPage($page): void{
-        echo $page;
+    public function renderPage($titlePage, $title): void{
+        $html_content = file_get_contents("views/".$titlePage.".html");
+        $replacements = ['{title}' => $title];
+        $header = generate_header($titlePage);
+        $html_content = $header . $html_content;
+        echo strtr($html_content, $replacements);
     }
 }

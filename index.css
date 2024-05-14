@@ -231,8 +231,8 @@ button[disabled]
 
 .allert
 {
+    display: flex;
     text-align: center;
-    display: none;
     flex-direction: column;
     justify-content: center;
     position: fixed;
@@ -293,7 +293,7 @@ button[disabled]
     .allert
     {
         text-align: center;
-        display: none;
+        display: flex;
         flex-direction: column;
         justify-content: center;
         position: fixed;

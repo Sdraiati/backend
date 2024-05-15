@@ -1,6 +1,5 @@
 <?php
-define('__PROJECTROOT__', dirname(__FILE__, 4));
-require_once (__PROJECTROOT__.'/models/database/DatabaseManager.php');
+require_once ('UserProject.php');
 
 class NewProject extends UserProject {
     public function __construct(Database $db) {

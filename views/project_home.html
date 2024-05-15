@@ -17,17 +17,28 @@
 
 
 <body>
-<nav>
-	<div class="Logo">
-		<a href="index"><img src="assets/img/logo.jpeg" alt="logo"></a>
-	</div>
-	<div class="Login">
-		<ul class="login-list">
-			<li><button data-button-kind="accedi">Accedi</button></li>
-			<li><button data-button-kind="registrati">Registrati</button></li>
-			<li class="hidden"><a href="account_home" id="utente">Utente</a></li>
-		</ul>
-</nav>
+
+<!-- <title>{{Project Name}}</title> -->
+<!-- Riferimento al file JavaScript esterno per la generazione del line chart -->
+<!-- <script src="line_chart_script.js"></script> -->
+
+<header>
+	<nav>
+		<div class="Logo">
+			<a href="index"><img src="assets/img/logo.jpeg" alt="logo"></a>
+		</div>
+		<div class="Login">
+			<ul class="login-list">
+				<li><button data-button-kind="accedi">Accedi</button></li>
+				<li><button data-button-kind="registrati">Registrati</button></li>
+				<li class="hidden"><a href="account_home" id="utente">Utente</a></li>
+			</ul>
+		</div>
+	</nav>
+	<h1>{{ Project Name }}</h1>
+	<button type="button" data-button-kind="editProject">Modifica Progetto</button>
+	<button type="button" data-button-kind="shareProject">Condividi Progetto</button>
+</header>
 
 <section id="accedi" class="hidden">
 </section>
@@ -36,16 +47,6 @@
 </section>
 
 <script type="module" src="assets/js/nav.js"></script>
-
-<!-- <title>{{Project Name}}</title> -->
-<!-- Riferimento al file JavaScript esterno per la generazione del line chart -->
-<!-- <script src="line_chart_script.js"></script> -->
-
-<header>
-	<h1>{{ Project Name }}</h1>
-	<button type="button" data-button-kind="editProject">Modifica Progetto</button>
-	<button type="button" data-button-kind="shareProject">Condividi Progetto</button>
-</header>
 
 <!-- Modifica Progetto -->
 <section id="editProject" class="hidden">

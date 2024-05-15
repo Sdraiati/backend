@@ -2,7 +2,7 @@
 define('__PROJECTROOT__', dirname(__FILE__, 4));
 require_once (__PROJECTROOT__.'/models/database/DatabaseManager.php');
 
-class NewProject extends DatabaseManager {
+class NewProject extends UserProject {
     public function __construct(Database $db) {
         parent::__construct($db);
     }

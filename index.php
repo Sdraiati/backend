@@ -1,14 +1,9 @@
 <?php
 
-include "controllers/Controller.php";
-include "models/database/project/NewProject.php";
-include "config/database.php";
-include "config/db_config.php";
-
-/*L'UNICO SCOPO DI QUESTA FUNZIONE E' QUELLA DI TOGLIERE I PUNTI .HTML, .PHP 
-DAI LINK VISTO CHE LE PROVE CHE FACCIO IN LOCALE NON SFRUTTANO APACHE,
-IN CASO DOVESSE SMETTERE DI SERVIRE, BASTERA LETTERALMENTE SCRIVERE "$controller->renderPage($url);" AL POSTO DI "$controller->renderPage(formatUrl($url));"
-*/
+require_once("controllers/Controller.php");
+require_once("models/database/project/NewProject.php");
+require_once("api/config/database.php");
+require_once("api/config/db_config.php");
 
 function formatUrl($stringa) {
     $posizionePunto = strpos($stringa, '.');
@@ -20,39 +15,38 @@ function formatUrl($stringa) {
     }
 }
 
+session_start();
 $database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
 $controller = new Controller();
-$newProject = new NewProject($database);
 
 if($_SERVER['REQUEST_METHOD'] == "GET")
 {
+    $logged = isset($_COOKIE["logIn"]);
+    if($logged) {$_SESSION["LogIn"] = $_COOKIE["LogIn"];}
     try{
-        $url = str_replace("/backend/", "", $_SERVER['REQUEST_URI']);
-        $controller->renderPage(formatUrl($url));
+        $controller->renderPage(formatUrl($_SERVER['REQUEST_URI']), $logged);
     }catch (Exception $e) {
-        $controller->renderPage("resource_not_found"); 
+        $controller->renderPage("resource_not_found", $logged); 
     }  
 }
-else if($_SERVER['REQUEST_METHOD'] == "POST" && $_SERVER['REQUEST_URI']=="/backend/project_creation")
+else if($_SERVER['REQUEST_METHOD'] == "POST")
 {
-    $error_message = '';
-    try{
-        $nome = 'risparmio1';
-        $descrizione = 'provaprova';
-        $email = 'simone@mail.com';
-        $link_condivisione = 'ciaooo.com';
-
-        $newProject->createProject($email, $nome, $link_condivisione, $descrizione);
-    }
-    catch(Exception $e)
+    if($_SERVER['REQUEST_URI']=="/account_home")
     {
-        $error_message = $e->getMessage();
-    }
-    if ($error_message != '') {
-        echo "<h1>Errore:</h1>";
-        echo "<p>" . $error_message . "</p>";
+        if(isset($_SESSION["LogIn"]))
+        {
+            $nome = $_POST["nomeProgetto"];
+            $descrizione = $_POST["descrizioneProgetto"];
+            $email = $_SESSION["LogIn"]["email"];
+            $link_condivisione = 'bho';
+            $newProject = new NewProject($database);
+            $newProject->createProject($email, $nome, $link_condivisione, $descrizione);
+        }
+        else{
+            $controller->renderPage(formatUrl($_SERVER['REQUEST_URI']), isset($_COOKIE["logIn"]));
+        }
     }
 }
 else{
-    print $_SERVER['REQUEST_URI'];
+    $controller->renderPage("resource_not_found", isset($_COOKIE["logIn"]));
 }

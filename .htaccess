@@ -3,4 +3,3 @@
     #RewriteBase /backend
     RewriteRule ^ /bachend/index.php [L]
 </IfModule>
-

@@ -18,7 +18,7 @@ try {
     $link_condivisione = 'ciaooo.com';
 
     // Creazione del progetto
-     $newProject->createProject($email, $nome, $link_condivisione, $descrizione);
+    $newProject->createProject($email, $nome, $link_condivisione, $descrizione);
 
     echo "Il progetto è stato creato con successo";
 } catch (Exception $e) {

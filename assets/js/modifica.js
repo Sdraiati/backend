@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 	<button type="submit">Registrati</button>
 	</form>`;
 	let popUpNewProject = `<h2>Crea un Nuovo Progetto</h2>
-	<form id="newProjectForm" action="/backend/project_creation", method="post">
+	<form id="newProjectForm" action="/account_home", method="post">
 		<label for=" inputNomeProgetto">Nome Progetto:</label>
 		<input type="text" id="inputNomeProgetto" name="nomeProgetto" required>
 		<label for="inputDescrizioneProgetto">Descrizione:</label>

@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		<button type="button" data-button-kind="accedi">Annulla</button>
 		<button type="submit">Accedi</button>
 	</form>`;
-	let popUpRegistrati = `<h2>Registrazione</h2>	<form id="registratiForm" action="javascript:void(0)">
+	let popUpRegistrati = `<h2>Registrazione</h2>	<form id="registratiForm" action="/registration", method="post",  onsubmit="return validaForm()">
 	<label for="signupUsername">Nome Utente:</label>
 	<input type="text" id="signupUsername" name="username" required autocomplete="username">
 	<label for="signupEmail">Email:</label>
@@ -56,3 +56,15 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		}
 	});
 })
+
+function validaForm()
+{
+	var password1 = document.getElementById("signupPassword").value;
+	var password2 = document.getElementById("signupConfirmPassword").value;
+
+	if (password1 !== password2) {
+		alert("Le password non corrispondono!");
+		return false;
+	}
+	return true;
+}

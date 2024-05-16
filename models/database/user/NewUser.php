@@ -1,5 +1,5 @@
 <?php
-define('__USERROOT__', dirname(__FILE__, 4));
+define('__NEWUSERROOT__', dirname(__FILE__, 4));
 require_once (__PROJECTROOT__.'/models/database/DatabaseManager.php');
 class NewUser extends DatabaseManager {
     public function __construct(Database $db) {

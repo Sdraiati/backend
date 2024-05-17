@@ -22,4 +22,17 @@ class Controller
         }
 
     }
+
+    public function renderProjectPage($titlePage, $logged, $projects): void{
+        $fileName = "views/".$titlePage.".html";
+        if(file_exists($fileName))
+        {
+            $html_content = file_get_contents($fileName);
+            echo $html_content;
+        }
+        else{
+            throw new Exception("file not found!");
+        }
+
+    }
 }

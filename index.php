@@ -2,15 +2,7 @@
 
 require_once("routes.php");
 
-function formatUrl($stringa) {
-    $posizionePunto = strpos($stringa, '.');
-    
-    if ($posizionePunto !== false) {
-        return substr($stringa, 0, $posizionePunto);
-    } else {
-        return $stringa;
-    }
-}
+
 
 session_start();
 

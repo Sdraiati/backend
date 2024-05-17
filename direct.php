@@ -4,7 +4,19 @@ require_once("controllers/Controller.php");
 require_once("api/config/database.php");
 require_once("api/config/db_config.php");
 require_once("models/database/project/NewProject.php");
+require_once("models/database/project/ListProject.php");
 require_once("models/database/user/NewUser.php");
+
+function formatUrl($stringa) {
+    $posizionePunto = strpos($stringa, '.');
+    
+    if ($posizionePunto !== false) {
+        return substr($stringa, 0, $posizionePunto);
+    } else {
+        return $stringa;
+    }
+}
+
 
 $database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
 $controller = new Controller();
@@ -17,7 +29,6 @@ function generalPage($_, $logged)
 
 function registration($method, $logged)
 {
-    global $controller;
     global $database;
     if($method == "POST")
     {
@@ -50,7 +61,9 @@ function account_home($method, $logged)
     }
     else if($method == "GET")
     {
-        //lista progetti
-        $controller->renderPage(formatUrl($_SERVER['REQUEST_URI']), $logged);
+        $project_list = '';
+        //$project_list = new ListProject();
+        //$project_list->renderProjectPage();
+        $controller->renderProjectPage(formatUrl($_SERVER['REQUEST_URI']), $logged, $project_list);
     }
 }

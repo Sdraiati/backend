@@ -1,22 +1,35 @@
-version: '3.8'
-services:    
-  php-apache-environment:     
-    container_name: php-apache
-    image: php:8.0-apache
-    volumes:        
-      - .:/var/www/html/
+version: "3.7"
+
+services:
+  webserver:
+    image: php:8.1-apache
+
     ports:
-      - 8000:80
-  mariadb:
-    container_name: mariadb
-    image: mariadb:10.6
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: penny_wise_db
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: mypassword
+      - "8080:80"
     volumes:
-      - ./sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
-      - ./sql/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
+      - .:/var/www/html
+      - ./apache/conf:/etc/apache2/sites-available
+      - ./config/php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - phpmyadmin
+    command: bash -c "docker-php-ext-install mysqli && a2enmod rewrite && apache2-foreground"
+
+  db:
+    image: mariadb:10.6
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./volumes/mysql_data:/var/lib/mysql
+      - ./init-scripts:/docker-entrypoint-initdb.d # Mount the init-scripts directory
+    command: --init-file /docker-entrypoint-initdb.d/init.sql # Specify the initialization script
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
     ports:
-      - 3333:3306
+      - "8081:80"
+    environment:
+      - PMA_ARBITRARY=1
+    depends_on:
+      - db

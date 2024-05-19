@@ -12,9 +12,9 @@ $routes = array(
     "/index" => function($method, $logged) {
         generalPage($method, $logged);
     },
-    "/registration" => function($method, $logged)
+    "/registration" => function($method, $_)
     {
-        registration($method, $logged);
+        registration($method);
     },
     "/project_cake" => function($method, $logged) {
         generalPage($method, $logged);

@@ -10,12 +10,36 @@ class Controller
         $this->baseUrl = rtrim('backend', '/'); // first is base url
     }
 
-    public function renderPage($titlePage, $logged): void{
+    private function loggedState($html_content, $logged)
+    {
+        $loggedHeader = '<div class="Login">
+        <ul class="login-list">
+            <li><a href="account_home" id="utente">Utente</a></li>
+        </ul>
+    </div>	';
+        $noLoggedHeader = '<div class="Login">
+        <ul class="login-list">
+            <li><button data-button-kind="accedi">Accedi</button></li>
+            <li><button data-button-kind="registrati">Registrati</button></li>
+            <li class="hidden"><a href="account_home" id="utente">Utente</a></li>
+        </ul>
+    </div>	';
+        if($logged)
+        {
+            $html_content = str_replace("{{ header }}", $loggedHeader, $html_content);
+        }
+        else{
+            $html_content = str_replace("{{ header }}", $noLoggedHeader, $html_content);
+        }
+        return $html_content;
+    }
+
+    private function getPage($titlePage, $logged){
         $fileName = "views/".$titlePage.".html";
         if(file_exists($fileName))
         {
             $html_content = file_get_contents($fileName);
-            echo $html_content;
+            return $this->loggedState($html_content, $logged);
         }
         else{
             throw new Exception("file not found!");
@@ -23,16 +47,19 @@ class Controller
 
     }
 
-    public function renderProjectPage($titlePage, $logged, $projects): void{
-        $fileName = "views/".$titlePage.".html";
-        if(file_exists($fileName))
-        {
-            $html_content = file_get_contents($fileName);
-            echo $html_content;
-        }
-        else{
-            throw new Exception("file not found!");
-        }
+    public function renderPage($titlePage, $logged): void{
+        echo $this->getPage($titlePage, $logged);
+    }
 
+    public function renderProjectPage($titlePage, $logged, $projects): void{
+        $html_content = $this->getPage($titlePage, $logged);
+        $html_content = str_replace("{{ username }}", json_decode($_COOKIE['LogIn'], true)['username'], $html_content);
+        $projectList = "";
+        foreach($projects as $project)
+        {
+            $projectList = $projectList . $project;
+        }
+        $html_content = str_replace("{{ projects }}", $projectList, $html_content);
+        echo $html_content;
     }
 }

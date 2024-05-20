@@ -9,6 +9,10 @@ $routes = array(
     "/account_home" => function($method, $logged) {
         account_home($method, $logged);
     },
+    "/" => function($method, $logged) {
+		$_SERVER['REQUEST_URI'] = "/index";
+        generalPage($method, $logged);
+    },
     "/index" => function($method, $logged) {
         generalPage($method, $logged);
     },

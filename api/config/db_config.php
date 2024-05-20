@@ -1,6 +1,6 @@
 <?php
-define('DB_HOST', 'localhost');
+define('DB_HOST', 'db');
 define('DB_NAME', 'penny_wise_db');
-define('DB_USERNAME', 'simone');
-define('DB_PASSWORD', 'user');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', 'root');
 ?>

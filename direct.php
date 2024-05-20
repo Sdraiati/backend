@@ -50,8 +50,8 @@ function account_home($method, $logged)
         {
             $nome = $_POST["nomeProgetto"];
             $descrizione = $_POST["descrizioneProgetto"];
-            $email = $_SESSION["LogIn"]["email"];
-            $link_condivisione = 'bho2';
+            $email = json_decode($_SESSION["LogIn"], true)["email"];
+            $link_condivisione = 'bho3';
             $newProject = new NewProject($database);
             $newProject->createProject($email, $nome, $link_condivisione, $descrizione);
             header("Location: /account_home");

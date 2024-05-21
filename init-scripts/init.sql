@@ -4,6 +4,7 @@ CREATE DATABASE penny_wise_db;
 USE penny_wise_db;
 
 -- creazione utente
+DROP USER 'user'@'%';
 CREATE USER 'user'@'%' IDENTIFIED BY 'user';
 GRANT ALL PRIVILEGES ON penny_wise_db.* TO 'user'@'%';
 -- crezione tabella progetto

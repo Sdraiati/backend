@@ -2,6 +2,10 @@
 DROP DATABASE IF EXISTS penny_wise_db;
 CREATE DATABASE penny_wise_db;
 USE penny_wise_db;
+
+-- creazione utente
+CREATE USER 'user'@'%' IDENTIFIED BY 'user';
+GRANT ALL PRIVILEGES ON penny_wise_db.* TO 'user'@'%';
 -- crezione tabella progetto
 CREATE TABLE progetto (
                           id INT NOT NULL AUTO_INCREMENT ,

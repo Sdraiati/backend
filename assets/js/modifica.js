@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(_) {
 	let popUpAccedi = `<h2>Login</h2>
 	<form id="loginForm" action="javascript:void(0)">
+		<div id="loginError" class="error-hidden">{{LoginError}}</div>
 		<label for="loginEmail">Email:</label>
 		<input type="email" id="loginEmail" name="email" required autocomplete="email">
 		<label for="loginPassword">Password:</label>
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		<button type="submit">Accedi</button>
 	</form>`;
 	let popUpRegistrati = `<h2>Registrazione</h2>	<form id="registratiForm" action="/registration", method="post",  onsubmit="return validaForm()">
+	<div id="registrationError" class="error-hidden">{{RegistratioError}}</div>
 	<label for="signupUsername">Nome Utente:</label>
 	<input type="text" id="signupUsername" name="username" required autocomplete="username">
 	<label for="signupEmail">Email:</label>

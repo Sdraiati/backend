@@ -12,9 +12,9 @@ class UserInfo extends DatabaseManager {
         return $result->num_rows > 0;
     }
 
-    public function checkPassword(string $email, string $password) : bool {
+    public function getUser(string $email, string $password) {
         $sql = "SELECT * FROM utente WHERE email = '$email' AND password = '$password'";
         $result = $this->db->query($sql);
-        return $result->num_rows > 0;
+        return $result;
     }
 }

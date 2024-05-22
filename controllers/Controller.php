@@ -53,7 +53,14 @@ class Controller
 
     public function renderProjectPage($titlePage, $logged, $projects): void{
         $html_content = $this->getPage($titlePage, $logged);
-        if($logged){$html_content = str_replace("{{ username }}", json_decode($_COOKIE['LogIn'], true)['username'], $html_content);}
+        if($logged){
+            $data = json_decode($_COOKIE['LogIn'], true); 
+        }
+        else{
+            $data = ['username'=>'', 'email'=>''];
+        }
+        $html_content = str_replace("{{ username }}", $data['username'], $html_content);
+        $html_content = str_replace("{{ email }}", $data['email'], $html_content);
         $projectList = "";
         foreach($projects as $project)
         {

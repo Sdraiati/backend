@@ -20,6 +20,14 @@ $routes = array(
     {
         registration($method);
     },
+    "/access" => function($method, $_)
+    {
+        access($method);
+    },
+    "/modifyCredentials" => function($method, $_)
+    {
+        modifyCredentials($method);
+    },
     "/project_cake" => function($method, $logged) {
         generalPage($method, $logged);
     },

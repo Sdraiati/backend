@@ -51,6 +51,12 @@ abstract class Api
 		return true;
 	}
 
+	protected function error($message)
+	{
+		header('Content-Type: application/json');
+		echo json_encode(['error' => $message]);
+	}
+
 	protected function getInputParams()
 	{
 		$params = [];

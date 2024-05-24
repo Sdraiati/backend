@@ -6,6 +6,9 @@ require_once("api/config/db_config.php");
 require_once("models/database/project/NewProject.php");
 //require_once("models/database/project/ListProject.php");
 require_once("models/database/user/NewUser.php");
+require_once("models/database/user/UserInfo.php");
+require_once("models/database/user/ModifyUser.php");
+require_once("models/SetCookie.php");
 
 function formatUrl($stringa) {
     $posizionePunto = strpos($stringa, '.');
@@ -27,6 +30,8 @@ function generalPage($_, $logged)
     $controller->renderPage(formatUrl($_SERVER['REQUEST_URI']), $logged);
 }
 
+
+
 function registration($method)
 {
     global $database;
@@ -34,9 +39,32 @@ function registration($method)
     {
         $newUser = new NewUser($database);
         $newUser->createUser($_POST['email'], $_POST['username'], $_POST['password']);
-        $cookieValue = ["email"=>$_POST['email'], "username"=>$_POST['username'], "password"=>$_POST['password']];
-        setcookie("LogIn", json_encode($cookieValue), time() + (86400 * 30), "/");
-        $_SESSION["LogIn"] = $cookieValue;
+        setCookieUser($_POST['email'], $_POST['username'], $_POST['password']);
+    }
+}
+
+function access($method)
+{
+    global $database;
+    if($method == "POST"){
+        $check = new UserInfo($database);
+        $data = $check->getUser($_POST['email'],$_POST['password']);
+        if($data->num_rows>0){
+            $data = $data->fetch_assoc();
+            setCookieUser($data['email'], $data['username'], $data['password']);
+        }
+        else{
+            throw new Exception("wrong credentials", 1);
+        }
+    }
+}
+
+function modifyCredentials($method)
+{
+    global $database;
+    if($method == "POST"){
+        $mod = new ModifyUser($database);
+        $mod->modify($_POST['newEmail'], $_POST['newUsername'], $_POST['newPassword']);
         header("Location: /account_home");
     }
 }

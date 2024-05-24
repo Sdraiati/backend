@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(_) {
 	let popUpAccedi = `<h2>Login</h2>
-	<form id="loginForm" action="javascript:void(0)">
+	<form id="loginForm" action="/access" method="post">
+		<div id="loginError" class="error-hidden">{{LoginError}}</div>
 		<label for="loginEmail">Email:</label>
 		<input type="email" id="loginEmail" name="email" required autocomplete="email">
 		<label for="loginPassword">Password:</label>
@@ -8,7 +9,8 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		<button type="button" data-button-kind="accedi">Annulla</button>
 		<button type="submit">Accedi</button>
 	</form>`;
-	let popUpRegistrati = `<h2>Registrazione</h2>	<form id="registratiForm" action="/registration", method="post",  onsubmit="return validaForm()">
+	let popUpRegistrati = `<h2>Registrazione</h2>	<form id="registratiForm" action="/registration" method="post" onsubmit="return validaForm()">
+	<div id="registrationError" class="error-hidden">{{RegistratioError}}</div>
 	<label for="signupUsername">Nome Utente:</label>
 	<input type="text" id="signupUsername" name="username" required autocomplete="username">
 	<label for="signupEmail">Email:</label>
@@ -32,7 +34,22 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<button type="submit" id="submitNewProject">Crea Progetto</button>
 		</div>
 	</form>`
-	let diz = {'accedi': popUpAccedi, 'registrati':popUpRegistrati, 'newProject':popUpNewProject};
+	let popUpModifyCredentials = `<h2>Modifica informazioni dell'account</h2>
+	<form id="modificaCredenzialiForm" action="/modifyCredentials" method="post" onsubmit="return validaAccess()">
+		<label for="newEmail">Nuova Email:</label>
+		<input type="email" id="newEmail" name="newEmail">
+		<label for="newUsername">Nuovo Nome Utente:</label>
+		<input type="text" id="newUsername" name="newUsername">
+		<label for="newPassword">Nuova Password:</label>
+		<input type="password" id="newPassword" name="newPassword">
+		<label for="confirmNewPassword">Conferma Nuova Password:</label>
+		<input type="password" id="confirmNewPassword" name="confirmNewPassword">
+		<label for="oldPassword">Vecchia Password:</label>
+		<input type="password" id="oldPassword" name="oldPassword" required>
+		<button type="button" data-button-kind="modificaCredenziali">Annulla</button>
+		<button type="submit" id="submitModificaCredenziali">Salva Modifiche</button>
+	</form>`;
+	let diz = {'accedi': popUpAccedi, 'registrati':popUpRegistrati, 'newProject':popUpNewProject, 'modificaCredenziali':popUpModifyCredentials};
 	document.body.addEventListener("click", function(event) {
 		// Check if the clicked element is a button
 		if (event.target.tagName === "BUTTON") {
@@ -44,14 +61,13 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			else{
 				document.getElementById(id).classList.toggle('hidden');
 				document.getElementById(id).classList.toggle('allert');
-
-				if(document.getElementById(id).classList.contains("hidden"))
+			}
+			if(document.getElementById(id).classList.contains("hidden"))
 				{
 					document.getElementById(id).innerHTML = ``;
 				}
-				else{
-					document.getElementById(id).innerHTML = diz[id];
-				}
+			else{
+				document.getElementById(id).innerHTML = diz[id];
 			}
 		}
 	});
@@ -67,4 +83,19 @@ function validaForm()
 		return false;
 	}
 	return true;
+}
+
+function validaAccess(){
+	const cookieName = "LogIn";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+
+    for (let i = 0; i < cookieArray.length; i++) {
+        let cookie = cookieArray[i].trim();
+        if (cookie.indexOf(cookieName) === 0) {
+            return true;
+        }
+    }
+	alert("Devi fare prima il Log-In");
+    return false;
 }

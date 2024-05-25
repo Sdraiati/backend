@@ -4,7 +4,7 @@ require_once("controllers/Controller.php");
 require_once("api/config/database.php");
 require_once("api/config/db_config.php");
 require_once("models/database/project/NewProject.php");
-//require_once("models/database/project/ListProject.php");
+require_once("models/database/project/ProjectInfo.php");
 require_once("models/database/user/NewUser.php");
 require_once("models/database/user/UserInfo.php");
 require_once("models/database/user/ModifyUser.php");
@@ -90,9 +90,9 @@ function account_home($method, $logged)
     }
     else if($method == "GET")
     {
-        $project_list = array();
-        //$project_list = new ListProject();
-        //$project_list->renderProjectPage();
-        $controller->renderProjectPage(formatUrl($_SERVER['REQUEST_URI']), $logged, $project_list);
+        global $controller;
+        global $database;
+        $project_list = new ProjectInfo($database);
+        $controller->renderProjectPage(formatUrl($_SERVER['REQUEST_URI']), $logged, $project_list->getProjectList());
     }
 }

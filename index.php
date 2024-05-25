@@ -47,5 +47,5 @@ $router = new Router();
 
 $router->addRoute($registerUser);
 
-$router->handle($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
-*/
+$router->handle($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);*/
+

@@ -289,6 +289,20 @@ button[disabled]
     flex: 40%;
 }
 
+#project-list {
+    display: grid;
+}
+
+.projectContainer{
+    display: grid;
+    border: 1px solid #ccc;
+    padding: var(--paddingElements);
+    margin: var(--paddingElementsSmall);
+    background-color: rgb(12, 12, 12);
+    border-radius: 5px;
+    width: 300px;
+}
+
 @media (max-width: 1280px) {
     .allert
     {

@@ -64,7 +64,12 @@ class Controller
         $projectList = "";
         foreach($projects as $project)
         {
-            $projectList = $projectList . '<il><span>'.$project['nome'].'</span></il>';
+            $projectList = $projectList . '<il class="projectContainer">
+                                            <span>'.$project['nome'].'</span>
+                                            <span>'.$project['descrizione'].'</span>
+                                            <button>condividi</button>
+                                            <button>apri</button>
+                                            </il>';
         }
         $html_content = str_replace("{{ projects }}", $projectList, $html_content);
         echo $html_content;

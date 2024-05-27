@@ -51,10 +51,12 @@ class Controller
         echo $this->getPage($titlePage, $logged);
     }
 
-    public function renderProjectPage($titlePage, $logged, $projects): void{
+    public function renderProjectPage($titlePage, $logged, $projectManager): void{
         $html_content = $this->getPage($titlePage, $logged);
+        $projects = array();
         if($logged){
             $data = json_decode($_COOKIE['LogIn'], true); 
+            $projects = $projectManager->getProjectList($data['email']);
         }
         else{
             $data = ['username'=>'', 'email'=>''];
@@ -71,6 +73,7 @@ class Controller
                                             <button>apri</button>
                                             </il>';
         }
+        //$projectList = $projectList . '<p>'.$data['email'].'</p>';
         $html_content = str_replace("{{ projects }}", $projectList, $html_content);
         echo $html_content;
     }

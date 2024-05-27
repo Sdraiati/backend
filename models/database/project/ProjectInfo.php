@@ -27,9 +27,9 @@ class ProjectInfo extends DatabaseManager {
         return $stmt->get_result()->fetch_assoc();
     }
 
-    public function getProjectList(): array
-    {
-        $sql_list = "SELECT id FROM progetto";
+    public function getProjectList($email): array
+    {       
+        /*$sql_list = "SELECT id FROM progetto";
         $stmt_list = $this->db->query($sql_list);
         $project_list = [];
         while ($row = $stmt_list->fetch_assoc()) {
@@ -41,6 +41,17 @@ class ProjectInfo extends DatabaseManager {
             $stmt->execute() or die($stmt->error);
             $project_list[] = $stmt->get_result()->fetch_assoc();
         }
+        return $project_list;*/
+        $project_list = [];
+        $sql = "SELECT * FROM progetto_utente
+        JOIN progetto ON progetto_utente.id_progetto = progetto.id
+        WHERE progetto_utente.email = ?";
+        $params = [
+            ['type' => 'i', 'value' => $email]
+        ];
+        $stmt = $this->db->prepareAndBindParams($sql,  $params);
+        $stmt->execute() or die($stmt->error);
+        $project_list[] = $stmt->get_result()->fetch_assoc();
         return $project_list;
     }
 }

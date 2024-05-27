@@ -92,7 +92,7 @@ function account_home($method, $logged)
     {
         global $controller;
         global $database;
-        $project_list = new ProjectInfo($database);
-        $controller->renderProjectPage(formatUrl($_SERVER['REQUEST_URI']), $logged, $project_list->getProjectList());
+        $projectManager = new ProjectInfo($database);
+        $controller->renderProjectPage(formatUrl($_SERVER['REQUEST_URI']), $logged, $projectManager);
     }
 }

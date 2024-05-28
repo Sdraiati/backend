@@ -2,6 +2,7 @@
 {
     --backgroundColor:  #202630;
     --textButtonColor:  #202630;
+    --colorProjectPopUp: #1e222a;
     --popUpColor:#202020;
     --titlesColor: #F4DF57;
     --buttonsColor: #F4DF57;
@@ -123,6 +124,22 @@ nav div li:nth-child(3)
 nav ul
 {
     display: flex;
+}
+
+ul#project-list{
+    justify-content: center;
+    align-items: center;
+}
+
+ul#project-list ul{
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: var(--paddingElementsSmall);
+    justify-content: center;
+    align-items: center;
+}
+ul#project-list ul li{
+    text-align: center;
 }
 
 nav ul li{
@@ -298,7 +315,7 @@ button[disabled]
     border: 1px solid #ccc;
     padding: var(--paddingElements);
     margin: var(--paddingElementsSmall);
-    background-color: rgb(12, 12, 12);
+    background-color: var(--colorProjectPopUp);
     border-radius: 5px;
     width: 300px;
 }
@@ -355,6 +372,28 @@ button[disabled]
         padding-top: 20px;/**/
     }
 
+    ul#project-list ul{
+        display: grid;
+        grid-template-columns: repeat(1, auto);
+        gap: var(--paddingElementsSmall);
+        justify-content: center;
+        align-items: center;
+
+    }
+    ul#project-list ul li{
+        text-align: center;
+    }
+
+    .projectContainer{
+        display: grid;
+        border: 1px solid #ccc;
+        padding: var(--paddingElements);
+        margin: var(--paddingElementsSmall);
+        background-color: var(--colorProjectPopUp);
+        border-radius: 5px;
+        width: 70%;
+    }
+
     nav ul
     {
         display: grid;
@@ -363,7 +402,7 @@ button[disabled]
         justify-items: center;
     }
 
-    nav ul li {
+    nav ul li{
         grid-column: 1;
     }
     main{

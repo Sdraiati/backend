@@ -34,4 +34,5 @@ class UserProject extends DatabaseManager {
 
         return $stmt->get_result()->num_rows > 0;
     }
+
 }

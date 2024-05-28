@@ -69,8 +69,10 @@ class Controller
             $projectList = $projectList . '<il class="projectContainer">
                                             <span>'.$project['nome'].'</span>
                                             <span>'.$project['descrizione'].'</span>
-                                            <button>condividi</button>
-                                            <button>apri</button>
+                                            <ul>
+                                                <li><button>condividi</button></li>
+                                                <li><button>apri</button></li>
+                                            </ul>
                                             </il>';
         }
         //$projectList = $projectList . '<p>'.$data['email'].'</p>';

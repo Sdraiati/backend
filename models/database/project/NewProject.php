@@ -20,6 +20,7 @@ class NewProject extends UserProject {
         $stmt->execute() or die($stmt->error);
         // insert the project into the progetto_utente table
         $project_id = $stmt->insert_id;
+        
         $sql_progetto_utente = "INSERT INTO progetto_utente (id_progetto, email) VALUES (?, ?)";
         $params = [
             ['type' => 'i', 'value' => $project_id],

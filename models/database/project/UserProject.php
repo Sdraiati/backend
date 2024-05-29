@@ -31,8 +31,14 @@ class UserProject extends DatabaseManager {
         ];
         $stmt = $this->db->prepareAndBindParams($sql, $params);
         $stmt->execute() or die($stmt->error);
-
         return $stmt->get_result()->num_rows > 0;
+    }
+
+    public function modify(string $oldEmail, string $newEmail)
+    {
+        $sql = "UPDATE progetto_utente SET email = '$newEmail' WHERE email = '$oldEmail'";
+        $result = $this->db->query($sql);
+        return $result->num_rows > 0;
     }
 
 }

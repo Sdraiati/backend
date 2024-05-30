@@ -99,3 +99,31 @@ function validaAccess(){
 	alert("Devi fare prima il Log-In");
     return false;
 }
+
+function logOut(){
+	const cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+    }
+
+    window.location.reload();
+}
+
+function share(id)
+{
+	url = window.location.hostname + `/project_shared?id=${id}`;
+	navigator.clipboard.writeText(url).then(function() {
+        alert("Testo copiato negli appunti!");
+    }).catch(function(error) {
+        console.error("Errore durante la copia del testo: ", error);
+    });
+}
+
+function openProjectPage(id)
+{
+	window.location = `/page_project?id=${id}`;
+}

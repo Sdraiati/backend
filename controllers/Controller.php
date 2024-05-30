@@ -66,14 +66,15 @@ class Controller
         $projectList = "";
         foreach($projects as $project)
         {
-            $projectList = $projectList . '<il class="projectContainer">
-                                            <span>'.$project['nome'].'</span>
-                                            <span>'.$project['descrizione'].'</span>
+            $idd = $project['id'];
+            $projectList = $projectList . "<il class='projectContainer'>
+                                            <span>".$project['nome']."</span>
+                                            <span>".$project['descrizione']."</span>
                                             <ul>
-                                                <li><button>condividi</button></li>
-                                                <li><button>apri</button></li>
+                                                <li><button onclick='share(".$idd.")'>condividi</button></li>
+                                                <li><button onclick='openProjectPage(".$idd.")'>apri</button></li>
                                             </ul>
-                                            </il>';
+                                            </il>";
         }
         //$projectList = $projectList . '<p>'.$data['email'].'</p>';
         $html_content = str_replace("{{ projects }}", $projectList, $html_content);

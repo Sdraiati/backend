@@ -20,6 +20,17 @@ function formatUrl($stringa) {
     }
 }
 
+function randomString($lunghezza = 10, $caratteri = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+    $stringaCasuale = '';
+    $numeroCaratteri = strlen($caratteri);
+    
+    for ($i = 0; $i < $lunghezza; $i++) {
+        $stringaCasuale .= $caratteri[rand(0, $numeroCaratteri - 1)];
+    }
+    
+    return $stringaCasuale;
+}
+
 
 $database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
 $controller = new Controller();
@@ -81,7 +92,7 @@ function account_home($method, $logged)
             $nome = $_POST["nomeProgetto"];
             $descrizione = $_POST["descrizioneProgetto"];
             $email = json_decode($_SESSION["LogIn"], true)["email"];
-            $link_condivisione = 'bho3';
+            $link_condivisione = randomString(10);
             $newProject = new NewProject($database);
             $newProject->createProject($email, $nome, $link_condivisione, $descrizione);
             header("Location: /account_home");

@@ -113,9 +113,9 @@ function logOut(){
     window.location.reload();
 }
 
-function share(id)
+function share(link)
 {
-	url = window.location.hostname + `/project_shared?id=${id}`;
+	url = window.location.hostname + `/project_shared?link=${link}`;
 	navigator.clipboard.writeText(url).then(function() {
         alert("Testo copiato negli appunti!");
     }).catch(function(error) {

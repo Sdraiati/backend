@@ -43,9 +43,17 @@ class ProjectInfo extends DatabaseManager {
         }
         return $project_list;*/
         $project_list = [];
-        $sql = "SELECT * FROM progetto_utente
-        JOIN progetto ON progetto_utente.id_progetto = progetto.id
-        WHERE progetto_utente.email = ?";
+        $sql = "SELECT 
+                    utente.email AS email, 
+                    progetto.id AS id_progetto 
+                FROM 
+                    utente
+                JOIN 
+                    progetto_utente ON utente.id = progetto_utente.id_utente
+                JOIN 
+                    progetto ON progetto_utente.id_progetto = progetto.id
+                WHERE 
+                    utente.email = ?";
         $params = [
             ['type' => 'i', 'value' => $email]
         ];

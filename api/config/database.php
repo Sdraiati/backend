@@ -47,9 +47,18 @@ class Database {
             $values[] = $param['value'];
         }
 
-        if(strlen($types))
+        if(strlen($types)) {
             //... is the spread operator, it allows to pass an array as a list of arguments
-            $stmt->bind_param($types, ...$values);
+            if (!$stmt->bind_param($types, ...$values)) {
+                error_log("Binding parameters failed: " . $stmt->error);
+                return false;
+            }
+        }
+
+        // Log the SQL and parameters for debugging
+        error_log("SQL: " . $sql);
+        error_log("Types: " . $types);
+        error_log("Values: " . json_encode($values));
 
         return $stmt;
     }

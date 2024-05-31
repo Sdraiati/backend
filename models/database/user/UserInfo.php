@@ -12,6 +12,12 @@ class UserInfo extends DatabaseManager {
         return $result->num_rows > 0;
     }
 
+    public function getId(string $email) {
+        $sql = "SELECT id FROM utente WHERE email = '$email'";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+
     public function getUser(string $email, string $password) {
         $sql = "SELECT * FROM utente WHERE email = '$email' AND password = '$password'";
         $result = $this->db->query($sql);

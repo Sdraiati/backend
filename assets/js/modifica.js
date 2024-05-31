@@ -123,7 +123,7 @@ function share(link)
     });
 }
 
-function openProjectPage(id)
+function openProjectPage(link)
 {
-	window.location = `/page_project?id=${id}`;
+	window.location = `/page_project?link=${link}`;
 }

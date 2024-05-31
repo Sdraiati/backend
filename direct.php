@@ -10,7 +10,8 @@ require_once("models/database/user/UserInfo.php");
 require_once("models/database/user/ModifyUser.php");
 require_once("models/SetCookie.php");
 
-function formatUrl($stringa) {
+function formatUrl($url) {
+    $stringa = explode('?', $url)[0];
     $posizionePunto = strpos($stringa, '.');
     
     if ($posizionePunto !== false) {

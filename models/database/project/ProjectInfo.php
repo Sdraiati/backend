@@ -45,7 +45,7 @@ class ProjectInfo extends DatabaseManager {
         $project_list = [];
         $sql = "SELECT 
                     utente.email AS email, 
-                    progetto.id AS id_progetto 
+                    progetto.* 
                 FROM 
                     utente
                 JOIN 

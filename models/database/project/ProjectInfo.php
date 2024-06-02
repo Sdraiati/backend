@@ -55,7 +55,7 @@ class ProjectInfo extends DatabaseManager {
                 WHERE 
                     utente.email = ?";
         $params = [
-            ['type' => 'i', 'value' => $email]
+            ['type' => 's', 'value' => $email]
         ];
         $stmt = $this->db->prepareAndBindParams($sql,  $params);
         $stmt->execute() or die($stmt->error);

@@ -10,45 +10,40 @@ class ModifyUser extends DatabaseManager {
         $this->userInfo = new UserInfo($db);
     }
     public function modify(string $old_email, array $fields) : bool {
+        error_log("old_email: $old_email");
         $id = $this->userInfo->getId($old_email);
+        error_log("id:".json_encode($id));
         if (!$id) {
             error_log("Failed to get user ID");
             return false;
         }
-        if (empty($fileds)) {
+        if (empty($fields)) {
+            error_log("fields ". json_encode($fields));
+            error_log("No fields to update");
             return false;
         }
 
         $sql = "UPDATE utente SET ";
         $params = [];
 
-        $sql .= implode(' = ?, ', array_keys($fields));
-        $sql .= ' = ? WHERE id = ?';
-
-//        $params = array_map(
-//            fn($value) => new StmtParam($value),
-//            array_values($fields),
-//        );
-
-//        $this->db->noResultsPrepared($sql, $params);
-
-        // Costruisci la parte SET della query
-//        foreach ($newValues as $key => $value) {
-//            $sql .= "$key = ?, ";
-//            $params[] = ['type' => 's', 'value' => $value]; // Si presuppone che tutti i valori siano stringhe
-//        }
-//        $sql = rtrim($sql, ", "); // Rimuove l'ultima virgola e lo spazio
-
-        // Aggiungi la condizione WHERE per l'email
-//        $sql .= " WHERE email = ?";
-//        $params[] = ['type' => 's', 'value' => $email];
-
-//        $sql = "UPDATE utente SET email = ? WHERE id = ?";
-//        // Debug: setta fields
-//        $fields = ['nuovamail', '1'];
+        $setStatements = [];
         foreach ($fields as $key => $value) {
-            $params[] = ['type' => 's', 'value' => $value]; // Si presuppone che tutti i valori siano stringhe
+            if ($value !== null) {
+                $setStatements[] = "$key = ?";
+                $params[] = ['type' => 's', 'value' => $value];
+            }
         }
+
+        if (empty($setStatements)) {
+            error_log("No non-null fields to update");
+            return false;
+        }
+
+        // Unisci le dichiarazioni SET in una stringa
+        $sql .= implode(', ', $setStatements);
+
+        $sql .= ' WHERE id = ?';
+        $params[] = ['type' => 'i', 'value' => $id];
 
         // Prepara e bind i parametri
         $stmt = $this->db->prepareAndBindParams($sql, $params);

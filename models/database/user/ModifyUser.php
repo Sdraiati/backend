@@ -9,10 +9,13 @@ class ModifyUser extends DatabaseManager {
         parent::__construct($db);
         $this->userInfo = new UserInfo($db);
     }
-    public function modify(string $old_email, array $fields) : bool {
-        error_log("old_email: $old_email");
+    public function modify(string $old_email, string $old_password, array $fields) : bool {
+        $user = $this->userInfo->getUser($old_email, $old_password);
+        if ($user->num_rows == 0) {
+            error_log("No user found with email $old_email and password $old_password");
+            return false;
+        }
         $id = $this->userInfo->getId($old_email);
-        error_log("id:".json_encode($id));
         if (!$id) {
             error_log("Failed to get user ID");
             return false;

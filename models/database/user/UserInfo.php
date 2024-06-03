@@ -17,15 +17,6 @@ class UserInfo extends DatabaseManager
 
 	public function getId(string $email): int
 	{
-		//        $sql = "SELECT id FROM utente WHERE email = '$email'";
-		//        $result = $this->db->query($sql);
-		//        error_log("ffdifjdifj".json_encode($result));
-		//        if ($result->num_rows == 0) {
-		//            error_log("No user found with email $email");
-		//            return false;
-		//        }
-		//        return $result;
-
 		$sql = "SELECT id FROM utente WHERE email = ?";
 		$params = [
 			['type' => 's', 'value' => $email]

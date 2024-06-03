@@ -37,6 +37,7 @@ function randomString($lunghezza = 10, $caratteri = '0123456789abcdefghijklmnopq
 
 $database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
 $controller = new Controller();
+$projectManager = new ProjectInfo($database);
 
 function generalPage($_, $logged)
 {
@@ -106,3 +107,10 @@ function account_home($method, $logged)
 	}
 }
 
+function project_shared($_, $logged)
+{
+    global $controller;
+    global $projectManager;
+    $project = $projectManager->getProjectInfoByLink($_GET['link']);
+	$controller->renderProjectSharedPage(formatUrl($_SERVER['REQUEST_URI']), $logged, $project);
+}

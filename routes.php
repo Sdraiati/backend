@@ -35,7 +35,7 @@ $routes = array(
         generalPage($method, $logged);
     },
     "/project_shared" => function($method, $logged) {
-        generalPage($method, $logged);
+        project_shared($method, $logged);
     },
     "/release_notes" => function($method, $logged) {
         generalPage($method, $logged);

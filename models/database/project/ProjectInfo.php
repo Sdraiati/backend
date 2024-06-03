@@ -46,7 +46,10 @@ class ProjectInfo extends DatabaseManager {
         ];
         $stmt = $this->db->prepareAndBindParams($sql,  $params);
         $stmt->execute() or die($stmt->error);
-        $project_list[] = $stmt->get_result()->fetch_assoc();
+        $result = $stmt->get_result();
+        while ($row = $result->fetch_assoc()) {
+            $project_list[] = $row;
+        }
         return $project_list;
     }
 }

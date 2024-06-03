@@ -14,3 +14,15 @@ $registerUser = (new JsonApiBuilder())
 		echo json_encode(['error' => $message]);
 	})
 	->createApi();
+
+$loginUser = (new JsonApiBuilder())
+	->setPath('/user/login')
+	->setMethod('POST')
+	->setInputParams(['email', 'password'])
+	->setLogicClass('UserInfo')
+	->setLogicMethod('exists')
+	->setErrorHandler(function ($message) {
+		http_response_code(400);
+		echo json_encode(['error' => $message]);
+	})
+	->createApi();

@@ -15,7 +15,7 @@ $url = formatUrl($_SERVER['REQUEST_URI']);
 
 
 if (array_key_exists($url, $routes)) {
-	if(isset($_COOKIE["LogIn"]) )
+	if(isset($_COOKIE["LogIn"]))
 	{
 		$data = json_decode($_COOKIE["LogIn"], true);
 		$database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);

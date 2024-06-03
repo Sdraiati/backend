@@ -79,6 +79,7 @@ function modifyCredentials($method)
         $email = json_decode($_SESSION["LogIn"], true)["email"];
         $password = json_decode($_SESSION["LogIn"], true)["password"];
         $mod->modify($email, $password, ['email'=>$_POST['newEmail'], 'username'=>$_POST['newUsername'], 'password'=>$_POST['newPassword']]);
+        setCookieUser($_POST['newEmail'], $_POST['newUsername'], $_POST['newPassword']);
         header("Location: /account_home");
     }
 }

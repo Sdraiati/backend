@@ -79,8 +79,8 @@ class Controller
                                                 <span>".$project['nome']."</span>
                                                 <span>".$project['descrizione']."</span>
                                                 <ul>
-                                                    <li><button onclick='share(".$link.")'>condividi</button></li>
-                                                    <li><button onclick='openProjectPage(".$idd.")'>apri</button></li>
+                                                    <li><button onclick='share(\"".$link."\")'>condividi</button></li>
+                                                    <li><button onclick='openProjectPage(\"".$idd."\")'>apri</button></li>
                                                 </ul>
                                                 </il>";
             }

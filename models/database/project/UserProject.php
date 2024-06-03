@@ -24,7 +24,7 @@ class UserProject extends DatabaseManager {
         if (!$this->projectInfo->exists($projectId))
             die("isUserInProject: project not found with id $projectId");
 
-        $sql = "SELECT * FROM progetto_utente WHERE id_progetto = ? AND email = ?";
+        $sql = "SELECT * FROM progetto_utente WHERE id_progetto = ? AND id_utente = ?";
         $params = [
             ['type' => 'i', 'value' => $projectId],
             ['type' => 's', 'value' => $userId]

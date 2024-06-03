@@ -76,9 +76,10 @@ function modifyCredentials($method)
     global $database;
     if($method == "POST"){
         $mod = new ModifyUser($database);
-        
-        $mod->modify($_POST['newEmail'], $_POST['newUsername'], $_POST['newPassword']);
-        
+        $email = json_decode($_SESSION["LogIn"], true)["email"];
+        $password = json_decode($_SESSION["LogIn"], true)["password"];
+        $mod->modify($email, $password, ['email'=>$_POST['newEmail'], 'username'=>$_POST['newUsername'], 'password'=>$_POST['newPassword']]);
+        //$mod->modify('email1@example.com', ['email'=>'lamiamail@limammama.it']);
         header("Location: /account_home");
     }
 }

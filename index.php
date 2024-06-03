@@ -11,15 +11,20 @@ if ($logged) {
 	$_SESSION["LogIn"] = $_COOKIE["LogIn"];
 }
 
-
 $url = formatUrl($_SERVER['REQUEST_URI']);
 
 
 if (array_key_exists($url, $routes)) {
-	$data = json_decode($_COOKIE["LogIn"], true);
-	$database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
-	$user = new UserInfo($database);
-	$logged = isset($_COOKIE["LogIn"]) && $user->getUser($data['email'], $data['password'])->num_rows > 0;
+	if(isset($_COOKIE["LogIn"]) )
+	{
+		$data = json_decode($_COOKIE["LogIn"], true);
+		$database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
+		$user = new UserInfo($database);
+		$logged = $user->getUser($data['email'], $data['password'])->num_rows > 0;
+	}
+	else{
+		$logged = false;
+	}
 	if ($logged) {
 		$_SESSION["LogIn"] = $_COOKIE["LogIn"];
 	}

@@ -64,18 +64,26 @@ class Controller
         $html_content = str_replace("{{ username }}", $data['username'], $html_content);
         $html_content = str_replace("{{ email }}", $data['email'], $html_content);
         $projectList = "";
-        foreach($projects as $project)
+        # if projects is empty
+        if((count($projects) === 1 && $projects[0] === null))
         {
-            $idd = $project['id'];
-            $link = $project['link_condivisione'];
-            $projectList = $projectList . "<il class='projectContainer'>
-                                            <span>".$project['nome']."</span>
-                                            <span>".$project['descrizione']."</span>
-                                            <ul>
-                                                <li><button onclick='share(\"".$link."\")'>condividi</button></li>
-                                                <li><button onclick='openProjectPage(\"".$link."\")'>apri</button></li>
-                                            </ul>
-                                            </il>";
+            $projectList = "<p>Non hai ancora nessun progetto.</p>";
+        }
+        else
+        {
+            foreach($projects as $project)
+            {
+                $idd = $project['id'];
+                $link = $project['link_condivisione'];
+                $projectList = $projectList . "<il class='projectContainer'>
+                                                <span>".$project['nome']."</span>
+                                                <span>".$project['descrizione']."</span>
+                                                <ul>
+                                                    <li><button onclick='share(".$link.")'>condividi</button></li>
+                                                    <li><button onclick='openProjectPage(".$idd.")'>apri</button></li>
+                                                </ul>
+                                                </il>";
+            }
         }
         //$projectList = $projectList . '<p>'.$data['email'].'</p>';
         $html_content = str_replace("{{ projects }}", $projectList, $html_content);

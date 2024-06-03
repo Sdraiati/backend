@@ -17,10 +17,11 @@ CREATE TABLE progetto (
 
 -- creazione tabella utente
 CREATE TABLE utente (
-                        email VARCHAR(255) NOT NULL ,
-                        username VARCHAR(255) NOT NULL ,
+                        id INT NOT NULL AUTO_INCREMENT,
+                        email VARCHAR(255) NOT NULL UNIQUE,
+                        username VARCHAR(255) NOT NULL UNIQUE,
                         password VARCHAR(255) NOT NULL,
-                        PRIMARY KEY (email)
+                        PRIMARY KEY (id)
 );
 
 -- creazione della relazione tag
@@ -53,10 +54,10 @@ CREATE TABLE movimento (
 );
 
 CREATE TABLE progetto_utente(
-                                email VARCHAR(255) NOT NULL,
+                                id_utente INT NOT NULL,
                                 id_progetto INT NOT NULL,
-                                PRIMARY KEY (email, id_progetto),
-                                FOREIGN KEY (email) REFERENCES utente(email) ON DELETE CASCADE,
+                                PRIMARY KEY (id_utente, id_progetto),
+                                FOREIGN KEY (id_utente) REFERENCES utente(id) ON DELETE CASCADE,
                                 FOREIGN KEY (id_progetto) REFERENCES progetto(id) ON DELETE CASCADE
 );
 
@@ -94,8 +95,8 @@ VALUES
     (3, '2024-04-27 08:00:00', 20.00, 'Spesa per Progetto C', NULL);
 
 -- Inserimento dati di esempio per la tabella progetto_utente
-INSERT INTO progetto_utente (email, id_progetto)
+INSERT INTO progetto_utente (id_utente, id_progetto)
 VALUES
-    ('email1@example.com', 1),
-    ('email2@example.com', 2),
-    ('email3@example.com', 3);
+    (1, 1),
+    (2, 2),
+    (3, 3);

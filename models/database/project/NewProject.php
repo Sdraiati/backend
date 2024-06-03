@@ -10,6 +10,9 @@ class NewProject extends UserProject {
         if (!$this->userInfo->exists($email))
             die("createProject: user not found with email $email");
 
+        // get id of the user
+        $id = $this->userInfo->getId($email);
+
         $sql_progetto = "INSERT INTO progetto (nome, link_condivisione, descrizione) VALUES (?, ?, ?)";
 
         $params = [
@@ -24,11 +27,11 @@ class NewProject extends UserProject {
 
         // insert the project into the progetto_utente table
         $project_id = $stmt->insert_id;
-        $sql_progetto_utente = "INSERT INTO progetto_utente (id_progetto, email) VALUES (?, ?)";
+        $sql_progetto_utente = "INSERT INTO progetto_utente (id_progetto, id_utente) VALUES (?, ?)";
 
         $params = [
             ['type' => 'i', 'value' => $project_id],
-            ['type' => 's', 'value' => $email]
+            ['type' => 's', 'value' => $id]
         ];
 
         $stmt = $this->db->prepareAndBindParams($sql_progetto_utente, $params);

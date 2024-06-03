@@ -1,6 +1,7 @@
 <?php
 
 require_once("routes.php");
+require_once("models/database/user/UserInfo.php");
 
 
 session_start();
@@ -15,7 +16,10 @@ $url = formatUrl($_SERVER['REQUEST_URI']);
 
 
 if (array_key_exists($url, $routes)) {
-	$logged = isset($_COOKIE["LogIn"]);
+	$data = json_decode($_COOKIE["LogIn"], true);
+	$database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
+	$user = new UserInfo($database);
+	$logged = isset($_COOKIE["LogIn"]) && $user->getUser($data['email'], $data['password'])->num_rows > 0;
 	if ($logged) {
 		$_SESSION["LogIn"] = $_COOKIE["LogIn"];
 	}
@@ -26,8 +30,7 @@ if (array_key_exists($url, $routes)) {
 		print $e->getMessage();
 	}
 } else {
-	print $url;
-	//$controller->renderPage("resource_not_found", $logged);
+	$controller->renderPage("resource_not_found", $logged);
 }
 
 /*

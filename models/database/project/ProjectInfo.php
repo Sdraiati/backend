@@ -30,6 +30,15 @@ class ProjectInfo extends DatabaseManager
 		return $stmt->get_result()->fetch_assoc();
 	}
 
+	public function getProjectInfoByLink($link): array{
+		$sql = "SELECT * FROM progetto WHERE link_condivisione = ?";
+		$params = [
+			['type' => 'i', 'value' => $link]
+		];
+		$stmt = $this->db->prepareAndBindParams($sql, $params);
+		$stmt->execute() or die($stmt->error);
+		return $stmt->get_result()->fetch_assoc();
+	}
 	public function getProjectList($email): array
 	{
 		$sql = "SELECT 

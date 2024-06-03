@@ -12,14 +12,17 @@ class JoinProject extends UserProject {
         if (!$this->userInfo->exists($email))
             die("joinProject: user not found with email $email");
 
+        // get id of the user
+        $userId = $this->userInfo->getId($email);
+
         // check if the project exists
         if (!$this->projectInfo->exists($project_id))
             die("joinProject: project not found with id $project_id");
 
-        $sql = "INSERT INTO progetto_utente (id_progetto, email) VALUES (?, ?)";
+        $sql = "INSERT INTO progetto_utente (id_progetto, id_utente) VALUES (?, ?)";
         $params = [
             ['type' => 'i', 'value' => $project_id],
-            ['type' => 's', 'value' => $email]
+            ['type' => 'i', 'value' => $userId]
         ];
         $stmt = $this->db->prepareAndBindParams($sql, $params);
         $stmt->execute() or die($stmt->error);

@@ -66,7 +66,8 @@ function access($method)
             setCookieUser($data['email'], $data['username'], $data['password']);
         }
         else{
-            throw new Exception("wrong credentials", 1);
+            // reindirizzare la robba
+            echo "tua madre";
         }
     }
 }

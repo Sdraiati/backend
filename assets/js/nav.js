@@ -33,6 +33,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	document.getElementById("loginForm").addEventListener("submit", function(event) {
 		event.preventDefault();
 
+		console.log("dio caro");
+
 		let formData = new FormData(event.target);
 		fetch(event.target.action, {
 			method: "post",
@@ -47,7 +49,8 @@ document.addEventListener("DOMContentLoaded", function() {
 				window.location.href = 'account_home.php';
 			}
 		}).catch(error => {
-			console.error('There was a problem with the fetch operation:', error);
+			document.getElementById("loginError").innerText = error.body.error;
+			console.log('There was a problem with the fetch operation:', error);
 		});
 	})
 

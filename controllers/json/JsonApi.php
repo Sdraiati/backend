@@ -6,16 +6,12 @@ include_once __PROJECTROOT__ . '/api/config/database.php';
 
 class JsonApi extends Api
 {
-	private $logicClass;
-	private $logicMethod;
-	private $errorHandler;
+	private $logicFn;
 
-	public function __construct($path, $method, $inputParams, $logicClass, $logicMethod, $errorHandler)
+	public function __construct($path, $inputParams, $logicFn)
 	{
-		parent::__construct($path, $method, $inputParams);
-		$this->logicClass = $logicClass;
-		$this->logicMethod = $logicMethod;
-		$this->errorHandler = $errorHandler;
+		parent::__construct($path, 'POST', $inputParams);
+		$this->logicFn = $logicFn;
 	}
 
 	private function response($result)
@@ -32,24 +28,16 @@ class JsonApi extends Api
 			return;
 		}
 
-		try {
-			$logicInstance = new $this->logicClass(Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD));
-			$result = call_user_func_array([$logicInstance, $this->logicMethod], $params);
-			$this->response($result);
-		} catch (Exception $e) {
-			call_user_func($this->errorHandler, $e->getMessage());
-		}
+		$result = call_user_func($this->logicFn, $params);
+		$this->response($result);
 	}
 }
 
 class JsonApiBuilder
 {
 	private $path;
-	private $method;
 	private $inputParams;
-	private $logicClass;
-	private $logicMethod;
-	private $errorHandler;
+	private $logicFn;
 
 	public function setPath($path)
 	{
@@ -57,12 +45,9 @@ class JsonApiBuilder
 		return $this;
 	}
 
-	public function setMethod($method)
+	public function setLogicFn($logicFn)
 	{
-		if (!in_array($method, ['GET', 'POST'])) {
-			throw new Exception("Invalid method");
-		}
-		$this->method = $method;
+		$this->logicFn = $logicFn;
 		return $this;
 	}
 
@@ -72,30 +57,12 @@ class JsonApiBuilder
 		return $this;
 	}
 
-	public function setLogicClass($logicClass)
-	{
-		$this->logicClass = $logicClass;
-		return $this;
-	}
-
-	public function setLogicMethod($logicMethod)
-	{
-		$this->logicMethod = $logicMethod;
-		return $this;
-	}
-
-	public function setErrorHandler($errorHandler)
-	{
-		$this->errorHandler = $errorHandler;
-		return $this;
-	}
-
 	public function createApi(): JsonApi
 	{
-		if (empty($this->path) || empty($this->method) || empty($this->logicClass) || empty($this->logicMethod)) {
+		if (empty($this->path) || empty($this->inputParams) || empty($this->logicFn)) {
 			throw new Exception("All necessary parameters must be set before creating the API");
 		}
 
-		return new JsonApi($this->path, $this->method, $this->inputParams, $this->logicClass, $this->logicMethod, $this->errorHandler);
+		return new JsonApi($this->path, $this->inputParams, $this->logicFn);
 	}
 }

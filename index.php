@@ -20,7 +20,7 @@ if (array_key_exists($url, $routes)) {
 		$data = json_decode($_COOKIE["LogIn"], true);
 		$database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
 		$user = new UserInfo($database);
-		$logged = $user->getUser($data['email'], $data['password'])->num_rows > 0;
+		$logged = $user->exists($data['email']);
 	}
 	else{
 		$logged = false;

@@ -88,4 +88,10 @@ class Controller
         $html_content = str_replace("{{ projects }}", $projectList, $html_content);
         echo $html_content;
     }
+    function renderProjectSharedPage($titlePage, $logged, $project)
+    {
+        $html_content = $this->getPage($titlePage, $logged);
+        $html_content = str_replace("{{ Project Name }}", $project['nome'], $html_content);
+        print $html_content;
+    }
 }

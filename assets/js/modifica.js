@@ -128,6 +128,38 @@ function openProjectPage(link)
 	window.location = `/page_project?link=${link}`;
 }
 
+function joinProject(){
+
+	if(validaAccess())
+	{
+		const urlString = window.location.href;
+		const url = new URL(urlString);
+		const params = url.searchParams;
+
+		const datas = {
+			link: params.get('link'),
+		};
+
+		fetch('/join_project', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(datas)
+		})
+		.then(response => response.json())
+		.then(data => {
+			alert(data['status']);
+		})
+		.catch((error) => {
+			console.error('Error:', error);
+		});
+	}
+	else{
+		alert("fa il login!");
+	}
+}
+
 function deleteProject(link)
 {
 	if(confirm("Sei sicuro di voler eliminare il progetto?"))

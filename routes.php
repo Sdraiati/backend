@@ -43,6 +43,10 @@ $routes = array(
     },
     "/release_notes" => function($method, $logged) {
         generalPage($method, $logged);
+    },
+    "/join_project" => function($method, $logged)
+    {
+        joinProject($method, $logged);
     }
 );
 ?>

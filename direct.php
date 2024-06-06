@@ -5,6 +5,7 @@ require_once("api/config/database.php");
 require_once("api/config/db_config.php");
 require_once("models/database/project/NewProject.php");
 require_once("models/database/project/ProjectInfo.php");
+require_once("models/database/project/JoinProject.php");
 require_once("models/database/project/DeleteProject.php");
 require_once("models/database/user/NewUser.php");
 require_once("models/database/user/UserInfo.php");
@@ -39,13 +40,13 @@ function randomString($lunghezza = 10, $caratteri = '0123456789abcdefghijklmnopq
 $database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
 $controller = new Controller();
 $projectManager = new ProjectInfo($database);
+$joinProget = new JoinProject($database);
 
 function generalPage($_, $logged)
 {
 	global $controller;
 	$controller->renderPage(formatUrl($_SERVER['REQUEST_URI']), $logged);
 }
-
 
 
 function registration($method)
@@ -130,4 +131,25 @@ function project_shared($_, $logged)
     global $projectManager;
     $project = $projectManager->getProjectInfoByLink($_GET['link']);
 	$controller->renderProjectSharedPage(formatUrl($_SERVER['REQUEST_URI']), $logged, $project);
+}
+
+function joinProject($_, $logged)
+{
+	global $projectManager;
+	global $joinProget;
+	$email = json_decode($_SESSION["LogIn"], true)["email"];
+	$datas = json_decode(file_get_contents('php://input'), true);
+	try{
+		$project = $projectManager->getProjectInfoByLink($datas['link']);
+		$joinProget->joinProject($email, $project['id']);
+		$data = [
+			'status' => 'success'
+		];
+	}catch(Exception $e){
+		$data = [
+			'status' => $e->getMessage()
+		];
+	}
+	$json  = json_encode($data);
+	echo $json ;
 }

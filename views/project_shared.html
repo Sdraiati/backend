@@ -99,20 +99,42 @@
 	</section>
 
 	<script type="module" src="assets/js/transazioni_list.js"></script>
+
+	<section id="joinProject" class="hidden">
+		<h1>Partecipa al progetto</h1>
+		<form id="joinProjectForm" action="javascript:void(0)">
+			<div class="form-buttons">
+				<button type="button" data-button-kind="joinProjectHide">Annulla</button>
+				<button type="submit" id="submitJoinProject">Partecipa</button>
+			</div>
+	</section>
+
+	<section>
+		<!--<form  id="join_project" action="/join_project" method="post" onsubmit="return validaForm()">-->
+			<button onclick="joinProject()">Partecipa</button>
+		<!--</form>-->
+	</section>
 </main>
 
-<footer class="message-footer">
-	<button type="button" data-button-kind="joinProject">Partecipa</button>
-</footer>
 
-<section id="joinProject" class="hidden">
-	<h1>Partecipa al progetto</h1>
-	<form id="joinProjectForm" action="javascript:void(0)">
-		<div class="form-buttons">
-			<button type="button" data-button-kind="joinProjectHide">Annulla</button>
-			<button type="submit" id="submitJoinProject">Partecipa</button>
-		</div>
-</section>
+<footer>
+	<div class="footer-list">
+		<h3>Prodotto</h3>
+		<ul>
+			<li><a href="account_home">I Miei Progetti</a></li>
+			<li><a href="about_us">About Us</a></li>
+		</ul>
+	</div>
+	<div class="footer-list">
+		<h3>Risorse</h3>
+		<ul>
+			<li><a href="index">Homepage</a></li>
+			<li><a href="release_notes">Release Notes</a></li>
+			<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
+						id="github-mark"> GitHub </a></li>
+		</ul>
+	</div>
+</footer>
 
 <script src="assets/js/modifica.js"></script>
 </body>

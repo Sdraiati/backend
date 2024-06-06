@@ -41,6 +41,7 @@ $database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
 $controller = new Controller();
 $projectManager = new ProjectInfo($database);
 $joinProget = new JoinProject($database);
+$projectDel = new DeleteProject($database);
 
 function generalPage($_, $logged)
 {
@@ -85,21 +86,25 @@ function modifyCredentials($method)
 		header("Location: /account_home");
 	}
 }
-function deleteProject($method)
+function deleteProject($_, $logged)
 {
-    global $database;
-    if ($method == "GET") {
-        $projectManager = new ProjectInfo($database);
-        $projectDel = new DeleteProject($database);
-
-        $id_project = $projectManager->getProjectInfoByLink($_GET['link']);
-        if ($id_project == null) {
-            echo "Progetto non trovato";
-        }
+    global $projectManager;
+    global $projectDel;
+    $data = json_decode(file_get_contents('php://input'), true);
+    try {
+        $id_project = $projectManager->getIDProjectByLink($data['link']);
+        $id_project = $projectManager->getIDProjectByLink($data['link']);
         $projectDel->deleteProject($id_project);
-
-        header("Location: /account_home");
+        $data_content = [
+            'status' => 'success'
+        ];
+    } catch (Exception $e) {
+        $data_content = [
+            'status' => $e->getMessage()
+        ];
     }
+    $json = json_encode($data_content);
+    echo $json;
 }
 function account_home($method, $logged)
 {

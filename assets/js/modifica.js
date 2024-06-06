@@ -156,14 +156,38 @@ function joinProject(){
 		});
 	}
 	else{
-		alert("fa il login!");
+		alert("Prima effettuare il login.");
 	}
 }
 
 function deleteProject(link)
 {
-	if(confirm("Sei sicuro di voler eliminare il progetto?"))
+	if(validaAccess())
 	{
-		window.location = `/deleteProject?link=${link}`;
+		// const urlString = window.location.href;
+		// const url = new URL(urlString);
+		// const params = url.searchParams;
+		const data = {
+			link: link,
+		};
+
+		fetch('/delete_project', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		})
+			.then(response => response.json())
+			.then(data_content => {
+				alert(data_content['status']);
+				window.location.reload(); // Refresh della pagina
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
+	}
+	else{
+		alert("Prima effettuare il login.");
 	}
 }

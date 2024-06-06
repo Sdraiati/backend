@@ -39,6 +39,22 @@ class ProjectInfo extends DatabaseManager
 		$stmt->execute() or die($stmt->error);
 		return $stmt->get_result()->fetch_assoc();
 	}
+
+    public function getIDProjectByLink($link): int {
+        $sql = "SELECT ID FROM progetto WHERE link_condivisione = ?";
+        $params = [
+            ['type' => 's', 'value' => $link]
+        ];
+        $stmt = $this->db->prepareAndBindParams($sql, $params);
+        $stmt->execute() or die($stmt->error);
+        $result = $stmt->get_result()->fetch_assoc();
+
+        if ($result !== null && array_key_exists('ID', $result)) {
+            return (int) $result['ID'];
+        } else {
+            throw new Exception("Project ID not found for the provided link.");
+        }
+    }
 	
 	public function getProjectList($email): array
 	{

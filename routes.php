@@ -28,9 +28,9 @@ $routes = array(
     {
         modifyCredentials($method);
     },
-    "/deleteProject" => function($method, $_)
+    "/delete_project" => function($method, $logged)
     {
-        deleteProject($method);
+        deleteProject($method, $logged);
     },
     "/project_cake" => function($method, $logged) {
         generalPage($method, $logged);

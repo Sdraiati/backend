@@ -56,8 +56,8 @@ CREATE TABLE movimento (
 CREATE TABLE progetto_utente(
                                 id_utente INT NOT NULL,
                                 id_progetto INT NOT NULL,
-                                PRIMARY KEY (irogetto),
-                                FOREIGN KEY (id_utente) d_utente, id_pREFERENCES utente(id) ON DELETE CASCADE,
+                                PRIMARY KEY (id_utente, id_progetto),
+                                FOREIGN KEY (id_utente) REFERENCES utente(id) ON DELETE CASCADE,
                                 FOREIGN KEY (id_progetto) REFERENCES progetto(id) ON DELETE CASCADE
 );
 

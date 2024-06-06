@@ -127,3 +127,11 @@ function openProjectPage(link)
 {
 	window.location = `/page_project?link=${link}`;
 }
+
+function deleteProject(link)
+{
+	if(confirm("Sei sicuro di voler eliminare il progetto?"))
+	{
+		window.location = `/deleteProject?link=${link}`;
+	}
+}

@@ -5,6 +5,7 @@ require_once("api/config/database.php");
 require_once("api/config/db_config.php");
 require_once("models/database/project/NewProject.php");
 require_once("models/database/project/ProjectInfo.php");
+require_once("models/database/project/DeleteProject.php");
 require_once("models/database/user/NewUser.php");
 require_once("models/database/user/UserInfo.php");
 require_once("models/database/user/ModifyUser.php");
@@ -82,6 +83,22 @@ function modifyCredentials($method)
 		setCookieUser($_POST['newEmail'], $_POST['newUsername'], $_POST['newPassword']);
 		header("Location: /account_home");
 	}
+}
+function deleteProject($method)
+{
+    global $database;
+    if ($method == "GET") {
+        $projectManager = new ProjectInfo($database);
+        $projectDel = new DeleteProject($database);
+
+        $id_project = $projectManager->getProjectInfoByLink($_GET['link']);
+        if ($id_project == null) {
+            echo "Progetto non trovato";
+        }
+        $projectDel->deleteProject($id_project);
+
+        header("Location: /account_home");
+    }
 }
 function account_home($method, $logged)
 {

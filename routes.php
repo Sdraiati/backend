@@ -28,6 +28,10 @@ $routes = array(
     {
         modifyCredentials($method);
     },
+    "/deleteProject" => function($method, $_)
+    {
+        deleteProject($method);
+    },
     "/project_cake" => function($method, $logged) {
         generalPage($method, $logged);
     },

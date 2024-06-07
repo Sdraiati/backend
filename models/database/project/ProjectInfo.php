@@ -8,7 +8,7 @@ class ProjectInfo extends DatabaseManager
 		parent::__construct($db);
 	}
 
-	public function exists($projectId): bool
+	public function exists(int $projectId): bool
 	{
 		$sql = "SELECT * FROM progetto WHERE id = ?";
 		$params = [

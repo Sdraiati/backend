@@ -29,7 +29,7 @@ function randomString($lunghezza = 10, $caratteri = '0123456789abcdefghijklmnopq
 }
 
 $deleteProject = (new JsonApiBuilder())
-	->setPath('/project/delete')
+	->setPath('project/delete')
 	->setInputParams(['link'])
 	->setLogicFn(
 		function ($params) {
@@ -52,7 +52,7 @@ $deleteProject = (new JsonApiBuilder())
 	->createApi();
 
 $disjoinProject = (new JsonApiBuilder())
-	->setPath('/project/disjoin')
+	->setPath('project/disjoin')
 	->setInputParams(['link'])
 	->setLogicFn(
 		function ($params) {
@@ -76,7 +76,7 @@ $disjoinProject = (new JsonApiBuilder())
 	->createApi();
 
 $newProject = (new JsonApiBuilder())
-	->setPath('/project/new')
+	->setPath('project/new')
 	->setInputParams(['nomeProgetto', 'descrizioneProgetto'])
 	->setLogicFn(
 		function ($params) {
@@ -94,7 +94,7 @@ $newProject = (new JsonApiBuilder())
 	->createApi();
 
 $joinProject = (new JsonApiBuilder())
-	->setPath('/project/join')
+	->setPath('project/join')
 	->setInputParams(['link'])
 	->setLogicFn(
 		function ($params) {

@@ -7,7 +7,7 @@ include_once __PROJECTROOT__ . '/models/database/user/ModifyUser.php';
 include_once __PROJECTROOT__ . '/api/config/db_config.php';
 
 $registerUser = (new JsonApiBuilder())
-	->setPath('/user/register')
+	->setPath('user/register')
 	->setInputParams(['email', 'username', 'password'])
 	->setLogicFn(
 		function ($params) {
@@ -23,7 +23,7 @@ $registerUser = (new JsonApiBuilder())
 	->createApi();
 
 $loginUser = (new JsonApiBuilder())
-	->setPath('/user/login')
+	->setPath('user/login')
 	->setInputParams(['email', 'password'])
 	->setLogicFn(
 		function ($params) {
@@ -43,7 +43,7 @@ $loginUser = (new JsonApiBuilder())
 	->createApi();
 
 $modifyUser = (new JsonApiBuilder())
-	->setPath('/user/modify')
+	->setPath('user/modify')
 	->setInputParams(['newEmail', 'newUsername', 'newPassword'])
 	->setLogicFn(
 		function ($params) {

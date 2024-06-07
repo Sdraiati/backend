@@ -11,18 +11,18 @@ class ModifyUser extends DatabaseManager {
     }
     public function modify(string $old_email, string $old_password, array $fields) : bool {
         $user = $this->userInfo->getUser($old_email, $old_password);
-        if ($user->num_rows == 0) {
-            error_log("No user found with email $old_email and password $old_password");
+        if (count($user) == 0) {
+            //error_log("No user found with email $old_email and password $old_password");
             return false;
         }
         $id = $this->userInfo->getId($old_email);
         if (!$id) {
-            error_log("Failed to get user ID");
+            //error_log("Failed to get user ID");
             return false;
         }
         if (empty($fields)) {
-            error_log("fields ". json_encode($fields));
-            error_log("No fields to update");
+            //error_log("fields ". json_encode($fields));
+            //error_log("No fields to update");
             return false;
         }
 
@@ -38,7 +38,7 @@ class ModifyUser extends DatabaseManager {
         }
 
         if (empty($setStatements)) {
-            error_log("No non-null fields to update");
+            //error_log("No non-null fields to update");
             return false;
         }
 
@@ -53,18 +53,18 @@ class ModifyUser extends DatabaseManager {
 
         // Verifica se la preparazione è stata eseguita con successo
         if ($stmt === false) {
-            error_log("Failed to prepare statement");
+            //error_log("Failed to prepare statement");
             return false;
         }
 
         // Esegue la query preparata
         if (!$stmt->execute()) {
-            error_log("Execution failed: " . $stmt->error);
+            //error_log("Execution failed: " . $stmt->error);
             return false;
         }
 
         if ($stmt->affected_rows === 0) {
-            error_log("No rows were updated");
+            //error_log("No rows were updated");
             return false;
         }
 

@@ -21,12 +21,12 @@ if (array_key_exists($url, $routes)) {
 		$database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
 		$user = new UserInfo($database);
 		$logged = $user->existsByEmail($data['email']);
+		if ($logged) {
+			$_SESSION["LogIn"] = $_COOKIE["LogIn"];
+		}
 	}
 	else{
 		$logged = false;
-	}
-	if ($logged) {
-		$_SESSION["LogIn"] = $_COOKIE["LogIn"];
 	}
 	$fun = $routes[$url];
 	try {	

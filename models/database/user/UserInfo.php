@@ -8,7 +8,18 @@ class UserInfo extends DatabaseManager
 	{
 		parent::__construct($db);
 	}
-	public function exists(string $email): bool
+    public function exists(int $id): bool
+    {
+        $sql = "SELECT * FROM utente WHERE id = ?";
+        $params = [
+            ['type' => 'i', 'value' => $id]
+        ];
+        $stmt = $this->db->prepareAndBindParams($sql, $params);
+        $stmt->execute() or die($stmt->error);
+        return $stmt->get_result()->num_rows > 0;
+    }
+
+	public function existsByEmail(string $email): bool
 	{
 		$sql = "SELECT * FROM utente WHERE email = '$email'";
 		$result = $this->db->query($sql);

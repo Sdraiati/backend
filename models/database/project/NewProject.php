@@ -7,7 +7,7 @@ class NewProject extends UserProject {
     }
     public function createProject($email, $nome, $link_condivisione, $descrizione='') : bool {
         // check if the user exists
-        if (!$this->userInfo->exists($email))
+        if (!$this->userInfo->existsByEmail($email))
             die("createProject: user not found with email $email");
 
         // get id of the user

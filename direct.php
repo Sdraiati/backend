@@ -7,6 +7,7 @@ require_once("models/database/project/NewProject.php");
 require_once("models/database/project/ProjectInfo.php");
 require_once("models/database/project/JoinProject.php");
 require_once("models/database/project/DeleteProject.php");
+require_once("models/database/project/DisjoinProject.php");
 require_once("models/database/user/NewUser.php");
 require_once("models/database/user/UserInfo.php");
 require_once("models/database/user/ModifyUser.php");
@@ -42,6 +43,7 @@ $controller = new Controller();
 $projectManager = new ProjectInfo($database);
 $joinProget = new JoinProject($database);
 $projectDel = new DeleteProject($database);
+$projectDJ = new DisjoinProject($database);
 
 function generalPage($_, $logged)
 {
@@ -93,11 +95,31 @@ function deleteProject($_, $logged)
     $data = json_decode(file_get_contents('php://input'), true);
     try {
         $id_project = $projectManager->getIDProjectByLink($data['link']);
-        $id_project = $projectManager->getIDProjectByLink($data['link']);
         $projectDel->deleteProject($id_project);
         $data_content = [
             'status' => 'success'
         ];
+    } catch (Exception $e) {
+        $data_content = [
+            'status' => $e->getMessage()
+        ];
+    }
+    $json = json_encode($data_content);
+    echo $json;
+}
+function disjoinProject($_, $logged)
+{
+    global $projectManager;
+    global $projectDJ;
+    $email = json_decode($_SESSION["LogIn"], true)["email"];
+    $data = json_decode(file_get_contents('php://input'), true);
+    try {
+        $id_project = $projectManager->getIDProjectByLink($data['link']);
+        $projectDJ->disjoinProject($email, $id_project);
+        $data_content = [
+            'status' => 'success'
+        ];
+        error_log("disjoinProject: success!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     } catch (Exception $e) {
         $data_content = [
             'status' => $e->getMessage()

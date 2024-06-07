@@ -81,6 +81,7 @@ class Controller
                                                     <li><button onclick='share(\"".$link."\")'>condividi</button></li>
                                                     <li><button onclick='openProjectPage(\"".$link."\")'>apri</button></li>
                                                     <li><button onclick='deleteProject(\"".$link."\")'>elimina</button></li>
+                                                    <li><button onclick='disjoinProject(\"".$link."\")'>esci dal progetto</button></li>
                                                 </ul>
                                                 </il>";
             }

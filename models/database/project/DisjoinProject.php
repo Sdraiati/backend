@@ -10,17 +10,18 @@ class DisjoinProject extends UserProject
     public function disjoinProject($email, $projectId)
     {
         // check if user exists
-        if (!$this->userInfo->exists($email))
+        if (!$this->userInfo->existsByEmail($email))
             die("disjoinProject: user not found with email $email");
         // check if project exists
         if (!$this->projectInfo->exists($projectId))
             die("disjoinProject: project not found with id $projectId");
-
         // get id of the user
         $userId = $this->userInfo->getId($email);
         // check if user is in the project
         if (!$this->isUserInProject($userId, $projectId))
             die("disjoinProject: user $userId is not in project $projectId");
+
+        error_log("SIAMO QUII");
 
         $sql = "DELETE FROM progetto_utente WHERE id_progetto = ? AND id_utente = ?";
         $params = [

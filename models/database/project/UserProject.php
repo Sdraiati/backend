@@ -27,7 +27,7 @@ class UserProject extends DatabaseManager {
         $sql = "SELECT * FROM progetto_utente WHERE id_progetto = ? AND id_utente = ?";
         $params = [
             ['type' => 'i', 'value' => $projectId],
-            ['type' => 's', 'value' => $userId]
+            ['type' => 'i', 'value' => $userId]
         ];
         $stmt = $this->db->prepareAndBindParams($sql, $params);
         $stmt->execute() or die($stmt->error);

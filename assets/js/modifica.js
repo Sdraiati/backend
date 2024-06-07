@@ -164,14 +164,40 @@ function deleteProject(link)
 {
 	if(validaAccess())
 	{
-		// const urlString = window.location.href;
-		// const url = new URL(urlString);
-		// const params = url.searchParams;
 		const data = {
 			link: link,
 		};
 
 		fetch('/delete_project', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		})
+			.then(response => response.json())
+			.then(data_content => {
+				alert(data_content['status']);
+				window.location.reload(); // Refresh della pagina
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
+	}
+	else{
+		alert("Prima effettuare il login.");
+	}
+}
+
+function disjoinProject(link)
+{
+	if(validaAccess())
+	{
+		const data = {
+			link: link,
+		};
+
+		fetch('/disjoin_project', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

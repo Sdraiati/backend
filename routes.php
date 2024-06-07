@@ -32,6 +32,10 @@ $routes = array(
     {
         deleteProject($method, $logged);
     },
+    "/disjoin_project" => function($method, $logged)
+    {
+        disjoinProject($method, $logged);
+    },
     "/project_cake" => function($method, $logged) {
         generalPage($method, $logged);
     },

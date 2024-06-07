@@ -2,9 +2,9 @@
 
 abstract class Api
 {
-	private $path;
-	private $method;
-	private $inputParams;
+	protected $path;
+	protected $method;
+	protected $inputParams;
 
 	protected function __construct($path, $method, $inputParams)
 	{

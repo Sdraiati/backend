@@ -1,15 +1,13 @@
 document.addEventListener("DOMContentLoaded", function(_) {
 	let popUpAccedi = `<h2>Login</h2>
-	<form id="loginForm" action="/access" method="post">
 		<div id="loginError" class="hidden">{{ LoginError }}</div>
 		<label for="loginEmail">Email:</label>
 		<input type="email" id="loginEmail" name="email" required autocomplete="email">
 		<label for="loginPassword">Password:</label>
 		<input type="password" id="loginPassword" name="password" required autocomplete="current-password">
 		<button type="button" data-button-kind="accedi">Annulla</button>
-		<button type="submit">Accedi</button>
-	</form>`;
-	let popUpRegistrati = `<h2>Registrazione</h2>	<form id="registratiForm" action="/registration" method="post" onsubmit="return validaForm()">
+		<button onclick="postRequest(event, ['email', 'password'])" id="/access">Accedi</button>`;
+	let popUpRegistrati = `<h2>Registrazione</h2>
 	<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
 	<label for="signupUsername">Nome Utente:</label>
 	<input type="text" id="signupUsername" name="username" required autocomplete="username">
@@ -21,21 +19,15 @@ document.addEventListener("DOMContentLoaded", function(_) {
 	<label for="signupConfirmPassword">Ripeti Password:</label>
 	<input type="password" id="signupConfirmPassword" name="password" required autocomplete="new-password">
 	<button type="button" data-button-kind="registrati">Annulla</button>
-	<button type="submit">Registrati</button>
-	</form>`;
+	<button onclick="postRequest(event, ['username', 'email', 'password'])" id="/registration">Registrati</button>`;
 	let popUpNewProject = `<h2>Crea un Nuovo Progetto</h2>
-	<form id="newProjectForm" action="/account_home", method="post">
 		<label for=" inputNomeProgetto">Nome Progetto:</label>
 		<input type="text" id="inputNomeProgetto" name="nomeProgetto" required>
 		<label for="inputDescrizioneProgetto">Descrizione:</label>
 		<textarea id="inputDescrizioneProgetto" name="descrizioneProgetto" required></textarea>
-		<div class="form-buttons">
-			<button type="button" data-button-kind="newProject">Annulla</button>
-			<button type="submit" id="submitNewProject">Crea Progetto</button>
-		</div>
-	</form>`
+		<button type="button" data-button-kind="newProject">Annulla</button>
+		<button onclick="postRequest(event, ['nomeProgetto', 'descrizioneProgetto'])" id="/account_home">Crea Progetto</button>`
 	let popUpModifyCredentials = `<h2>Modifica informazioni dell'account</h2>
-	<form id="modificaCredenzialiForm" action="/modifyCredentials" method="post" onsubmit="return validaAccess()">
 		<label for="newEmail">Nuova Email:</label>
 		<input type="email" id="newEmail" name="newEmail">
 		<label for="newUsername">Nuovo Nome Utente:</label>
@@ -47,8 +39,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		<label for="oldPassword">Vecchia Password:</label>
 		<input type="password" id="oldPassword" name="oldPassword" required>
 		<button type="button" data-button-kind="modificaCredenziali">Annulla</button>
-		<button type="submit" id="submitModificaCredenziali">Salva Modifiche</button>
-	</form>`;
+		<button onclick="postRequest(event, ['newEmail', 'newUsername', 'newPassword', 'confirmNewPassword', 'oldPassword'])" id="/modifyCredentials">Salva Modifiche</button>`;
 	let diz = {'accedi': popUpAccedi, 'registrati':popUpRegistrati, 'newProject':popUpNewProject, 'modificaCredenziali':popUpModifyCredentials};
 	document.body.addEventListener("click", function(event) {
 		// Check if the clicked element is a button
@@ -127,6 +118,51 @@ function openProjectPage(link)
 {
 	window.location = `/page_project?link=${link}`;
 }
+
+
+function postRequest(event, params)
+{
+	var datas = {};
+	var queryString = window.location.search;
+	if (queryString.charAt(0) === '?') {
+		queryString = queryString.slice(1);
+	}
+	var queryParams = queryString.split('&');
+
+	var section = event.target.parentElement;
+
+	for (var i = 0; i < params.length; i++) {
+		console.log(params[i]);
+		datas[params[i]] = section.querySelectorAll(`input[name="${params[i]}"], textarea[name="${params[i]}"]`)[0].value;//document.getElementsByName(params[i]);
+		console.log(datas[params[i]]);
+	}
+	queryParams.forEach(function(param) {
+		var parts = param.split('=');
+		var key = decodeURIComponent(parts[0]);
+		var value = decodeURIComponent(parts[1]);
+		datas[key] = value;
+	});
+
+	fetch(event.target.id, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(datas)
+	})
+	.then(response => response.json())
+	.then(data => {
+		console.log(data['status']);
+		if(event.target.id=="/access" || event.target.id=="/registration")
+			window.location.href = '/account_home';
+		else
+			location.reload(true);
+	})
+	.catch((error) => {
+		console.error('Error:', error);
+	});
+}
+
 
 function joinProject(){
 

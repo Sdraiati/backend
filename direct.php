@@ -1,5 +1,4 @@
 <?php
-
 require_once("controllers/Controller.php");
 require_once("api/config/database.php");
 require_once("api/config/db_config.php");
@@ -52,40 +51,65 @@ function generalPage($_, $logged)
 }
 
 
-function registration($method)
+function registration($method)//POST
 {
 	global $database;
 	if ($method == "POST") {
-		$newUser = new NewUser($database);
-		$newUser->createUser($_POST['email'], $_POST['username'], $_POST['password']);
-		setCookieUser($_POST['email'], $_POST['username'], $_POST['password']);
+		try{
+			$newUser = new NewUser($database);
+			$datas = json_decode(file_get_contents('php://input'), true);
+			$newUser->createUser($datas['email'], $datas['username'], $datas['password']);
+			setCookieUser($datas['email'], $datas['username'], $datas['password']);
+			$data_content = array('status' => 'success');
+		}
+		catch(Exception $e)
+		{
+			$data_content = array('status' => $e->getMessage());
+		}
+		$json = json_encode($data_content);
+    	echo $json;
 	}
 }
 
-function access($method)
+function access($method)//POST
 {
 	global $database;
+	
 	if ($method == "POST") {
 		$check = new UserInfo($database);
-		if ($check->checkCredentials($_POST['email'], $_POST['password'])) {
-			$data = $check->getUser($_POST['email']);
+		$datas = json_decode(file_get_contents('php://input'), true);
+		if ($check->checkCredentials($datas['email'], $datas['password'])) {
+			$data = $check->getUser($datas['email']);
 			setCookieUser($data['email'], $data['username'], $data['password']);
+			$data_content = array('status' => 'success');
 		} else {
-			throw new Exception("wrong credentials", 1);
+			$data_content = array('status' => "wrong credentials");
 		}
+		header('Content-Type: application/json');
+    	echo json_encode($data_content);
 	}
 }
 
-function modifyCredentials($method)
+function modifyCredentials($method)//POST
 {
 	global $database;
 	if ($method == "POST") {
-		$mod = new ModifyUser($database);
-		$email = json_decode($_SESSION["LogIn"], true)["email"];
-		$password = json_decode($_SESSION["LogIn"], true)["password"];
-		$mod->modify($email, $password, ['email' => $_POST['newEmail'], 'username' => $_POST['newUsername'], 'password' => $_POST['newPassword']]);
-		setCookieUser($_POST['newEmail'], $_POST['newUsername'], $_POST['newPassword']);
-		header("Location: /account_home");
+		try{
+			$data = json_decode(file_get_contents('php://input'), true);
+			$mod = new ModifyUser($database);
+			$email = json_decode($_SESSION["LogIn"], true)["email"];
+			$password = json_decode($_SESSION["LogIn"], true)["password"];
+			$mod->modify($email, $password, ['email' => $data['newEmail'], 'username' => $data['newUsername'], 'password' => $data['newPassword']]);
+			setCookieUser($data['newEmail'], $data['newUsername'], $data['newPassword']);
+			$data_content = array('status' => 'success');
+		}
+		catch(Exception $e)
+		{
+			$data_content = array('status' => $e->getMessage());
+		}
+		$json = json_encode($data_content);
+		header('Content-Type: application/json');
+    	echo $json;
 	}
 }
 function deleteProject($_, $logged)
@@ -96,15 +120,12 @@ function deleteProject($_, $logged)
     try {
         $id_project = $projectManager->getIDProjectByLink($data['link']);
         $projectDel->deleteProject($id_project);
-        $data_content = [
-            'status' => 'success'
-        ];
+        $data_content = array('status' => 'success');
     } catch (Exception $e) {
-        $data_content = [
-            'status' => $e->getMessage()
-        ];
+        $data_content = array('status' => $e->getMessage());
     }
     $json = json_encode($data_content);
+	header('Content-Type: application/json');
     echo $json;
 }
 function disjoinProject($_, $logged)
@@ -116,31 +137,38 @@ function disjoinProject($_, $logged)
     try {
         $id_project = $projectManager->getIDProjectByLink($data['link']);
         $projectDJ->disjoinProject($email, $id_project);
-        $data_content = [
-            'status' => 'success'
-        ];
+        $data_content = array('status' => 'success');
         error_log("disjoinProject: success!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     } catch (Exception $e) {
-        $data_content = [
-            'status' => $e->getMessage()
-        ];
+        $data_content = array('status' => $e->getMessage());
     }
     $json = json_encode($data_content);
+	header('Content-Type: application/json');
     echo $json;
 }
 function account_home($method, $logged)
 {
 	global $controller;
 	global $database;
-	if ($method == "POST") {
+	if ($method == "POST") {//TRY CATCH E JAVASCRIPT
 		if (isset($_SESSION["LogIn"])) {
-			$nome = $_POST["nomeProgetto"];
-			$descrizione = $_POST["descrizioneProgetto"];
-			$email = json_decode($_SESSION["LogIn"], true)["email"];
-			$link_condivisione = randomString(10);
-			$newProject = new NewProject($database);
-			$newProject->createProject($email, $nome, $link_condivisione, $descrizione);
-			header("Location: /account_home");
+			$datas = json_decode(file_get_contents('php://input'), true);
+			try{
+				$nome = $datas["nomeProgetto"];
+				$descrizione = $datas["descrizioneProgetto"];
+				$email = json_decode($_SESSION["LogIn"], true)["email"];
+				$link_condivisione = randomString(10);
+				$newProject = new NewProject($database);
+				$newProject->createProject($email, $nome, $link_condivisione, $descrizione);
+				$data_content = array('status' => 'success');
+			}
+			catch(Exception $e)
+			{
+				$data_content = array('status' => $e->getMessage());
+			}
+			$json = json_encode($data_content);
+			header('Content-Type: application/json');
+			echo $json;
 		} else {
 			$controller->renderPage(formatUrl($_SERVER['REQUEST_URI']), $logged);
 		}
@@ -152,7 +180,7 @@ function account_home($method, $logged)
 	}
 }
 
-function project_shared($_, $logged)
+function project_shared($_, $logged)//GET
 {
     global $controller;
     global $projectManager;
@@ -160,7 +188,7 @@ function project_shared($_, $logged)
 	$controller->renderProjectSharedPage(formatUrl($_SERVER['REQUEST_URI']), $logged, $project);
 }
 
-function joinProject($_, $logged)
+function joinProject($_, $logged)//POST
 {
 	global $projectManager;
 	global $joinProget;
@@ -169,14 +197,12 @@ function joinProject($_, $logged)
 	try{
 		$project = $projectManager->getProjectInfoByLink($datas['link']);
 		$joinProget->joinProject($email, $project['id']);
-		$data = [
-			'status' => 'success'
-		];
+		$data_content = array('status' => 'success');
 	}catch(Exception $e){
-		$data = [
-			'status' => $e->getMessage()
-		];
+		$data_content = array('status' => $e->getMessage());
 	}
-	$json  = json_encode($data);
+	$json  = json_encode($data_content);
+	header('Content-Type: application/json');
 	echo $json ;
 }
+?>

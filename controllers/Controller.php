@@ -75,8 +75,8 @@ class Controller
             {
                 $link = $project['link_condivisione'];
                 $projectList = $projectList . "<il class='projectContainer'>
-                                                <span>".$project['nome']."</span>
-                                                <span>".$project['descrizione']."</span>
+                                                <span class='nome'>".$project['nome']."</span>
+                                                <span class='descrizione'>".$project['descrizione']."</span>
                                                 <ul>
                                                     <li><button onclick='share(\"".$link."\")'><span lang='en'>share</span></button></li>
                                                     <li><button onclick='openProjectPage(\"".$link."\")'><span lang='en'>open</span></button></li>

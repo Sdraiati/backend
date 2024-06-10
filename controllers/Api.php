@@ -88,8 +88,8 @@ abstract class Api
 	protected function isLogged(): bool
 	{
 		global $user;
-		if (isset($_COOKIE['login'])) {
-			$data = json_decode($_COOKIE['login'], true);
+		if (isset($_SESSION['LogIn'])) {
+			$data = json_decode($_SESSION['LogIn'], true);
 			$logged = $user->existsByEmail($data['email']);
 			if ($logged) {
 				return true;
@@ -101,7 +101,7 @@ abstract class Api
 	protected function getUser(): array
 	{
 		global $user;
-		$data = json_decode($_COOKIE['login'], true);
+		$data = json_decode($_SESSION['LogIn'], true);
 		return $user->getUser($data['email']);
 	}
 

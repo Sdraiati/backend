@@ -38,15 +38,13 @@ $deleteProject = (new JsonApiBuilder())
 			try {
 				$id_project = $projectManager->getIDProjectByLink($params[0]);
 				$projectDel->deleteProject($id_project);
-				$data_content = [
-					'message' => 'Project deleted'
-				];
+
+				http_response_code(200);
+				echo json_encode(['message' => 'Project deleted']);
 			} catch (Exception $e) {
-				$data_content = [
-					'error' => $e->getMessage()
-				];
+				http_response_code(400);
+				echo json_encode(['error' => $e->getMessage()]);
 			}
-			return $data_content;
 		}
 	)
 	->createApi();
@@ -62,15 +60,13 @@ $disjoinProject = (new JsonApiBuilder())
 				$id_project = $projectManager->getIDProjectByLink($params['link']);
 				$email = json_decode($_SESSION["LogIn"], true)["email"];
 				$projectDJ->disjoinProject($email, $id_project);
-				$data_content = [
-					'message' => 'Project disjoined'
-				];
+
+				http_response_code(200);
+				echo json_encode(['message' => 'Project disjoined']);
 			} catch (Exception $e) {
-				$data_content = [
-					'error' => $e->getMessage()
-				];
+				http_response_code(400);
+				echo json_encode(['error' => $e->getMessage()]);
 			}
-			return $data_content;
 		}
 	)
 	->createApi();
@@ -112,7 +108,7 @@ $joinProject = (new JsonApiBuilder())
 				echo json_encode(['message' => 'Project joined']);
 			} catch (Exception $e) {
 				http_response_code(400);
-				json_encode(['error' => $e->getMessage()]);
+				echo json_encode(['error' => $e->getMessage()]);
 			}
 		}
 	)

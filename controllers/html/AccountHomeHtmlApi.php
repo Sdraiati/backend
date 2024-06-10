@@ -23,13 +23,15 @@ class AccountHomeHtmlApi extends HtmlApi
 		if (count($projects) === 1 && $projects[0] === null) {
 			return '<p>Non hai nessun progetto</p>';
 		}
-		$project_layout = $this->getContent('project_item');
 		$project_list = '';
 		foreach ($projects as $project) {
-			$project_list .= str_replace('{{ project-name }}', $project['nome'], $project_layout);
-			$project_list .= str_replace('{{ project-description }}', $project['descrizione'], $project_layout);
-			$project_list .= str_replace('{{ project-link }}', $project['link_condivisione'], $project_layout);
+			$project_layout = $this->getContent('project_item');
+			$project_layout = str_replace('{{ project-name }}', $project['nome'], $project_layout);
+			$project_layout = str_replace('{{ project-description }}', $project['descrizione'], $project_layout);
+			$project_layout = str_replace('{{ project-link }}', $project['link_condivisione'], $project_layout);
+			$project_list .= $project_layout;
 		}
+		return $project_list;
 	}
 
 	public function handle()

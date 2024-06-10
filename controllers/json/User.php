@@ -17,10 +17,10 @@ $registerUser = (new JsonApiBuilder())
 				$newUser->createUser($params['email'], $params['username'], $params['password']);
 
 				http_response_code(200);
-				json_encode(['message' => "User created"]);
+				echo json_encode(['message' => "User created"]);
 			} catch (Exception $_) {
 				http_response_code(400);
-				json_encode(['error' => "User already exists"]);
+				echo json_encode(['error' => "User already exists"]);
 			}
 		}
 	)
@@ -40,11 +40,11 @@ $loginUser = (new JsonApiBuilder())
 					setCookieUser($user['email'], $user['username'], $user['password']);
 
 					http_response_code(200);
-					json_encode(['message' => "User logged in"]);
+					echo json_encode(['message' => "User logged in"]);
 				}
 			} catch (Exception $_) {
 				http_response_code(400);
-				json_encode(['error' => "Invalid credentials"]);
+				echo json_encode(['error' => "Invalid credentials"]);
 			}
 		}
 	)

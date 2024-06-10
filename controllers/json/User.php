@@ -29,10 +29,11 @@ $loginUser = (new JsonApiBuilder())
 		function ($params) {
 			try {
 				$user = new UserInfo(Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD));
-				if (!$user->checkCredentials($params['email'], $params['password'])) {
+				if (!$user->checkCredentials($params[0], $params[1])) {
 					throw new Exception("Invalid credentials");
 				} else {
-					setCookieUser($params['email'], $params['username'], $params['password']);
+					$user = $user->getUser($params[0]);
+					setCookieUser($user['email'], $user['username'], $user['password']);
 					return ['message' => "User logged in"];
 				}
 			} catch (Exception $_) {
@@ -51,8 +52,8 @@ $modifyUser = (new JsonApiBuilder())
 				$user = new ModifyUser(Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD));
 				$email = json_decode($_SESSION["LogIn"], true)["email"];
 				$password = json_decode($_SESSION["LogIn"], true)["password"];
-				$user->modify($email, $password, $params['newEmail'], $params['newUsername'], $params['newPassword']);
-				setCookieUser($params['newEmail'], $params['newUsername'], $params['newPassword']);
+				$user->modify($email, $password, $params[0], $params[1], $params[2]);
+				setCookieUser($params[0], $params[1], $params[2]);
 				return ['message' => "User modified"];
 			} catch (Exception $_) {
 				return ['error' => "Invalid credentials"];

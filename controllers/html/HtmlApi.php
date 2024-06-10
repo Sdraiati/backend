@@ -4,10 +4,6 @@ include_once __PROJECTROOT__ . '/controllers/Api.php';
 include_once __PROJECTROOT__ . '/api/config/db_config.php';
 include_once __PROJECTROOT__ . '/api/config/database.php';
 
-$database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
-$user = new UserInfo($database);
-
-
 class HtmlApi extends Api
 {
 	public function __construct($path)
@@ -26,13 +22,8 @@ class HtmlApi extends Api
 
 	protected function getHeader()
 	{
-		global $user;
-		if (isset($_COOKIE['login'])) {
-			$data = json_decode($_COOKIE('login'), true);
-			$logged = $user->existsByEmail($data['email']);
-			if ($logged) {
-				return $this->getContent('header_logged');
-			}
+		if ($this->isLogged()) {
+			return $this->getContent('header_logged');
 		}
 		return $this->getContent('header');
 	}
@@ -44,6 +35,6 @@ class HtmlApi extends Api
 			$content = $this->getContent('resource_not_found');
 		}
 		$content = str_replace('{{ header }}', $this->getHeader(), $content);
-		return $content;
+		echo $content;
 	}
 }

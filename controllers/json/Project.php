@@ -36,7 +36,7 @@ $deleteProject = (new JsonApiBuilder())
 			global $projectManager;
 			global $projectDel;
 			try {
-				$id_project = $projectManager->getIDProjectByLink($params['link']);
+				$id_project = $projectManager->getIDProjectByLink($params[0]);
 				$projectDel->deleteProject($id_project);
 				$data_content = [
 					'message' => 'Project deleted'
@@ -84,7 +84,7 @@ $newProject = (new JsonApiBuilder())
 			try {
 				$email = json_decode($_SESSION["LogIn"], true)["email"];
 				$link_condivisione = randomString();
-				$projectNew->createProject($email, $params['nomeProgetto'], $link_condivisione, $params['descrizioneProgetto']);
+				$projectNew->createProject($email, $params[0], $link_condivisione, $params[1]);
 				return ['message' => 'Project created'];
 			} catch (Exception $e) {
 				return ['error' => $e->getMessage()];
@@ -101,7 +101,7 @@ $joinProject = (new JsonApiBuilder())
 			global $projectManager;
 			global $joinProget;
 			try {
-				$id_project = $projectManager->getIDProjectByLink($params['link']);
+				$id_project = $projectManager->getIDProjectByLink($params[0]);
 				$email = json_decode($_SESSION["LogIn"], true)["email"];
 				$joinProget->joinProject($email, $id_project);
 				$data_content = [

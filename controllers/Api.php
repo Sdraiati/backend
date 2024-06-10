@@ -1,5 +1,8 @@
 <?php
 
+$database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
+$user = new UserInfo($database);
+
 abstract class Api
 {
 	protected $path;
@@ -75,6 +78,26 @@ abstract class Api
 		}
 
 		return $params;
+	}
+
+	protected function isLogged(): bool
+	{
+		global $user;
+		if (isset($_COOKIE['login'])) {
+			$data = json_decode($_COOKIE['login'], true);
+			$logged = $user->existsByEmail($data['email']);
+			if ($logged) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected function getUser(): array
+	{
+		global $user;
+		$data = json_decode($_COOKIE['login'], true);
+		return $user->getUser($data['email']);
 	}
 
 	public function match($path, $method): bool

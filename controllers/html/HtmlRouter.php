@@ -16,12 +16,3 @@ $project_cake = new HtmlApi('project_cake');
 $project_home = new HtmlApi('project_home');
 $release_notes = new HtmlApi('release_notes');
 
-$account_home = (new SpecialHtmlApiBuilder())
-	->setPath('account_home')
-	->setInputParams([])
-	->setLogicFn(function ($params) {
-		$content = $params[0];
-		$database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
-		$user = new UserInfo($database);
-	})
-	->build();

@@ -65,7 +65,7 @@ $disjoinProject = (new JsonApiBuilder())
 				echo json_encode(['message' => 'Project disjoined']);
 			} catch (Exception $e) {
 				http_response_code(400);
-				echo json_encode(['error' => $e->getMessage()]);
+				echo json_encode(['error' => "You are the only one in the project"]);
 			}
 		}
 	)

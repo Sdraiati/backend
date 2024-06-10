@@ -14,13 +14,21 @@ class ProjectSharedHtmlApi extends HtmlApi
 {
 	public function __contruct($path)
 	{
-		parent::__construct($path, ['link']);
+		parent::__construct($path);
 	}
 
 	public function handle()
 	{
 		global $projectManager;
-		$link = $this->getInputParams()[0];
+        $link = '';
+		if(isset($_GET['link']))
+            $link = $_GET['link'];
+        else {
+            $content = $this->getContent('resource_not_found');
+            $content = str_replace('{{ header }}', $this->getHeader(), $content);
+            echo $content;
+            return;
+        }
 		$project = $projectManager->getProjectInfoByLink($link);
 
 		$content = $this->getContent($this->path);

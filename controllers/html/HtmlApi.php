@@ -6,10 +6,16 @@ include_once __PROJECTROOT__ . '/api/config/database.php';
 
 class HtmlApi extends Api
 {
-	public function __construct($path, $params = [])
+	public function __construct($path)
 	{
-		parent::__construct($path, 'GET', $params);
+		parent::__construct($path, 'GET', []);
 	}
+
+    public function match($path, $method): bool
+    {
+        $path = explode('?', $path)[0];
+        return "/" . $this->path === $path && $this->method === $method;
+    }
 
 	protected function getContent($path)
 	{

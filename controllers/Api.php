@@ -37,7 +37,8 @@ abstract class Api
 
 	private function get($param)
 	{
-		$json = file_get_contents("php://get");
+        error_log($param);
+		$json = file_get_contents("php://input");
 
 		$data = json_decode($json, true);
 		if ($data !== null && isset($data[$param])) {
@@ -68,6 +69,7 @@ abstract class Api
 	protected function getInputParams()
 	{
 		$params = [];
+        error_log("Params" . json_encode($this->inputParams));
 		if ($this->method === 'GET') {
 			foreach ($this->inputParams as $param) {
 				$params[] = $this->get($param) ?? null;

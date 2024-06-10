@@ -37,7 +37,7 @@ class Router
 	{
 		foreach ($this->routes as $route) {
 			if ($route->match($path, $method)) {
-				$route->handle();
+				$route->handle($path, $method);
 				return;
 			}
 		}

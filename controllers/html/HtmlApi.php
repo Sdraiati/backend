@@ -1,19 +1,19 @@
 <?php
-define('__PROJECTROOT__', dirname(__FILE__, 3));
+
 include_once __PROJECTROOT__ . '/controllers/Api.php';
 include_once __PROJECTROOT__ . '/api/config/db_config.php';
 include_once __PROJECTROOT__ . '/api/config/database.php';
 
 class HtmlApi extends Api
 {
-	public function __construct($path)
+	public function __construct($path, $params = [])
 	{
-		parent::__construct($path, 'GET', []);
+		parent::__construct($path, 'GET', $params);
 	}
 
 	protected function getContent($path)
 	{
-		$filename = __PROJECTROOT__ . 'views/' . $path . '.html';
+		$filename = __PROJECTROOT__ . '/views/' . $path . '.html';
 		if (file_exists($filename)) {
 			return file_get_contents($filename);
 		}

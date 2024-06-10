@@ -1,6 +1,7 @@
 <?php
 
 include_once 'JsonApi.php';
+
 include_once __PROJECTROOT__ . '/controllers/Router.php';
 include_once __PROJECTROOT__ . '/models/database/user/NewUser.php';
 include_once __PROJECTROOT__ . '/models/database/user/ModifyUser.php';
@@ -14,9 +15,12 @@ $registerUser = (new JsonApiBuilder())
 			try {
 				$newUser = new NewUser(Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD));
 				$newUser->createUser($params['email'], $params['username'], $params['password']);
-				return ['message' => "User created"];
+
+				http_response_code(200);
+				json_encode(['message' => "User created"]);
 			} catch (Exception $_) {
-				return ['error' => "User already exists"];
+				http_response_code(400);
+				json_encode(['error' => "User already exists"]);
 			}
 		}
 	)
@@ -34,10 +38,13 @@ $loginUser = (new JsonApiBuilder())
 				} else {
 					$user = $user->getUser($params[0]);
 					setCookieUser($user['email'], $user['username'], $user['password']);
-					return ['message' => "User logged in"];
+
+					http_response_code(200);
+					json_encode(['message' => "User logged in"]);
 				}
 			} catch (Exception $_) {
-				return ['error' => "Invalid credentials"];
+				http_response_code(400);
+				json_encode(['error' => "Invalid credentials"]);
 			}
 		}
 	)
@@ -54,9 +61,13 @@ $modifyUser = (new JsonApiBuilder())
 				$password = json_decode($_SESSION["LogIn"], true)["password"];
 				$user->modify($email, $password, $params[0], $params[1], $params[2]);
 				setCookieUser($params[0], $params[1], $params[2]);
-				return ['message' => "User modified"];
+
+				http_response_code(200);
+				echo json_encode(['message' => "User modified"]);
 			} catch (Exception $_) {
-				return ['error' => "Invalid credentials"];
+
+				http_response_code(400);
+				echo json_encode(['error' => "Invalid credentials"]);
 			}
 		}
 	)

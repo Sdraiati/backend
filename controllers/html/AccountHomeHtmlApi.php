@@ -1,8 +1,7 @@
 <?php
 
-define('__PROJECTROOT__', dirname(__FILE__, 3));
 include_once 'HtmlApi.php';
-include_once __PROJECTROOT__ . 'models/database/project/ProjectInfo.php';
+include_once __PROJECTROOT__ . '/models/database/project/ProjectInfo.php';
 
 
 global $database;
@@ -39,6 +38,7 @@ class AccountHomeHtmlApi extends HtmlApi
 			$content = $this->getContent('resource_not_found');
 			$content = str_replace('{{ header }}', $this->getHeader(), $content);
 			echo $content;
+			return;
 		}
 		$content = $this->getContent($this->path);
 		$content = str_replace('{{ header }}', $this->getHeader(), $content);

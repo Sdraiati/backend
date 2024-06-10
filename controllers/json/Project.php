@@ -3,11 +3,11 @@
 include_once 'JsonApi.php';
 include_once __PROJECTROOT__ . '/controllers/Router.php';
 include_once __PROJECTROOT__ . '/api/config/db_config.php';
-require_once __PROJECTROOT__ . 'models/database/project/NewProject.php';
-require_once __PROJECTROOT__ . 'models/database/project/ProjectInfo.php';
-require_once __PROJECTROOT__ . 'models/database/project/JoinProject.php';
-require_once __PROJECTROOT__ . 'models/database/project/DeleteProject.php';
-require_once __PROJECTROOT__ . 'models/database/project/DisjoinProject.php';
+require_once __PROJECTROOT__ . '/models/database/project/NewProject.php';
+require_once __PROJECTROOT__ . '/models/database/project/ProjectInfo.php';
+require_once __PROJECTROOT__ . '/models/database/project/JoinProject.php';
+require_once __PROJECTROOT__ . '/models/database/project/DeleteProject.php';
+require_once __PROJECTROOT__ . '/models/database/project/DisjoinProject.php';
 
 $database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
 $projectManager = new ProjectInfo($database);
@@ -85,9 +85,12 @@ $newProject = (new JsonApiBuilder())
 				$email = json_decode($_SESSION["LogIn"], true)["email"];
 				$link_condivisione = randomString();
 				$projectNew->createProject($email, $params[0], $link_condivisione, $params[1]);
-				return ['message' => 'Project created'];
+
+				http_response_code(201);
+				echo json_encode(['message' => 'Project created']);
 			} catch (Exception $e) {
-				return ['error' => $e->getMessage()];
+				http_response_code(400);
+				echo json_encode(['error' => $e->getMessage()]);
 			}
 		}
 	)
@@ -104,15 +107,13 @@ $joinProject = (new JsonApiBuilder())
 				$id_project = $projectManager->getIDProjectByLink($params[0]);
 				$email = json_decode($_SESSION["LogIn"], true)["email"];
 				$joinProget->joinProject($email, $id_project);
-				$data_content = [
-					'message' => 'Project joined'
-				];
+
+				http_response_code(201);
+				echo json_encode(['message' => 'Project joined']);
 			} catch (Exception $e) {
-				$data_content = [
-					'error' => $e->getMessage()
-				];
+				http_response_code(400);
+				json_encode(['error' => $e->getMessage()]);
 			}
-			return $data_content;
 		}
 	)
 	->createApi();

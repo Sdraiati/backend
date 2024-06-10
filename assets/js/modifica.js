@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		<label for="loginPassword">Password:</label>
 		<input type="password" id="loginPassword" name="password" required autocomplete="current-password">
 		<button type="button" data-button-kind="accedi">Annulla</button>
-		<button onclick="postRequest(event, ['email', 'password'])" id="/access">Accedi</button>`;
+		<button onclick="postRequest(event, ['email', 'password'])" id="/user/login">Accedi</button>`;
 	let popUpRegistrati = `<h2>Registrazione</h2>
 	<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
 	<label for="signupUsername">Nome Utente:</label>
@@ -19,14 +19,14 @@ document.addEventListener("DOMContentLoaded", function(_) {
 	<label for="signupConfirmPassword">Ripeti Password:</label>
 	<input type="password" id="signupConfirmPassword" name="password" required autocomplete="new-password">
 	<button type="button" data-button-kind="registrati">Annulla</button>
-	<button onclick="postRequest(event, ['username', 'email', 'password'])" id="/registration">Registrati</button>`;
+	<button onclick="postRequest(event, ['username', 'email', 'password'])" id="/user/register">Registrati</button>`;
 	let popUpNewProject = `<h2>Crea un Nuovo Progetto</h2>
 		<label for=" inputNomeProgetto">Nome Progetto:</label>
 		<input type="text" id="inputNomeProgetto" name="nomeProgetto" required>
 		<label for="inputDescrizioneProgetto">Descrizione:</label>
 		<textarea id="inputDescrizioneProgetto" name="descrizioneProgetto" required></textarea>
 		<button type="button" data-button-kind="newProject">Annulla</button>
-		<button onclick="postRequest(event, ['nomeProgetto', 'descrizioneProgetto'])" id="/account_home">Crea Progetto</button>`
+		<button onclick="postRequest(event, ['nomeProgetto', 'descrizioneProgetto'])" id="/project/new">Crea Progetto</button>`
 	let popUpModifyCredentials = `<h2>Modifica informazioni dell'account</h2>
 		<label for="newEmail">Nuova Email:</label>
 		<input type="email" id="newEmail" name="newEmail">
@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		<label for="oldPassword">Vecchia Password:</label>
 		<input type="password" id="oldPassword" name="oldPassword" required>
 		<button type="button" data-button-kind="modificaCredenziali">Annulla</button>
-		<button onclick="postRequest(event, ['newEmail', 'newUsername', 'newPassword', 'confirmNewPassword', 'oldPassword'])" id="/modifyCredentials">Salva Modifiche</button>`;
-	let diz = {'accedi': popUpAccedi, 'registrati':popUpRegistrati, 'newProject':popUpNewProject, 'modificaCredenziali':popUpModifyCredentials};
+		<button onclick="postRequest(event, ['newEmail', 'newUsername', 'newPassword', 'confirmNewPassword', 'oldPassword'])" id="/user/modify">Salva Modifiche</button>`;
+	let diz = { 'accedi': popUpAccedi, 'registrati': popUpRegistrati, 'newProject': popUpNewProject, 'modificaCredenziali': popUpModifyCredentials };
 	document.body.addEventListener("click", function(event) {
 		// Check if the clicked element is a button
 		if (event.target.tagName === "BUTTON") {
@@ -49,23 +49,21 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			if (id == null) {
 				return;
 			}
-			else{
+			else {
 				document.getElementById(id).classList.toggle('hidden');
 				document.getElementById(id).classList.toggle('allert');
 			}
-			if(document.getElementById(id).classList.contains("hidden"))
-				{
-					document.getElementById(id).innerHTML = ``;
-				}
-			else{
+			if (document.getElementById(id).classList.contains("hidden")) {
+				document.getElementById(id).innerHTML = ``;
+			}
+			else {
 				document.getElementById(id).innerHTML = diz[id];
 			}
 		}
 	});
 })
 
-function validaForm()
-{
+function validaForm() {
 	var password1 = document.getElementById("signupPassword").value;
 	var password2 = document.getElementById("signupConfirmPassword").value;
 
@@ -76,52 +74,49 @@ function validaForm()
 	return true;
 }
 
-function validaAccess(){
+function validaAccess() {
 	const cookieName = "LogIn";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const cookieArray = decodedCookie.split(';');
+	const decodedCookie = decodeURIComponent(document.cookie);
+	const cookieArray = decodedCookie.split(';');
 
-    for (let i = 0; i < cookieArray.length; i++) {
-        let cookie = cookieArray[i].trim();
-        if (cookie.indexOf(cookieName) === 0) {
-            return true;
-        }
-    }
+	for (let i = 0; i < cookieArray.length; i++) {
+		let cookie = cookieArray[i].trim();
+		if (cookie.indexOf(cookieName) === 0) {
+			return true;
+		}
+	}
 	alert("Devi fare prima il Log-In");
-    return false;
+	return false;
 }
 
-function logOut(){
+function logOut() {
 	const cookies = document.cookie.split(";");
 
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i];
-        const eqPos = cookie.indexOf("=");
-        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
-    }
+	for (let i = 0; i < cookies.length; i++) {
+		const cookie = cookies[i];
+		const eqPos = cookie.indexOf("=");
+		const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+		document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+	}
 
-    window.location.reload();
+	window.location.reload();
 }
 
-function share(link)
-{
+function share(link) {
 	url = window.location.hostname + `/project_shared?link=${link}`;
 	navigator.clipboard.writeText(url).then(function() {
-        alert("Testo copiato negli appunti!");
-    }).catch(function(error) {
-        console.error("Errore durante la copia del testo: ", error);
-    });
+		alert("Testo copiato negli appunti!");
+	}).catch(function(error) {
+		console.error("Errore durante la copia del testo: ", error);
+	});
 }
 
-function openProjectPage(link)
-{
+function openProjectPage(link) {
 	window.location = `/page_project?link=${link}`;
 }
 
 
-function postRequest(event, params)
-{
+function postRequest(event, params) {
 	var datas = {};
 	var queryString = window.location.search;
 	if (queryString.charAt(0) === '?') {
@@ -150,24 +145,23 @@ function postRequest(event, params)
 		},
 		body: JSON.stringify(datas)
 	})
-	.then(response => response.json())
-	.then(data => {
-		console.log(data['status']);
-		if(event.target.id=="/access" || event.target.id=="/registration")
-			window.location.href = '/account_home';
-		else
-			location.reload(true);
-	})
-	.catch((error) => {
-		console.error('Error:', error);
-	});
+		.then(response => response.json())
+		.then(data => {
+			console.log(data['status']);
+			if (event.target.id == "/user/login" || event.target.id == "/user/register")
+				window.location.href = '/account_home';
+			else
+				location.reload(true);
+		})
+		.catch((error) => {
+			console.error('Error:', error);
+		});
 }
 
 
-function joinProject(){
+function joinProject() {
 
-	if(validaAccess())
-	{
+	if (validaAccess()) {
 		const urlString = window.location.href;
 		const url = new URL(urlString);
 		const params = url.searchParams;
@@ -176,35 +170,33 @@ function joinProject(){
 			link: params.get('link'),
 		};
 
-		fetch('/join_project', {
+		fetch('/project/join', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(datas)
 		})
-		.then(response => response.json())
-		.then(data => {
-			alert(data['status']);
-		})
-		.catch((error) => {
-			console.error('Error:', error);
-		});
+			.then(response => response.json())
+			.then(data => {
+				alert(data['status']);
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
 	}
-	else{
+	else {
 		alert("Prima effettuare il login.");
 	}
 }
 
-function deleteProject(link)
-{
-	if(validaAccess())
-	{
+function deleteProject(link) {
+	if (validaAccess()) {
 		const data = {
 			link: link,
 		};
 
-		fetch('/delete_project', {
+		fetch('/project/delete', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -220,20 +212,18 @@ function deleteProject(link)
 				console.error('Error:', error);
 			});
 	}
-	else{
+	else {
 		alert("Prima effettuare il login.");
 	}
 }
 
-function disjoinProject(link)
-{
-	if(validaAccess())
-	{
+function disjoinProject(link) {
+	if (validaAccess()) {
 		const data = {
 			link: link,
 		};
 
-		fetch('/disjoin_project', {
+		fetch('/project/disjoin', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -249,7 +239,7 @@ function disjoinProject(link)
 				console.error('Error:', error);
 			});
 	}
-	else{
+	else {
 		alert("Prima effettuare il login.");
 	}
 }

@@ -1,5 +1,7 @@
 <?php
+
 define('__PROJECTROOT__', dirname(__FILE__, 3));
+
 include_once __PROJECTROOT__ . '/controllers/Api.php';
 include_once __PROJECTROOT__ . '/api/config/db_config.php';
 include_once __PROJECTROOT__ . '/api/config/database.php';
@@ -14,17 +16,6 @@ class JsonApi extends Api
 		$this->logicFn = $logicFn;
 	}
 
-	private function response($result)
-	{
-		if ($result->error) {
-			http_response_code(400);
-		} else {
-			http_response_code(200);
-		}
-		header('Content-Type: application/json');
-		echo json_encode($result);
-	}
-
 	public function handle()
 	{
 		$params = $this->getInputParams();
@@ -33,8 +24,7 @@ class JsonApi extends Api
 			return;
 		}
 
-		$result = call_user_func($this->logicFn, $params);
-		$this->response($result);
+		call_user_func($this->logicFn, $params);
 	}
 }
 

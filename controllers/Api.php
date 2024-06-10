@@ -1,5 +1,10 @@
 <?php
 
+$projectRoot = dirname(__FILE__, 2);
+include_once $projectRoot . '/api/config/db_config.php';
+include_once $projectRoot . '/api/config/database.php';
+include_once $projectRoot . '/models/database/user/UserInfo.php';
+
 $database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
 $user = new UserInfo($database);
 

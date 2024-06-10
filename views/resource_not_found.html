@@ -16,50 +16,51 @@
 
 <body>
 
-<header>
-	<nav>
-		<div class="Logo">
-			<a href="index"><img src="assets/img/logo.jpeg" alt="logo"></a>
+	<header>
+		<nav>
+			<div class="Logo">
+				<a href="/"><img src="assets/img/logo.jpeg" alt="logo"></a>
+			</div>
+			{{ header }}
+		</nav>
+		<h1>Penny Wise</h1>
+	</header>
+
+	<section id="accedi" class="hidden">
+	</section>
+
+	<section id="registrati" class="hidden">
+	</section>
+
+	<script type="module" src="assets/js/nav.js"></script>
+
+	<main>
+		<div id="error404">
+			<h1>Risorsa non trovata - 404</h1>
+			<img src="./assets/img/angry_paperone.png"
+				alt="Paperone dice: Ahia, ahia, ahia! Sembra che la mia preziosa risorsa sia svanita nel nulla">
 		</div>
-		{{ header }}
-	</nav>
-	<h1>Penny Wise</h1>
-</header>
+	</main>
 
-<section id="accedi" class="hidden">
-</section>
-
-<section id="registrati" class="hidden">
-</section>
-
-<script type="module" src="assets/js/nav.js"></script>
-
-<main>
-	<div id="error404">
-		<h1>Risorsa non trovata - 404</h1>
-		<img src="./assets/img/angry_paperone.png" alt="Paperone dice: Ahia, ahia, ahia! Sembra che la mia preziosa risorsa sia svanita nel nulla">
-	</div>
-</main>
-
-<script src="assets/js/footerColors.js"></script>
-<footer>
-	<div class="footer-list">
-		<h3>Prodotto</h3>
-		<ul>
-			<li><a href="account_home">I Miei Progetti</a></li>
-			<li><a href="about_us">About Us</a></li>
-		</ul>
-	</div>
-	<div class="footer-list">
-		<h3>Risorse</h3>
-		<ul>
-			<li><a href="index">Homepage</a></li>
-			<li><a href="release_notes">Release Notes</a></li>
-			<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
-						id="github-mark"> GitHub </a></li>
-		</ul>
-	</div>
-</footer>
+	<script src="assets/js/footerColors.js"></script>
+	<footer>
+		<div class="footer-list">
+			<h3>Prodotto</h3>
+			<ul>
+				<li><a href="account_home">I Miei Progetti</a></li>
+				<li><a href="about_us">About Us</a></li>
+			</ul>
+		</div>
+		<div class="footer-list">
+			<h3>Risorse</h3>
+			<ul>
+				<li><a href="/">Homepage</a></li>
+				<li><a href="release_notes">Release Notes</a></li>
+				<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
+							id="github-mark"> GitHub </a></li>
+			</ul>
+		</div>
+	</footer>
 
 </body>
 

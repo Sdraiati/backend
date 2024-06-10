@@ -7,7 +7,7 @@ class DisjoinProject extends UserProject
         parent::__construct($db);
     }
 
-    public function disjoinProject($email, $projectId)
+    public function disjoinProject($email, $projectId) : string | bool
     {
         // check if user exists
         if (!$this->userInfo->existsByEmail($email))
@@ -20,8 +20,10 @@ class DisjoinProject extends UserProject
         // check if user is in the project
         if (!$this->isUserInProject($userId, $projectId))
             die("disjoinProject: user $userId is not in project $projectId");
-
-        error_log("SIAMO QUII");
+        // check if the project has only one owner
+        if ($this->isProjectOnlyOwner($userId, $projectId)){
+            return "You are the only owner of the project. You can't leave the project.";
+        }
 
         $sql = "DELETE FROM progetto_utente WHERE id_progetto = ? AND id_utente = ?";
         $params = [

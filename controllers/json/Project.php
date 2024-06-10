@@ -57,7 +57,7 @@ $disjoinProject = (new JsonApiBuilder())
 			global $projectManager;
 			global $projectDJ;
 			try {
-				$id_project = $projectManager->getIDProjectByLink($params['link']);
+				$id_project = $projectManager->getIDProjectByLink($params[0]);
 				$email = json_decode($_SESSION["LogIn"], true)["email"];
 				$projectDJ->disjoinProject($email, $id_project);
 

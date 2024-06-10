@@ -14,7 +14,7 @@ $registerUser = (new JsonApiBuilder())
 		function ($params) {
 			try {
 				$newUser = new NewUser(Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD));
-				$newUser->createUser($params['email'], $params['username'], $params['password']);
+				$newUser->createUser($params[0], $params[1], $params[2]);
 
 				http_response_code(200);
 				echo json_encode(['message' => "User created"]);

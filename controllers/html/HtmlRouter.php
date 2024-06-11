@@ -13,6 +13,7 @@ $index = new IndexHtmlApi('');
 $account_home = new AccountHomeHtmlApi('account_home');
 $project_shared = new ProjectSharedHtmlApi('project_shared');
 $project_home = new ProjectHomeHtmlApi('project_home');
+$project_cake = new ProjectHomeHtmlApi('project_cake');
 
 $html_router = new Router();
 $html_router->addRoute($about_us);
@@ -22,3 +23,4 @@ $html_router->addRoute($release_notes);
 $html_router->addRoute($account_home);
 $html_router->addRoute($project_shared);
 $html_router->addRoute($project_home);
+$html_router->addRoute($project_cake);

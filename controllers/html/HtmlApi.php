@@ -11,11 +11,11 @@ class HtmlApi extends Api
 		parent::__construct($path, 'GET', []);
 	}
 
-    public function match($path, $method): bool
-    {
-        $path = explode('?', $path)[0];
-        return "/" . $this->path === $path && $this->method === $method;
-    }
+	public function match($path, $method): bool
+	{
+		$path = explode('?', $path)[0];
+		return "/" . $this->path === $path && $this->method === $method;
+	}
 
 	protected function getContent($path)
 	{

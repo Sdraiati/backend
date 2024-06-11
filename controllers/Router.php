@@ -1,6 +1,7 @@
 <?php
 
 include_once 'Api.php';
+include_once 'html/HtmlApi.php';
 
 class Router
 {
@@ -41,6 +42,15 @@ class Router
 				return;
 			}
 		}
-		http_response_code(404);
+		if ($method === 'GET') {
+			$resource_not_found = new HtmlApi('resource_not_found');
+			$resource_not_found->handle();
+		} else if ($method === 'POST') {
+			http_response_code(404);
+			echo json_encode(['error' => 'Resource not found']);
+		} else {
+			http_response_code(500);
+			echo json_encode(['error' => 'Internal server error']);
+		}
 	}
 }

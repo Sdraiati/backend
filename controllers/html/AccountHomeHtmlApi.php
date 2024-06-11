@@ -28,6 +28,7 @@ class AccountHomeHtmlApi extends HtmlApi
 			$project_layout = $this->getContent('project_item');
 			$project_layout = str_replace('{{ project-name }}', $project['nome'], $project_layout);
 			$project_layout = str_replace('{{ project-description }}', $project['descrizione'], $project_layout);
+			$project_layout = str_replace('{{ project-id }}', $project['id'], $project_layout);
 			$project_layout = str_replace('{{ project-link }}', $project['link_condivisione'], $project_layout);
 			$project_list .= $project_layout;
 		}

@@ -3,7 +3,11 @@
 	<span class='descrizione'>{{ project-description }}</span>
 	<ul>
 		<li><button onclick='share("{{ project-link }}")'><span lang='en'>share</span></button></li>
-		<li><button onclick='openProjectPage("{{ project-link }}")'><span lang='en'>open</span></button></li>
+		<li>
+			<button onclick='window.location.href = "project_home?project_id={{ project-id }}"'>
+				<span lang='en'>open</span>
+			</button>
+		</li>
 		<li><button onclick='deleteProject("{{ project-link }}")'><span lang='en'>delete</span></button></li>
 		<li><button onclick='disjoinProject("{{ project-link }}")'><span lang='en'>exit</span></button></li>
 	</ul>

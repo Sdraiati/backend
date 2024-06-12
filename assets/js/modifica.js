@@ -8,18 +8,18 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		<button type="button" data-button-kind="accedi">Annulla</button>
 		<button onclick="postRequest(event, ['email', 'password'])" id="/user/login">Accedi</button>`;
 	let popUpRegistrati = `<h2>Registrazione</h2>
-	<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
-	<label for="signupUsername">Nome Utente:</label>
-	<input type="text" id="signupUsername" name="username" required autocomplete="username">
-	<label for="signupEmail">Email:</label>
-	<input type="email" id="signupEmail" name="email" required autocomplete="email">
-	<label for="signupPassword">Password:</label>
-	<input type="password" id="signupPassword" name="password" required autocomplete="new-password">
-	<span id="passwordError" class="hidden">Le due password non coincidono.</span>
-	<label for="signupConfirmPassword">Ripeti Password:</label>
-	<input type="password" id="signupConfirmPassword" name="password" required autocomplete="new-password">
-	<button type="button" data-button-kind="registrati">Annulla</button>
-	<button onclick="postRequest(event, ['username', 'email', 'password'])" id="/user/register">Registrati</button>`;
+		<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
+		<label for="signupUsername">Nome Utente:</label>
+		<input type="text" id="signupUsername" name="username" required autocomplete="username">
+		<label for="signupEmail">Email:</label>
+		<input type="email" id="signupEmail" name="email" required autocomplete="email">
+		<label for="signupPassword">Password:</label>
+		<input type="password" id="signupPassword" name="password" required autocomplete="new-password">
+		<span id="passwordError" class="hidden">Le due password non coincidono.</span>
+		<label for="signupConfirmPassword">Ripeti Password:</label>
+		<input type="password" id="signupConfirmPassword" name="password" required autocomplete="new-password">
+		<button type="button" data-button-kind="registrati">Annulla</button>
+		<button onclick="postRequest(event, ['username', 'email', 'password'])" id="/user/register">Registrati</button>`;
 	let popUpNewProject = `<h2>Crea un Nuovo Progetto</h2>
 		<label for=" inputNomeProgetto">Nome Progetto:</label>
 		<input type="text" id="inputNomeProgetto" name="nomeProgetto" required>
@@ -40,7 +40,23 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		<input type="password" id="oldPassword" name="oldPassword" required>
 		<button type="button" data-button-kind="modificaCredenziali">Annulla</button>
 		<button onclick="postRequest(event, ['newEmail', 'newUsername', 'newPassword', 'confirmNewPassword', 'oldPassword'])" id="/user/modify">Salva Modifiche</button>`;
-	let diz = { 'accedi': popUpAccedi, 'registrati': popUpRegistrati, 'newProject': popUpNewProject, 'modificaCredenziali': popUpModifyCredentials };
+	let popUpEditProject = `<h2>Modifica Progetto</h2>
+		<form id="editProjectForm" action="javascript:void(0)">
+		<label for="inputNewNomeProgetto">Nuovo Nome Progetto:</label>
+		<input type="text" id="inputNewNomeProgetto" name="newNomeProgetto">
+		<label for="inputNewDescrizioneProgetto">Nuova Descrizione:</label>
+		<textarea id="inputNewDescrizioneProgetto" name="newDescrizioneProgetto"></textarea>
+		<div class="form-buttons">
+		<button type="button" data-button-kind="deleteProject">Elimina Progetto</button>
+		<button type="button" data-button-kind="editProjectHide">Annulla</button>
+		<button type="submit" id="submitEditProject">Salva Modifiche</button>
+		</div>
+		</form>`;
+
+	let diz = { 'accedi': popUpAccedi, 'registrati': popUpRegistrati,
+		'newProject': popUpNewProject, 'modificaCredenziali': popUpModifyCredentials,
+		'editProject': popUpEditProject};
+
 	document.body.addEventListener("click", function(event) {
 		// Check if the clicked element is a button
 		if (event.target.tagName === "BUTTON") {

@@ -6,6 +6,7 @@ include_once __PROJECTROOT__ . '/controllers/Router.php';
 include_once __PROJECTROOT__ . '/models/database/user/NewUser.php';
 include_once __PROJECTROOT__ . '/models/database/user/ModifyUser.php';
 include_once __PROJECTROOT__ . '/api/config/db_config.php';
+include_once 'lib.php';
 
 $registerUser = (new JsonApiBuilder())
 	->setPath('user/register')
@@ -31,7 +32,7 @@ $loginUser = (new JsonApiBuilder())
 	->setInputParams(['email', 'password'])
 	->setLogicFn(
 		function ($params) {
-            try {
+			try {
 				$user = new UserInfo(Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD));
 				if (!$user->checkCredentials($params[0], $params[1])) {
 					throw new Exception("Invalid credentials");
@@ -55,19 +56,24 @@ $modifyUser = (new JsonApiBuilder())
 	->setInputParams(['newEmail', 'newUsername', 'newPassword'])
 	->setLogicFn(
 		function ($params) {
+			if (!isLogged()) {
+				http_response_code(401);
+				echo json_encode(['error' => "Unauthorized"]);
+				return;
+			}
 			try {
 				$modUser = new ModifyUser(Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD));
 				$email = json_decode($_SESSION["LogIn"], true)["email"];
 				$password = json_decode($_SESSION["LogIn"], true)["password"];
-				$modUser->modify($email, $password, ['email' => $params[0], 'username' => $params[1], 'password' => $params[2] ]);
+				$modUser->modify($email, $password, ['email' => $params[0], 'username' => $params[1], 'password' => $params[2]]);
 				$userInfo = new UserInfo(Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD));
-                if($params[0]!="") {
-                    $email = $params[0];
-                }
-                $user = $userInfo->getUser($email);
-                setCookieUser($user['email'], $user['username'], $user['password']);
+				if ($params[0] != "") {
+					$email = $params[0];
+				}
+				$user = $userInfo->getUser($email);
+				setCookieUser($user['email'], $user['username'], $user['password']);
 
-                http_response_code(200);
+				http_response_code(200);
 				echo json_encode(['message' => "User modified"]);
 			} catch (Exception $_) {
 

@@ -8,6 +8,7 @@ include_once __PROJECTROOT__ . '/models/database/project/ProjectInfo.php';
 include_once __PROJECTROOT__ . '/models/database/project/JoinProject.php';
 include_once __PROJECTROOT__ . '/models/database/project/DeleteProject.php';
 require_once __PROJECTROOT__ . '/models/database/project/DisjoinProject.php';
+include_once __PROJECTROOT__ . '/models/database/project/ModifyProject.php';
 include_once 'lib.php';
 
 $database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
@@ -16,6 +17,7 @@ $joinProget = new JoinProject($database);
 $projectDel = new DeleteProject($database);
 $projectDJ = new DisjoinProject($database);
 $projectNew = new NewProject($database);
+$modProject = new ModifyProject($database);
 
 function randomString($lunghezza = 10, $caratteri = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 {
@@ -141,8 +143,30 @@ $joinProject = (new JsonApiBuilder())
 	)
 	->createApi();
 
+$modifyProject = (new JsonApiBuilder())
+    ->setPath('project/modify')
+    ->setInputParams(['project_id', 'newNomeProgetto', 'newDescrizioneProgetto'])
+    ->setLogicFn(
+        function ($params) {
+            try {
+                global $projectManager;
+                global $modProject;
+                $modProject->modify($params[0], ['nome' => $params[1], 'descrizione' => $params[2] ]);
+
+                http_response_code(200);
+                echo json_encode(['message' => "Project modified"]);
+            } catch (Exception $_) {
+
+                http_response_code(400);
+                echo json_encode(['error' => "Invalid credentials"]);
+            }
+        }
+    )
+    ->createApi();
+
 $project_router = new Router();
 $project_router->addRoute($deleteProject);
 $project_router->addRoute($disjoinProject);
 $project_router->addRoute($newProject);
 $project_router->addRoute($joinProject);
+$project_router->addRoute($modifyProject);

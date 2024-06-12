@@ -10,6 +10,13 @@ class ModifyUser extends DatabaseManager {
         $this->userInfo = new UserInfo($db);
     }
     public function modify(string $old_email, string $old_password, array $fields) : bool {
+        // If there is null fields, remove from fields
+        foreach ($fields as $key => $value) {
+            if ($value === "") {
+                unset($fields[$key]);
+            }
+        }
+
         $user = $this->userInfo->getUser($old_email);
         if (count($user) == 0) {
             error_log("No user found with email $old_email and password $old_password");

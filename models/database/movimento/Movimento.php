@@ -3,7 +3,6 @@
 $proj_root = dirname(__FILE__, 4);
 
 include_once $proj_root . '/models/database/DatabaseManager.php';
-include_once $proj_root . '/models/database/project/UserProject.php';
 
 class Movimento extends DatabaseManager
 {

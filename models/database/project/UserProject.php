@@ -15,7 +15,7 @@ class UserProject extends DatabaseManager {
         $this->projectInfo = new ProjectInfo($db);
     }
 
-    protected function isUserInProject($userId, $projectId)
+    public function isUserInProject($userId, $projectId)
     {
         // check if user exists
         if (!$this->userInfo->exists($userId)) {

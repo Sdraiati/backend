@@ -66,8 +66,8 @@ function access($method)
 			$data = $check->getUser($_POST['email']);
 			setCookieUser($data['email'], $data['username'], $data['password']);
 		} else {
-			// reindirizzare la robba
-            echo "tua madre";
+			http_response_code(400);
+			echo "invalid credentials";
 		}
 	}
 }

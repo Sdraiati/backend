@@ -1,4 +1,15 @@
 document.addEventListener("DOMContentLoaded", function(_) {
+	
+	let popUpAccedi2 = `<h2>Login</h2>
+		<div id="loginError" class="hidden">{{ LoginError }}</div>
+		<form id="/user/login" onsubmit="return postRequest(event, ['email', 'password'])">
+			<label for="loginEmail">Email:</label>
+			<input type="email" id="loginEmail" name="email" required autocomplete="email">
+			<label for="loginPassword">Password:</label>
+			<input type="password" id="loginPassword" name="password" required autocomplete="current-password">
+			<input type="button" data-button-kind="accedi">Annulla</button>
+			<input type="submit" value="Submit">Accedi</button>
+		</form>`;
 	let popUpAccedi = `<h2>Login</h2>
 		<div id="loginError" class="hidden">{{ LoginError }}</div>
 		<label for="loginEmail">Email:</label>
@@ -6,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		<label for="loginPassword">Password:</label>
 		<input type="password" id="loginPassword" name="password" required autocomplete="current-password">
 		<button type="button" data-button-kind="accedi">Annulla</button>
-		<button onclick="postRequest(event, ['email', 'password'])" id="/user/login">Accedi</button>`;
+		<button type="submit" onclick="postRequest(event, ['email', 'password'])" id="/user/login">Accedi</button>`;
 	let popUpRegistrati = `<h2>Registrazione</h2>
 		<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
 		<label for="signupUsername">Nome Utente:</label>
@@ -49,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		<button type="button" data-button-kind="editProject">Annulla</button>
 		<button onclick="postRequest(event, ['newNomeProgetto', 'newDescrizioneProgetto'], true)" id="/project/modify">Salva Modifiche</button>`;
 
-	let diz = { 'accedi': popUpAccedi, 'registrati': popUpRegistrati,
+	let diz = { 'accedi': popUpAccedi2, 'registrati': popUpRegistrati,
 		'newProject': popUpNewProject, 'modificaCredenziali': popUpModifyCredentials,
 		'editProject': popUpEditProject};
 

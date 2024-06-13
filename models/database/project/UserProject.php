@@ -8,14 +8,14 @@ class UserProject extends DatabaseManager {
     protected UserInfo $userInfo;
     protected ProjectInfo $projectInfo;
 
-    protected function __construct(Database $db)
+    public function __construct(Database $db)
     {
         parent::__construct($db);
         $this->userInfo = new UserInfo($db);
         $this->projectInfo = new ProjectInfo($db);
     }
 
-    protected function isUserInProject($userId, $projectId)
+    public function isUserInProject($userId, $projectId)
     {
         // check if user exists
         if (!$this->userInfo->exists($userId)) {

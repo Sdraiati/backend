@@ -6,6 +6,7 @@ include_once __PROJECTROOT__ . '/controllers/Router.php';
 include_once __PROJECTROOT__ . '/models/database/user/NewUser.php';
 include_once __PROJECTROOT__ . '/models/database/user/ModifyUser.php';
 include_once __PROJECTROOT__ . '/api/config/db_config.php';
+include_once 'lib.php';
 
 $registerUser = (new JsonApiBuilder())
 	->setPath('user/register')
@@ -55,12 +56,22 @@ $modifyUser = (new JsonApiBuilder())
 	->setInputParams(['newEmail', 'newUsername', 'newPassword'])
 	->setLogicFn(
 		function ($params) {
+			if (!isLogged()) {
+				http_response_code(401);
+				echo json_encode(['error' => "Unauthorized"]);
+				return;
+			}
 			try {
-				$user = new ModifyUser(Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD));
+				$modUser = new ModifyUser(Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD));
 				$email = json_decode($_SESSION["LogIn"], true)["email"];
 				$password = json_decode($_SESSION["LogIn"], true)["password"];
-				$user->modify($email, $password, $params[0], $params[1], $params[2]);
-				setCookieUser($params[0], $params[1], $params[2]);
+				$modUser->modify($email, $password, ['email' => $params[0], 'username' => $params[1], 'password' => $params[2]]);
+				$userInfo = new UserInfo(Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD));
+				if ($params[0] != "") {
+					$email = $params[0];
+				}
+				$user = $userInfo->getUser($email);
+				setCookieUser($user['email'], $user['username'], $user['password']);
 
 				http_response_code(200);
 				echo json_encode(['message' => "User modified"]);

@@ -2,19 +2,7 @@
 
 include_once 'JsonApi.php';
 include_once __PROJECTROOT__ . '/controllers/Router.php';
-include_once __PROJECTROOT__ . '/api/config/db_config.php';
-require_once __PROJECTROOT__ . '/models/database/project/NewProject.php';
-require_once __PROJECTROOT__ . '/models/database/project/ProjectInfo.php';
-require_once __PROJECTROOT__ . '/models/database/project/JoinProject.php';
-require_once __PROJECTROOT__ . '/models/database/project/DeleteProject.php';
-require_once __PROJECTROOT__ . '/models/database/project/DisjoinProject.php';
-
-$database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
-$projectManager = new ProjectInfo($database);
-$joinProget = new JoinProject($database);
-$projectDel = new DeleteProject($database);
-$projectDJ = new DisjoinProject($database);
-$projectNew = new NewProject($database);
+include_once 'lib.php';
 
 function randomString($lunghezza = 10, $caratteri = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 {
@@ -33,6 +21,20 @@ $deleteProject = (new JsonApiBuilder())
 	->setInputParams(['link'])
 	->setLogicFn(
 		function ($params) {
+			// check that the user is logged in and is in the project
+			try {
+				global $projectManager;
+				$project_id = $projectManager->getIDProjectByLink($params[0]);
+				if (!isLogged() || !isUserInProject($project_id)) {
+					error_log("Unauthorized");
+                    http_response_code(401);
+					echo json_encode(['error' => "Unauthorized"]);
+					return;
+				}
+			} catch (Exception $e) {
+				http_response_code(400);
+				echo json_encode(['error' => $e->getMessage()]);
+			}
 			global $projectManager;
 			global $projectDel;
 			try {
@@ -76,6 +78,12 @@ $newProject = (new JsonApiBuilder())
 	->setInputParams(['nomeProgetto', 'descrizioneProgetto'])
 	->setLogicFn(
 		function ($params) {
+			if (!isLogged()) {
+				http_response_code(401);
+				echo json_encode(['error' => "Unauthorized"]);
+				return;
+			}
+
 			global $projectNew;
 			try {
 				$email = json_decode($_SESSION["LogIn"], true)["email"];
@@ -97,6 +105,12 @@ $joinProject = (new JsonApiBuilder())
 	->setInputParams(['link'])
 	->setLogicFn(
 		function ($params) {
+			if (!isLogged()) {
+				http_response_code(401);
+				echo json_encode(['error' => "Unauthorized"]);
+				return;
+			}
+
 			global $projectManager;
 			global $joinProget;
 			try {
@@ -114,8 +128,30 @@ $joinProject = (new JsonApiBuilder())
 	)
 	->createApi();
 
+$modifyProject = (new JsonApiBuilder())
+    ->setPath('project/modify')
+    ->setInputParams(['project_id', 'newNomeProgetto', 'newDescrizioneProgetto'])
+    ->setLogicFn(
+        function ($params) {
+            try {
+                global $projectManager;
+                global $modProject;
+                $modProject->modify($params[0], ['nome' => $params[1], 'descrizione' => $params[2] ]);
+
+                http_response_code(200);
+                echo json_encode(['message' => "Project modified"]);
+            } catch (Exception $_) {
+
+                http_response_code(400);
+                echo json_encode(['error' => "Invalid credentials"]);
+            }
+        }
+    )
+    ->createApi();
+
 $project_router = new Router();
 $project_router->addRoute($deleteProject);
 $project_router->addRoute($disjoinProject);
 $project_router->addRoute($newProject);
 $project_router->addRoute($joinProject);
+$project_router->addRoute($modifyProject);

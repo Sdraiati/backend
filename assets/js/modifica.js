@@ -41,17 +41,13 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		<button type="button" data-button-kind="modificaCredenziali">Annulla</button>
 		<button onclick="postRequest(event, ['newEmail', 'newUsername', 'newPassword', 'confirmNewPassword', 'oldPassword'])" id="/user/modify">Salva Modifiche</button>`;
 	let popUpEditProject = `<h2>Modifica Progetto</h2>
-		<form id="editProjectForm" action="javascript:void(0)">
 		<label for="inputNewNomeProgetto">Nuovo Nome Progetto:</label>
-		<input type="text" id="inputNewNomeProgetto" name="newNomeProgetto">
+		<input type="text" id="newNewNomeProgetto" name="newNomeProgetto">
 		<label for="inputNewDescrizioneProgetto">Nuova Descrizione:</label>
-		<textarea id="inputNewDescrizioneProgetto" name="newDescrizioneProgetto"></textarea>
-		<div class="form-buttons">
+		<textarea id="newDescrizioneProgetto" name="newDescrizioneProgetto"></textarea>
 		<button type="button" data-button-kind="deleteProject">Elimina Progetto</button>
-		<button type="button" data-button-kind="editProjectHide">Annulla</button>
-		<button type="submit" id="submitEditProject">Salva Modifiche</button>
-		</div>
-		</form>`;
+		<button type="button" data-button-kind="editProject">Annulla</button>
+		<button onclick="postRequest(event, ['newNomeProgetto', 'newDescrizioneProgetto'], true)" id="/project/modify">Salva Modifiche</button>`;
 
 	let diz = { 'accedi': popUpAccedi, 'registrati': popUpRegistrati,
 		'newProject': popUpNewProject, 'modificaCredenziali': popUpModifyCredentials,
@@ -123,7 +119,7 @@ function logOut() {
 		document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
 	}
 
-	window.location.reload();
+	window.location.href = '/';
 }
 
 function share(link) {
@@ -140,8 +136,16 @@ function openProjectPage(link) {
 }
 
 
-function postRequest(event, params) {
+function postRequest(event, params, isModifyProject = false) {
 	var datas = {};
+	if(isModifyProject) {
+		const urlString = window.location.href;
+		const url = new URL(urlString);
+		const upar = url.searchParams;
+		datas = {
+			project_id: upar.get('project_id'),
+		};
+	}
 	var queryString = window.location.search;
 	if (queryString.charAt(0) === '?') {
 		queryString = queryString.slice(1);
@@ -181,7 +185,6 @@ function postRequest(event, params) {
 			console.error('Error:', error);
 		});
 }
-
 
 function joinProject() {
 

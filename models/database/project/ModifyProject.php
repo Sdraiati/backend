@@ -1,15 +1,11 @@
 <?php
-define('__USEOOT__', dirname(__FILE__, 4));
-require_once (__USEOOT__.'/models/database/DatabaseManager.php');
-require_once(__USEOOT__.'/models/database/user/UserInfo.php');
-require_once("models/SetCookie.php");
-class ModifyUser extends DatabaseManager {
-    private UserInfo $userInfo;
+define('__PROOT__', dirname(__FILE__, 4));
+require_once(__PROOT__ . '/models/database/DatabaseManager.php');
+class ModifyProject extends DatabaseManager {
     public function __construct(Database $db) {
         parent::__construct($db);
-        $this->userInfo = new UserInfo($db);
     }
-    public function modify(string $old_email, string $old_password, array $fields) : bool {
+    public function modify(int $id, array $fields) : bool {
         // If there is null fields, remove from fields
         foreach ($fields as $key => $value) {
             if ($value === "") {
@@ -17,23 +13,12 @@ class ModifyUser extends DatabaseManager {
             }
         }
 
-        $user = $this->userInfo->getUser($old_email);
-        if (count($user) == 0) {
-            error_log("No user found with email $old_email and password $old_password");
-            return false;
-        }
-        $id = $this->userInfo->getId($old_email);
-        if (!$id) {
-            error_log("Failed to get user ID");
-            return false;
-        }
         if (empty($fields)) {
-            //error_log("fields ". json_encode($fields));
             error_log("No fields to update");
             return false;
         }
 
-        $sql = "UPDATE utente SET ";
+        $sql = "UPDATE progetto SET ";
         $params = [];
 
         $setStatements = [];
@@ -59,24 +44,20 @@ class ModifyUser extends DatabaseManager {
         $stmt = $this->db->prepareAndBindParams($sql, $params);
 
         // Verifica se la preparazione è stata eseguita con successo
-        if ($stmt === false) {
+        if (!$stmt) {
             error_log("Failed to prepare statement");
             return false;
         }
 
-        // Esegue la query preparata
-        if (!$stmt->execute()) {
-            error_log("Execution failed: " . $stmt->error);
+        // Esegui la query
+        $result = $stmt->execute();
+
+        // Verifica se la query è stata eseguita con successo
+        if (!$result) {
+            error_log("Failed to execute statement");
             return false;
         }
 
-        if ($stmt->affected_rows === 0) {
-            error_log("No rows were updated");
-            return false;
-        }
-
-        // Se non ci sono stati errori, ritorna true
         return true;
     }
-
 }

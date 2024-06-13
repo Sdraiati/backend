@@ -191,7 +191,7 @@ footer ul li img
     height: 32px;
 }
 
-button{
+button, input[type="button"], input[type="submit"]{
     background-color:var(--buttonsColor);
     border: none;
     color: var(--textButtonColor);
@@ -202,12 +202,12 @@ button{
     cursor: pointer;
     margin-block: 20px;
 }
-button:hover
+button:hover, input[type="button"]:hover, input[type="sumbit"]:hover
 {
     background-color: var(--textButtonHoverColor);
 }
 
-button[disabled] 
+button[disabled]
 {
     opacity: 0.7;
     cursor: not-allowed;
@@ -248,15 +248,15 @@ button[disabled]
 .allert .form-buttons{
     margin-top: 50px;
 }
-/*
-.allert input{
+
+.allert input[type="email"], .allert input[type="password"], .allert input[type="text"]{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: none;
     border-bottom: 2px solid red;
-}*/
+}
 
 .allert textarea{
     width: 100%;

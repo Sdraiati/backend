@@ -28,6 +28,14 @@ $routes = array(
     {
         modifyCredentials($method);
     },
+    "/delete_project" => function($method, $logged)
+    {
+        deleteProject($method, $logged);
+    },
+    "/disjoin_project" => function($method, $logged)
+    {
+        disjoinProject($method, $logged);
+    },
     "/project_cake" => function($method, $logged) {
         generalPage($method, $logged);
     },
@@ -39,6 +47,10 @@ $routes = array(
     },
     "/release_notes" => function($method, $logged) {
         generalPage($method, $logged);
+    },
+    "/join_project" => function($method, $logged)
+    {
+        joinProject($method, $logged);
     }
 );
 ?>

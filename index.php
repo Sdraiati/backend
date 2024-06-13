@@ -1,5 +1,6 @@
 <?php
 
+/*
 require_once("routes.php");
 require_once("models/database/user/UserInfo.php");
 
@@ -20,13 +21,13 @@ if (array_key_exists($url, $routes)) {
 		$data = json_decode($_COOKIE["LogIn"], true);
 		$database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
 		$user = new UserInfo($database);
-		$logged = $user->exists($data['email']);
+		$logged = $user->existsByEmail($data['email']);
+		if ($logged) {
+			$_SESSION["LogIn"] = $_COOKIE["LogIn"];
+		}
 	}
 	else{
 		$logged = false;
-	}
-	if ($logged) {
-		$_SESSION["LogIn"] = $_COOKIE["LogIn"];
 	}
 	$fun = $routes[$url];
 	try {	
@@ -37,9 +38,11 @@ if (array_key_exists($url, $routes)) {
 } else {
 	$controller->renderPage("resource_not_found", $logged);
 }
+*/
 
-/*
 require_once("controllers/json/User.php");
+require_once("controllers/json/Project.php");
+require_once("controllers/html/HtmlRouter.php");
 require_once("controllers/Router.php");
 
 
@@ -55,7 +58,8 @@ if ($logged) {
 
 $router = new Router();
 
-$router->addRoute($registerUser);
+$router->addRoute($project_router);
+$router->addRoute($user_router);
+$router->addRoute($html_router);
 
-$router->handle($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);*/
-
+$router->handle($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

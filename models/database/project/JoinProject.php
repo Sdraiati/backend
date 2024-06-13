@@ -9,7 +9,7 @@ class JoinProject extends UserProject {
 
     public function joinProject($email, $project_id) : bool {
         // check if the user exists
-        if (!$this->userInfo->exists($email))
+        if (!$this->userInfo->existsByEmail($email))
             die("joinProject: user not found with email $email");
 
         // get id of the user

@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Account Home</title>
-    <!--<base href="/">-->
+	<!--<base href="/">-->
 	<meta name="description" content="un sito per mostrare cose">
 	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
 	<link rel="stylesheet" type="text/css" href="views\index.css">
@@ -17,79 +17,77 @@
 <body>
 
 
-<header>
-	<nav>
-		<div class="Logo">
-			<a href="index"><img src="assets/img/logo.jpeg" alt="logo"></a>
-		</div>
-		{{ header }}
-	</nav>
-	<h1>Benvenuto/a {{ username }}</h1>
-</header>
+	<header>
+		<nav>
+			<div class="Logo">
+				<a href="/"><img src="assets/img/logo.jpeg" alt="logo"></a>
+			</div>
+			{{ header }}
+		</nav>
+		<h1>Benvenuto/a {{ username }}</h1>
+	</header>
 
-<section id="accedi" class="hidden">
-</section>
+	<section id="accedi" class="hidden">
+	</section>
 
-<section id="registrati" class="hidden">
-</section>
+	<section id="registrati" class="hidden">
+	</section>
 
-<script type="module" src="assets/js/nav.js"></script>
+	<script type="module" src="assets/js/nav.js"></script>
 
-<main>
-<!-- Informazioni dell'account -->
-<section>
-	<h2>Informazioni dell'Account</h2>
-	<ul>
-		<li>Nome Utente: <span id="username">{{ username }}</span></li>
-		<li>Email: <span id="email">{{ email }}</span></li>
-	</ul>
-	<button data-button-kind="modificaCredenziali">Modifica Credenziali</button>
-	<button onclick="logOut()">Log Out</button>
-</section>
+	<main>
+		<!-- Informazioni dell'account -->
+		<section>
+			<h2>Informazioni dell'Account</h2>
+			<ul>
+				<li>Nome Utente: <span id="username">{{ username }}</span></li>
+				<li>Email: <span id="email">{{ email }}</span></li>
+			</ul>
+			<button data-button-kind="modificaCredenziali">Modifica Credenziali</button>
+			<button onclick="logOut()">Log Out</button>
+		</section>
 
-<!-- Modifica informazioni dell'account -->
-<section id="modificaCredenziali" class="hidden">
-</section>
+		<!-- Modifica informazioni dell'account -->
+		<section id="modificaCredenziali" class="hidden">
+		</section>
 
-<script type="module" src="assets/js/account_info.js"></script>
+		<script type="module" src="assets/js/account_info.js"></script>
 
-<!-- Elenco dei progetti -->
-<section>
-	<h2>Elenco dei Progetti</h2>
-	<button data-button-kind="newProject">Nuovo Progetto</button>
-	<!-- Inserisci qui l'elenco dei progetti, dinamicamente -->
-	<ul id="project-list">
-		{{ projects }}
-	</ul>
-</section>
+		<!-- Elenco dei progetti -->
+		<section>
+			<h2>Elenco dei Progetti</h2>
+			<button data-button-kind="newProject">Nuovo Progetto</button>
+			<!-- Inserisci qui l'elenco dei progetti, dinamicamente -->
+			<ul id="project-list">
+				{{ projects }}
+			</ul>
+		</section>
 
-<!-- Crea un Nuovo Progetto -->
-<section id="newProject" class="hidden">
-</section>
-
-<script type="module" src="assets/js/project_list.js"></script>
+		<!-- Crea un Nuovo Progetto -->
+		<section id="newProject" class="hidden">
+		</section>
 
 
 	</main>
-<script src="assets/js/footerColors.js"></script>
-<footer>
-	<div class="footer-list">
-		<h3>Prodotto</h3>
-		<ul>
-			<li><a href="account_home">I Miei Progetti</a></li>
-			<li><a href="about_us">About Us</a></li>
-		</ul>
-	</div>
-	<div class="footer-list">
-		<h3>Risorse</h3>
-		<ul>
-			<li><a href="index">Homepage</a></li>
-			<li><a href="release_notes">Release Notes</a></li>
-			<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
-						id="github-mark"> GitHub </a></li>
-		</ul>
-	</div>
-</footer>
+	<script src="assets/js/footerColors.js"></script>
+	<footer>
+		<div class="footer-list">
+			<h3>Prodotto</h3>
+			<ul>
+				<li><a href="account_home">I Miei Progetti</a></li>
+				<li><a href="about_us">About Us</a></li>
+			</ul>
+		</div>
+		<div class="footer-list">
+			<h3>Risorse</h3>
+			<ul>
+				<li><a href="/">Homepage</a></li>
+				<li><a href="release_notes">Release Notes</a></li>
+				<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
+							id="github-mark"> GitHub </a></li>
+			</ul>
+		</div>
+	</footer>
 
 </body>
 

@@ -8,7 +8,7 @@ class UserProject extends DatabaseManager {
     protected UserInfo $userInfo;
     protected ProjectInfo $projectInfo;
 
-    protected function __construct(Database $db)
+    public function __construct(Database $db)
     {
         parent::__construct($db);
         $this->userInfo = new UserInfo($db);

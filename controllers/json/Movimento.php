@@ -3,15 +3,7 @@
 include_once 'JsonApi.php';
 
 include_once __PROJECTROOT__ . '/controllers/Router.php';
-include_once __PROJECTROOT__ . '/models/database/movimento/Movimento.php';
-include_once __PROJECTROOT__ . '/models/database/project/UserProject.php';
-include_once __PROJECTROOT__ . '/models/database/user/UserInfo.php';
 include_once 'lib.php';
-
-$database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
-$movimentoDb = new Movimento($database);
-$projectDb = new UserProject($database);
-$userDb = new UserInfo($database);
 
 $newMovimento = (new JsonApiBuilder())
 	->setPath('movimento/new')

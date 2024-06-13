@@ -1,10 +1,32 @@
 <?php
+include_once __PROJECTROOT__ . '/api/config/db_config.php';
+include_once __PROJECTROOT__ . '/models/database/project/NewProject.php';
+include_once __PROJECTROOT__ . '/models/database/project/ProjectInfo.php';
+include_once __PROJECTROOT__ . '/models/database/project/JoinProject.php';
+include_once __PROJECTROOT__ . '/models/database/project/DeleteProject.php';
+require_once __PROJECTROOT__ . '/models/database/project/DisjoinProject.php';
+include_once __PROJECTROOT__ . '/models/database/project/ModifyProject.php';
+include_once __PROJECTROOT__ . '/models/database/movimento/Movimento.php';
+include_once __PROJECTROOT__ . '/models/database/project/UserProject.php';
+include_once __PROJECTROOT__ . '/models/database/user/UserInfo.php';
+$database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
+$projectManager = new ProjectInfo($database);
+$joinProget = new JoinProject($database);
+$projectDel = new DeleteProject($database);
+$projectDJ = new DisjoinProject($database);
+$projectNew = new NewProject($database);
+$modProject = new ModifyProject($database);
+
+$movimentoDb = new Movimento($database);
+$projectDb = new UserProject($database);
+$userDb = new UserInfo($database);
 
 function isLogged(): bool
 {
 	global $userDb;
 	if (isset($_SESSION['LogIn'])) {
 		$data = json_decode($_SESSION['LogIn'], true);
+        error_log(json_encode($data));
 		$logged = $userDb->existsByEmail($data['email']);
 		if ($logged) {
 			return true;

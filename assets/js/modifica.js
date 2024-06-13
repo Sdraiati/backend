@@ -70,10 +70,18 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				document.getElementById(id).classList.toggle('allert');
 			}
 			if (document.getElementById(id).classList.contains("hidden")) {
+				const focusableElements = document.querySelectorAll('a, button, input, textarea, select, [tabindex]');
+				focusableElements.forEach(element => {
+					element.removeAttribute('tabindex');
+				});
 				document.getElementById(id).innerHTML = ``;
 			}
 			else {
-				document.getElementById(id).innerHTML = diz[id];
+				const focusableElements = document.querySelectorAll('a, button, input, textarea, select, [tabindex]');
+				focusableElements.forEach(element => {
+					element.setAttribute('tabindex', '-1');
+				});
+				document.getElementById(id).innerHTML = diz[id];	
 			}
 		}
 	});

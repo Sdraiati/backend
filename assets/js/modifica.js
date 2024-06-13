@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<label for="inputDescrizioneProgetto">Descrizione:</label>
 			<textarea id="inputDescrizioneProgetto" name="descrizioneProgetto" required></textarea>
 			<input type="button" data-button-kind="newProject" value="Annulla">Annulla
-			<input type="button" value="Crea Progetto">
+			<input type="submit" value="Crea Progetto">
 		</form>`
 	let popUpModifyCredentials = `<h2>Modifica informazioni dell'account</h2>
 		<form id="/user/modify" onsubmit="return postRequest(event)">
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<label for="oldPassword">Vecchia Password:</label>
 			<input type="password" id="oldPassword" name="oldPassword" required>
 			<input type="button" data-button-kind="modificaCredenziali" value="Annulla">
-			<input type="button" value="Salva Modifiche">
+			<input type="submit" value="Salva Modifiche">
 		</form>`;
 	let popUpEditProject = `<h2>Modifica Progetto</h2>
 		<form id="/project/modify" onsubmit="return postRequest(event)">
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<textarea id="newDescrizioneProgetto" name="newDescrizioneProgetto"></textarea>
 			<input type="button" data-button-kind="deleteProject" value="Elimina Progetto">
 			<input type="button" data-button-kind="editProject" value="Annulla">
-			<input type="button" value="Salva Modifiche">
+			<input type="submit" value="Salva Modifiche">
 		</form>`;//true
 
 	let diz = { 'accedi': popUpAccedi, 'registrati': popUpRegistrati,

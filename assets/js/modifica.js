@@ -147,8 +147,8 @@ function postRequest(event, params, isModifyProject = false) {
 	var section = event.target.parentElement;
 
 	for (var i = 0; i < params.length; i++) {
-		console.log(params[i]);
 		datas[params[i]] = section.querySelectorAll(`input[name="${params[i]}"], textarea[name="${params[i]}"]`)[0].value;//document.getElementsByName(params[i]);
+		console.log(params[i]);
 		console.log(datas[params[i]]);
 	}
 	queryParams.forEach(function(param) {
@@ -158,6 +158,7 @@ function postRequest(event, params, isModifyProject = false) {
 		datas[key] = value;
 	});
 
+ console.log(JSON.stringify(datas));
 	fetch(event.target.id, {
 		method: 'POST',
 		headers: {
@@ -165,9 +166,12 @@ function postRequest(event, params, isModifyProject = false) {
 		},
 		body: JSON.stringify(datas)
 	})
-		.then(response => response.json())
+		.then(response => {
+			response.json()
+			console.log("ricevuto: " +  response);
+		})
 		.then(data => {
-			console.log(data['status']);
+			console.log("ricevuto: " +  data);
 			if (event.target.id == "/user/login" || event.target.id == "/user/register")
 				window.location.href = '/account_home';
 			else

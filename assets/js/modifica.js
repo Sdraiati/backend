@@ -1,64 +1,72 @@
 document.addEventListener("DOMContentLoaded", function(_) {
 	
-	let popUpAccedi = `<h2>Login</h2>
-		<div id="loginError" class="hidden">{{ LoginError }}</div>
-		<form id="/user/login" onsubmit="return postRequest(event)">
-			<label for="loginEmail">Email:</label>
+	let popUpAccedi = `<h2><span lang="en">Login</span></h2>
+		<form id="/user/login">
+			<div id="loginError" class="hidden">{{ LoginError }}</div>
+			<label for="loginEmail"><span lang="en">Email</span>:</label>
 			<input type="email" id="loginEmail" name="email" required autocomplete="email">
-			<label for="loginPassword">Password:</label>
+			<label for="loginPassword"><span lang="en">Password</span>:</label>
 			<input type="password" id="loginPassword" name="password" required autocomplete="current-password">
+			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
 			<input type="button" data-button-kind="accedi" value="Annulla">
 			<input type="submit" value="Accedi">
 		</form>`;
 	let popUpRegistrati = `<h2>Registrazione</h2>
-		<form id="/user/register" onsubmit="return postRequest(event)">
+		<form id="/user/register">
 			<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
 			<label for="signupUsername">Nome Utente:</label>
 			<input type="text" id="signupUsername" name="username" required autocomplete="username">
-			<label for="signupEmail">Email:</label>
+			<label for="signupEmail"><span lang="en">Email</span>:</label>
 			<input type="email" id="signupEmail" name="email" required autocomplete="email">
-			<label for="signupPassword">Password:</label>
+			<label for="signupPassword"><span lang="en">Password</span>:</label>
 			<input type="password" id="signupPassword" name="password" required autocomplete="new-password">
-			<span id="passwordError" class="hidden">Le due password non coincidono.</span>
-			<label for="signupConfirmPassword">Ripeti Password:</label>
+			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
+			<span id="passwordError" class="hidden">Le due <span lang="en">password</span> non coincidono.</span>
+			<label for="signupConfirmPassword">Ripeti <span lang="en">Password</span>:</label>
 			<input type="password" id="signupConfirmPassword" name="password" required autocomplete="new-password">
+			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
 			<input type="button" data-button-kind="registrati" value="Annulla">
 			<input type="submit" value="Registrati">
 		</form>`;
 	let popUpNewProject = `<h2>Crea un Nuovo Progetto</h2>
-		<form id="/project/new" onsubmit="return postRequest(event)">
+		<form id="/project/new">
+			<div id="newProjectError" class="hidden">{{ NewProjectError }}</div>
 			<label for=" inputNomeProgetto">Nome Progetto:</label>
 			<input type="text" id="inputNomeProgetto" name="nomeProgetto" required>
 			<label for="inputDescrizioneProgetto">Descrizione:</label>
-			<textarea id="inputDescrizioneProgetto" name="descrizioneProgetto" required></textarea>
-			<input type="button" data-button-kind="newProject" value="Annulla">Annulla
+			<textarea id="inputDescrizioneProgetto" name="descrizioneProgetto"></textarea>
+			<input type="button" data-button-kind="newProject" value="Annulla">
 			<input type="submit" value="Crea Progetto">
 		</form>`
 	let popUpModifyCredentials = `<h2>Modifica informazioni dell'account</h2>
-		<form id="/user/modify" onsubmit="return postRequest(event)">
-			<label for="newEmail">Nuova Email:</label>
+		<form id="/user/modify">
+			<div id="modifyError" class="hidden">{{ ModifyError }}</div>
+			<label for="newEmail">Nuova <span lang="en">Email</span>:</label>
 			<input type="email" id="newEmail" name="newEmail">
 			<label for="newUsername">Nuovo Nome Utente:</label>
 			<input type="text" id="newUsername" name="newUsername">
-			<label for="newPassword">Nuova Password:</label>
+			<label for="newPassword">Nuova <span lang="en">Password</span>:</label>
 			<input type="password" id="newPassword" name="newPassword">
-			<label for="confirmNewPassword">Conferma Nuova Password:</label>
+			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
+			<label for="confirmNewPassword">Conferma Nuova <span lang="en">Password</span>:</label>
 			<input type="password" id="confirmNewPassword" name="confirmNewPassword">
-			<label for="oldPassword">Vecchia Password:</label>
+			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
+			<label for="oldPassword">Vecchia <span lang="en">Password</span>:</label>
 			<input type="password" id="oldPassword" name="oldPassword" required>
+			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
 			<input type="button" data-button-kind="modificaCredenziali" value="Annulla">
 			<input type="submit" value="Salva Modifiche">
 		</form>`;
 	let popUpEditProject = `<h2>Modifica Progetto</h2>
-		<form id="/project/modify" onsubmit="return postRequest(event)">
+		<form id="/project/modify">
+			<div id="modifyProjectError" class="hidden">{{ ModifyProjectError }}</div>
 			<label for="inputNewNomeProgetto">Nuovo Nome Progetto:</label>
 			<input type="text" id="newNewNomeProgetto" name="newNomeProgetto">
 			<label for="inputNewDescrizioneProgetto">Nuova Descrizione:</label>
 			<textarea id="newDescrizioneProgetto" name="newDescrizioneProgetto"></textarea>
-			<input type="button" data-button-kind="deleteProject" value="Elimina Progetto">
 			<input type="button" data-button-kind="editProject" value="Annulla">
 			<input type="submit" value="Salva Modifiche">
-		</form>`;//true
+		</form>`;
 
 	let diz = { 'accedi': popUpAccedi, 'registrati': popUpRegistrati,
 		'newProject': popUpNewProject, 'modificaCredenziali': popUpModifyCredentials,
@@ -90,6 +98,13 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				});
 				document.getElementById(id).innerHTML = diz[id];	
 			}
+		}
+	});
+
+	document.body.addEventListener("submit", function(event) {
+		if (event.target.tagName === "FORM") {
+			event.preventDefault();
+			postRequest(event);
 		}
 	});
 })
@@ -145,7 +160,6 @@ function share(link) {
 function openProjectPage(link) {
 	window.location = `/page_project?link=${link}`;
 }
-
 
 function postRequest(event/*,isModifyProject = false*/) {
 	var datas = {};
@@ -277,5 +291,16 @@ function disjoinProject(link) {
 	}
 	else {
 		alert("Prima effettuare il login.");
+	}
+}
+
+function toogleView() {
+	var elements = document.getElementsByName("password");
+	for (var i = 0; i < elements.length; i++) {
+		if (elements[i].type === "password") {
+			elements[i].type = "text";
+		} else {
+			elements[i].type = "password";
+		}
 	}
 }

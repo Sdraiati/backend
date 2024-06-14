@@ -40,7 +40,7 @@
 		<!-- Tabella delle transazioni -->
 		<section>
 			<h2>Tabella delle Transazioni</h2>
-			<button data-button-kind="newTransaction">Nuova Transazione</button>
+			<input type="button" data-button-kind="newTransaction" value="Nuova Transazione">
 			<!-- Inserisci qui la tabella delle transazioni -->
 			<table id="transazioniTable">
 				<!-- Intestazione della tabella -->
@@ -104,14 +104,14 @@
 			<h1>Partecipa al progetto</h1>
 			<form id="joinProjectForm" action="javascript:void(0)">
 				<div class="form-buttons">
-					<button type="button" data-button-kind="joinProjectHide">Annulla</button>
-					<button type="submit" id="submitJoinProject">Partecipa</button>
+					<input type="button" data-button-kind="joinProjectHide" value="Annulla">
+					<input type="button" data-button-kind="submitJoinProject" value="Partecipa">
 				</div>
 		</section>
 
 		<section>
 			<!--<form  id="join_project" action="/join_project" method="post" onsubmit="return validaForm()">-->
-			<button onclick="joinProject()">Partecipa</button>
+			<input type="button" onclick="joinProject()" value="Partecipa">
 			<!--</form>-->
 		</section>
 	</main>

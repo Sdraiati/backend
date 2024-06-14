@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{{ Project Name }} - Project Home</title>
 	<!--<base href="/">-->
-	<meta name="description" content="un sito per mostrare cose">
+	<meta name="description" content="Tieni traccia delle tue spese tramite progetti personali o condivisi">
 	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
 	<link rel="stylesheet" type="text/css" href="views\index.css">
 	<script src="assets/js/modifica.js"></script>
@@ -28,7 +28,7 @@
 		</nav>
 		<h1>{{ Project Name }}</h1>
 		<input type="button" data-button-kind="editProject" value="Modifica Progetto">
-		<input type="button" data-button-kind="shareProject" value="Condividi Progetto">
+		<input type="button" onclick='share("{{ project-link }}")' value="Condividi Progetto">
 	</header>
 
 	<section id="accedi" class="hidden">

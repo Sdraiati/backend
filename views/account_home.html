@@ -7,8 +7,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Account Home</title>
 	<!--<base href="/">-->
-	<meta name="description" content="un sito per mostrare cose">
-	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
+	<meta name="description" content="Gestisci il tuo account personale, visualizza le tue informazioni di profilo e gestisci i tuoi progetti">
+	<meta name="keywords" content="account, profilo utente, gestione account, progetti">
 	<link rel="stylesheet" type="text/css" href="views\index.css">
 	<script src="assets/js/modifica.js"></script>
 </head>
@@ -38,13 +38,13 @@
 	<main>
 		<!-- Informazioni dell'account -->
 		<section>
-			<h2>Informazioni dell'Account</h2>
+			<h2>Informazioni dell'<span lang="en">Account</span></h2>
 			<ul>
 				<li>Nome Utente: <span id="username">{{ username }}</span></li>
 				<li>Email: <span id="email">{{ email }}</span></li>
 			</ul>
-			<button data-button-kind="modificaCredenziali">Modifica Credenziali</button>
-			<button onclick="logOut()">Log Out</button>
+			<input type="button" data-button-kind="modificaCredenziali" value="Modifica Credenziali">
+			<input type="button" value="Esci" onclick="logOut()">
 		</section>
 
 		<!-- Modifica informazioni dell'account -->
@@ -56,7 +56,7 @@
 		<!-- Elenco dei progetti -->
 		<section>
 			<h2>Elenco dei Progetti</h2>
-			<button data-button-kind="newProject">Nuovo Progetto</button>
+			<input type="button" data-button-kind="newProject" value="Nuovo Progetto">
 			<!-- Inserisci qui l'elenco dei progetti, dinamicamente -->
 			<ul id="project-list">
 				{{ projects }}

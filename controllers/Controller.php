@@ -19,8 +19,8 @@ class Controller
     </div>	';
         $noLoggedHeader = '<div class="Login">
         <ul class="login-list">
-            <li><button data-button-kind="accedi">Accedi</button></li>
-            <li><button data-button-kind="registrati">Registrati</button></li>
+            <li><input type="button" data-button-kind="accedi">Accedi</input></li>
+            <li><input type="button" data-button-kind="registrati">Registrati</input></li>
             <li class="hidden"><a href="account_home" id="utente">Utente</a></li>
         </ul>
     </div>	';

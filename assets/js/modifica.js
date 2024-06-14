@@ -1,53 +1,64 @@
 document.addEventListener("DOMContentLoaded", function(_) {
+	
 	let popUpAccedi = `<h2>Login</h2>
 		<div id="loginError" class="hidden">{{ LoginError }}</div>
-		<label for="loginEmail">Email:</label>
-		<input type="email" id="loginEmail" name="email" required autocomplete="email">
-		<label for="loginPassword">Password:</label>
-		<input type="password" id="loginPassword" name="password" required autocomplete="current-password">
-		<button type="button" data-button-kind="accedi">Annulla</button>
-		<button onclick="postRequest(event, ['email', 'password'])" id="/user/login">Accedi</button>`;
+		<form id="/user/login" onsubmit="return postRequest(event)">
+			<label for="loginEmail">Email:</label>
+			<input type="email" id="loginEmail" name="email" required autocomplete="email">
+			<label for="loginPassword">Password:</label>
+			<input type="password" id="loginPassword" name="password" required autocomplete="current-password">
+			<input type="button" data-button-kind="accedi" value="Annulla">
+			<input type="submit" value="Accedi">
+		</form>`;
 	let popUpRegistrati = `<h2>Registrazione</h2>
-		<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
-		<label for="signupUsername">Nome Utente:</label>
-		<input type="text" id="signupUsername" name="username" required autocomplete="username">
-		<label for="signupEmail">Email:</label>
-		<input type="email" id="signupEmail" name="email" required autocomplete="email">
-		<label for="signupPassword">Password:</label>
-		<input type="password" id="signupPassword" name="password" required autocomplete="new-password">
-		<span id="passwordError" class="hidden">Le due password non coincidono.</span>
-		<label for="signupConfirmPassword">Ripeti Password:</label>
-		<input type="password" id="signupConfirmPassword" name="password" required autocomplete="new-password">
-		<button type="button" data-button-kind="registrati">Annulla</button>
-		<button onclick="postRequest(event, ['username', 'email', 'password'])" id="/user/register">Registrati</button>`;
+		<form id="/user/register" onsubmit="return postRequest(event)">
+			<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
+			<label for="signupUsername">Nome Utente:</label>
+			<input type="text" id="signupUsername" name="username" required autocomplete="username">
+			<label for="signupEmail">Email:</label>
+			<input type="email" id="signupEmail" name="email" required autocomplete="email">
+			<label for="signupPassword">Password:</label>
+			<input type="password" id="signupPassword" name="password" required autocomplete="new-password">
+			<span id="passwordError" class="hidden">Le due password non coincidono.</span>
+			<label for="signupConfirmPassword">Ripeti Password:</label>
+			<input type="password" id="signupConfirmPassword" name="password" required autocomplete="new-password">
+			<input type="button" data-button-kind="registrati" value="Annulla">
+			<input type="submit" value="Registrati">
+		</form>`;
 	let popUpNewProject = `<h2>Crea un Nuovo Progetto</h2>
-		<label for=" inputNomeProgetto">Nome Progetto:</label>
-		<input type="text" id="inputNomeProgetto" name="nomeProgetto" required>
-		<label for="inputDescrizioneProgetto">Descrizione:</label>
-		<textarea id="inputDescrizioneProgetto" name="descrizioneProgetto" required></textarea>
-		<button type="button" data-button-kind="newProject">Annulla</button>
-		<button onclick="postRequest(event, ['nomeProgetto', 'descrizioneProgetto'])" id="/project/new">Crea Progetto</button>`
+		<form id="/project/new" onsubmit="return postRequest(event)">
+			<label for=" inputNomeProgetto">Nome Progetto:</label>
+			<input type="text" id="inputNomeProgetto" name="nomeProgetto" required>
+			<label for="inputDescrizioneProgetto">Descrizione:</label>
+			<textarea id="inputDescrizioneProgetto" name="descrizioneProgetto" required></textarea>
+			<input type="button" data-button-kind="newProject" value="Annulla">Annulla
+			<input type="submit" value="Crea Progetto">
+		</form>`
 	let popUpModifyCredentials = `<h2>Modifica informazioni dell'account</h2>
-		<label for="newEmail">Nuova Email:</label>
-		<input type="email" id="newEmail" name="newEmail">
-		<label for="newUsername">Nuovo Nome Utente:</label>
-		<input type="text" id="newUsername" name="newUsername">
-		<label for="newPassword">Nuova Password:</label>
-		<input type="password" id="newPassword" name="newPassword">
-		<label for="confirmNewPassword">Conferma Nuova Password:</label>
-		<input type="password" id="confirmNewPassword" name="confirmNewPassword">
-		<label for="oldPassword">Vecchia Password:</label>
-		<input type="password" id="oldPassword" name="oldPassword" required>
-		<button type="button" data-button-kind="modificaCredenziali">Annulla</button>
-		<button onclick="postRequest(event, ['newEmail', 'newUsername', 'newPassword', 'confirmNewPassword', 'oldPassword'])" id="/user/modify">Salva Modifiche</button>`;
+		<form id="/user/modify" onsubmit="return postRequest(event)">
+			<label for="newEmail">Nuova Email:</label>
+			<input type="email" id="newEmail" name="newEmail">
+			<label for="newUsername">Nuovo Nome Utente:</label>
+			<input type="text" id="newUsername" name="newUsername">
+			<label for="newPassword">Nuova Password:</label>
+			<input type="password" id="newPassword" name="newPassword">
+			<label for="confirmNewPassword">Conferma Nuova Password:</label>
+			<input type="password" id="confirmNewPassword" name="confirmNewPassword">
+			<label for="oldPassword">Vecchia Password:</label>
+			<input type="password" id="oldPassword" name="oldPassword" required>
+			<input type="button" data-button-kind="modificaCredenziali" value="Annulla">
+			<input type="submit" value="Salva Modifiche">
+		</form>`;
 	let popUpEditProject = `<h2>Modifica Progetto</h2>
-		<label for="inputNewNomeProgetto">Nuovo Nome Progetto:</label>
-		<input type="text" id="newNewNomeProgetto" name="newNomeProgetto">
-		<label for="inputNewDescrizioneProgetto">Nuova Descrizione:</label>
-		<textarea id="newDescrizioneProgetto" name="newDescrizioneProgetto"></textarea>
-		<button type="button" data-button-kind="deleteProject">Elimina Progetto</button>
-		<button type="button" data-button-kind="editProject">Annulla</button>
-		<button onclick="postRequest(event, ['newNomeProgetto', 'newDescrizioneProgetto'], true)" id="/project/modify">Salva Modifiche</button>`;
+		<form id="/project/modify" onsubmit="return postRequest(event)">
+			<label for="inputNewNomeProgetto">Nuovo Nome Progetto:</label>
+			<input type="text" id="newNewNomeProgetto" name="newNomeProgetto">
+			<label for="inputNewDescrizioneProgetto">Nuova Descrizione:</label>
+			<textarea id="newDescrizioneProgetto" name="newDescrizioneProgetto"></textarea>
+			<input type="button" data-button-kind="deleteProject" value="Elimina Progetto">
+			<input type="button" data-button-kind="editProject" value="Annulla">
+			<input type="submit" value="Salva Modifiche">
+		</form>`;//true
 
 	let diz = { 'accedi': popUpAccedi, 'registrati': popUpRegistrati,
 		'newProject': popUpNewProject, 'modificaCredenziali': popUpModifyCredentials,
@@ -55,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 
 	document.body.addEventListener("click", function(event) {
 		// Check if the clicked element is a button
-		if (event.target.tagName === "BUTTON") {
+		if (event.target.tagName === "INPUT") {
 			// Show an alert with the ID of the clicked button
 			let id = event.target.dataset.buttonKind
 			if (id == null) {
@@ -66,10 +77,18 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				document.getElementById(id).classList.toggle('allert');
 			}
 			if (document.getElementById(id).classList.contains("hidden")) {
+				const focusableElements = document.querySelectorAll('a, button, input, textarea, select, [tabindex]');
+				focusableElements.forEach(element => {
+					element.removeAttribute('tabindex');
+				});
 				document.getElementById(id).innerHTML = ``;
 			}
 			else {
-				document.getElementById(id).innerHTML = diz[id];
+				const focusableElements = document.querySelectorAll('a, button, input, textarea, select, [tabindex]');
+				focusableElements.forEach(element => {
+					element.setAttribute('tabindex', '-1');
+				});
+				document.getElementById(id).innerHTML = diz[id];	
 			}
 		}
 	});
@@ -111,7 +130,7 @@ function logOut() {
 		document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
 	}
 
-	window.location.reload();
+	window.location.href = '/';
 }
 
 function share(link) {
@@ -128,37 +147,33 @@ function openProjectPage(link) {
 }
 
 
-function postRequest(event, params, isModifyProject = false) {
+function postRequest(event/*,isModifyProject = false*/) {
 	var datas = {};
-	if(isModifyProject) {
+	/*if(isModifyProject) {
 		const urlString = window.location.href;
 		const url = new URL(urlString);
 		const upar = url.searchParams;
 		datas = {
 			project_id: upar.get('project_id'),
 		};
-	}
-	var queryString = window.location.search;
-	if (queryString.charAt(0) === '?') {
-		queryString = queryString.slice(1);
-	}
-	var queryParams = queryString.split('&');
+	}*/
 
-	var section = event.target.parentElement;
-
-	for (var i = 0; i < params.length; i++) {
-		datas[params[i]] = section.querySelectorAll(`input[name="${params[i]}"], textarea[name="${params[i]}"]`)[0].value;//document.getElementsByName(params[i]);
-		console.log(params[i]);
-		console.log(datas[params[i]]);
-	}
-	queryParams.forEach(function(param) {
-		var parts = param.split('=');
-		var key = decodeURIComponent(parts[0]);
-		var value = decodeURIComponent(parts[1]);
-		datas[key] = value;
+	const elements = document.querySelectorAll('section.allert input[name], section.allert textarea[name]');
+	elements.forEach(element => {
+		datas[element.name] = element.value;
 	});
 
- console.log(JSON.stringify(datas));
+	const urlString = window.location.href;
+	const url = new URL(urlString);
+	const upar = url.searchParams;
+
+	upar.forEach((value, key) => {
+		const decodedKey = decodeURIComponent(key);
+		const decodedValue = decodeURIComponent(value);
+		datas[decodedKey] = decodedValue;
+	});
+	
+
 	fetch(event.target.id, {
 		method: 'POST',
 		headers: {
@@ -179,6 +194,7 @@ function postRequest(event, params, isModifyProject = false) {
 		})
 		.catch((error) => {
 			console.error('Error:', error);
+			alert(error)
 		});
 }
 
@@ -256,7 +272,7 @@ function disjoinProject(link) {
 			.then(response => response.json())
 			.then(data_content => {
 				alert(data_content['status']);
-				window.location.reload(); // Refresh della pagina
+				window.location.reload();
 			})
 			.catch((error) => {
 				console.error('Error:', error);

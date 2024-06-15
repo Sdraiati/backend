@@ -1,5 +1,5 @@
 class Request {
-	async post(event) {
+	static async post(event) {
 		return fetch(event.target.action, {
 			method: 'POST',
 			body: new FormData(event.target)
@@ -12,7 +12,7 @@ class Request {
 		})
 	}
 
-	async get(url) {
+	static async get(url) {
 		return fetch(url).then(async response => {
 			if (response.ok) {
 				return await response.json()

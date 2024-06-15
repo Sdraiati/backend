@@ -8,8 +8,10 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<label for="loginPassword"><span lang="en">Password</span>:</label>
 			<input type="password" id="loginPassword" name="password" required autocomplete="current-password">
 			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
-			<input type="button" data-button-kind="accedi" value="Annulla">
-			<input type="submit" value="Accedi">
+			<div>
+				<input type="button" data-button-kind="accedi" value="Annulla">
+				<input type="submit" value="Accedi">
+			</div>
 		</form>`;
 	let popUpRegistrati = `<h2>Registrazione</h2>
 		<form id="/user/register">
@@ -25,8 +27,10 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<label for="signupConfirmPassword">Ripeti <span lang="en">Password</span>:</label>
 			<input type="password" id="signupConfirmPassword" name="password" required autocomplete="new-password">
 			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
-			<input type="button" data-button-kind="registrati" value="Annulla">
-			<input type="submit" value="Registrati">
+			<div>
+				<input type="button" data-button-kind="registrati" value="Annulla">
+				<input type="submit" value="Registrati">
+			</div>
 		</form>`;
 	let popUpNewProject = `<h2>Crea un Nuovo Progetto</h2>
 		<form id="/project/new">
@@ -47,15 +51,17 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="text" id="newUsername" name="newUsername">
 			<label for="newPassword">Nuova <span lang="en">Password</span>:</label>
 			<input type="password" id="newPassword" name="newPassword">
-			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
+			<input type="checkbox" onclick="toogleView('newPassword')">Mostra <span lang="en">Password</span>
 			<label for="confirmNewPassword">Conferma Nuova <span lang="en">Password</span>:</label>
 			<input type="password" id="confirmNewPassword" name="confirmNewPassword">
-			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
+			<input type="checkbox" onclick="toogleView('confirmNewPassword')">Mostra <span lang="en">Password</span>
 			<label for="oldPassword">Vecchia <span lang="en">Password</span>:</label>
 			<input type="password" id="oldPassword" name="oldPassword" required>
-			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
-			<input type="button" data-button-kind="modificaCredenziali" value="Annulla">
-			<input type="submit" value="Salva Modifiche">
+			<input type="checkbox" onclick="toogleView('oldPassword')">Mostra <span lang="en">Password</span>
+			<div>
+				<input type="button" data-button-kind="modificaCredenziali" value="Annulla">
+				<input type="submit" value="Salva Modifiche">
+			</div>
 		</form>`;
 	let popUpEditProject = `<h2>Modifica Progetto</h2>
 		<form id="/project/modify">
@@ -294,8 +300,8 @@ function disjoinProject(link) {
 	}
 }
 
-function toogleView() {
-	var elements = document.getElementsByName("password");
+function toogleView(name="password") {
+	var elements = document.getElementsByName(name);
 	for (var i = 0; i < elements.length; i++) {
 		if (elements[i].type === "password") {
 			elements[i].type = "text";

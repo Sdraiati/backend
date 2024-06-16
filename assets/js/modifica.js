@@ -74,9 +74,34 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="submit" value="Salva Modifiche">
 		</form>`;
 
+	let popupDeleteProject = `<h2>Conferma Eliminazione Progetto</h2>
+	<form id="/project/delete">
+		<div id="deleteProjectError" class="hidden">{{ DeleteProjectError }}</div>
+		<label for="inputPassword">Inserisci la <span lang="en">Password</span>:</label>
+		<input type="password" id="checkPassword" name="checkPassword" required>
+		<input type="checkbox" onclick="toogleView('checkPassword')">Mostra <span lang="en">Password</span>
+		<div>
+			<input type="button" data-button-kind="deleteProject" value="Annulla">
+			<input type="submit" value="Conferma Eliminazione">
+		</div>
+	</form>`;
+
+	let popUpDisjoinProject = `<h2>Conferma Abbandono Progetto</h2>
+		<form id="/project/disjoin">
+			<div id="disjoinProjectError" class="hidden">{{ DisjoinProjectError }}</div>
+			<label for="inputPassword">Inserisci la <span lang="en">Password</span>:</label>
+			<input type="password" id="checkPassword" name="checkPassword" required>
+			<input type="checkbox" onclick="toogleView('checkPassword')">Mostra <span lang="en">Password</span>
+			<div>
+				<input type="button" data-button-kind="disjoinProject" value="Annulla">
+				<input type="submit" value="Conferma Abbandono">
+			</div>
+		</form>`;
+
 	let diz = { 'accedi': popUpAccedi, 'registrati': popUpRegistrati,
 		'newProject': popUpNewProject, 'modificaCredenziali': popUpModifyCredentials,
-		'editProject': popUpEditProject};
+		'editProject': popUpEditProject, 'deleteProject': popupDeleteProject,
+		'disjoinProject': popUpDisjoinProject};
 
 	document.body.addEventListener("click", function(event) {
 		// Check if the clicked element is a button
@@ -167,17 +192,8 @@ function openProjectPage(link) {
 	window.location = `/page_project?link=${link}`;
 }
 
-function postRequest(event/*,isModifyProject = false*/) {
+function postRequest(event) {
 	var datas = {};
-	/*if(isModifyProject) {
-		const urlString = window.location.href;
-		const url = new URL(urlString);
-		const upar = url.searchParams;
-		datas = {
-			project_id: upar.get('project_id'),
-		};
-	}*/
-
 	const elements = document.querySelectorAll('section.allert input[name], section.allert textarea[name]');
 	elements.forEach(element => {
 		datas[element.name] = element.value;
@@ -246,59 +262,59 @@ function joinProject() {
 	}
 }
 
-function deleteProject(link) {
-	if (validaAccess()) {
-		const data = {
-			link: link,
-		};
+// function deleteProject(link) {
+// 	if (validaAccess()) {
+// 		const data = {
+// 			link: link,
+// 		};
+//
+// 		fetch('/project/delete', {
+// 			method: 'POST',
+// 			headers: {
+// 				'Content-Type': 'application/json'
+// 			},
+// 			body: JSON.stringify(data)
+// 		})
+// 			.then(response => response.json())
+// 			.then(data_content => {
+// 				alert(data_content['status']);
+// 				window.location.reload(); // Refresh della pagina
+// 			})
+// 			.catch((error) => {
+// 				console.error('Error:', error);
+// 			});
+// 	}
+// 	else {
+// 		alert("Prima effettuare il login.");
+// 	}
+// }
 
-		fetch('/project/delete', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data)
-		})
-			.then(response => response.json())
-			.then(data_content => {
-				alert(data_content['status']);
-				window.location.reload(); // Refresh della pagina
-			})
-			.catch((error) => {
-				console.error('Error:', error);
-			});
-	}
-	else {
-		alert("Prima effettuare il login.");
-	}
-}
-
-function disjoinProject(link) {
-	if (validaAccess()) {
-		const data = {
-			link: link,
-		};
-
-		fetch('/project/disjoin', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data)
-		})
-			.then(response => response.json())
-			.then(data_content => {
-				alert(data_content['status']);
-				window.location.reload();
-			})
-			.catch((error) => {
-				console.error('Error:', error);
-			});
-	}
-	else {
-		alert("Prima effettuare il login.");
-	}
-}
+// function disjoinProject(link) {
+// 	if (validaAccess()) {
+// 		const data = {
+// 			link: link,
+// 		};
+//
+// 		fetch('/project/disjoin', {
+// 			method: 'POST',
+// 			headers: {
+// 				'Content-Type': 'application/json'
+// 			},
+// 			body: JSON.stringify(data)
+// 		})
+// 			.then(response => response.json())
+// 			.then(data_content => {
+// 				alert(data_content['status']);
+// 				window.location.reload();
+// 			})
+// 			.catch((error) => {
+// 				console.error('Error:', error);
+// 			});
+// 	}
+// 	else {
+// 		alert("Prima effettuare il login.");
+// 	}
+// }
 
 function toogleView(name="password") {
 	var elements = document.getElementsByName(name);

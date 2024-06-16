@@ -47,3 +47,10 @@ function isUserInProject($projectId): bool
 	}
 	return false;
 }
+
+function checkPassword($password): bool
+{
+    global $userDb;
+    $data = json_decode($_SESSION['LogIn'], true);
+    return $userDb->checkCredentials($data['email'], $password);
+}

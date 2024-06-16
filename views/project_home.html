@@ -29,6 +29,8 @@
 		<h1>{{ Project Name }}</h1>
 		<div aria-label="descrizione">{{ Project Description }}</div>
 		<input type="button" data-button-kind="editProject" value="Modifica Progetto">
+		<input type="button" data-button-kind="deleteProject" value="Elimina">
+		<input type="button" data-button-kind="disjoinProject" value="Abbandona Progetto">
 		<input type="button" onclick='share("{{ project-link }}")' value="Condividi Progetto">
 	</header>
 
@@ -46,15 +48,10 @@
 
 	<!-- Elimina Progetto -->
 	<section id="deleteProject" class="hidden">
-		<h2>Conferma Eliminazione Progetto</h2>
-		<form id="deleteProjectForm" action="javascript:void(0)">
-			<label for="inputPassword">Inserisci la Password:</label>
-			<input type="password" id="inputPassword" name="password" required>
-			<div class="form-buttons">
-				<button type="button" data-button-kind="deleteProjectHide">Annulla</button>
-				<button type="submit" id="submitDeleteProject">Conferma Eliminazione</button>
-			</div>
-		</form>
+	</section>
+
+	<!-- Abbandona Progetto -->
+	<section id="disjoinProject" class="hidden">
 	</section>
 
 	<main>

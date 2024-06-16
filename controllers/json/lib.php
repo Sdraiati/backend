@@ -9,6 +9,7 @@ include_once __PROJECTROOT__ . '/models/database/project/ModifyProject.php';
 include_once __PROJECTROOT__ . '/models/database/movimento/Movimento.php';
 include_once __PROJECTROOT__ . '/models/database/project/UserProject.php';
 include_once __PROJECTROOT__ . '/models/database/user/UserInfo.php';
+include_once __PROJECTROOT__ . '/models/database/tag/TagInfo.php';
 $database = Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
 $projectManager = new ProjectInfo($database);
 $joinProget = new JoinProject($database);
@@ -20,6 +21,7 @@ $modProject = new ModifyProject($database);
 $movimentoDb = new Movimento($database);
 $projectDb = new UserProject($database);
 $userDb = new UserInfo($database);
+$tagDb = new TagInfo($database);
 
 function isLogged(): bool
 {

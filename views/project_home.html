@@ -80,7 +80,7 @@
 
 		<section>
 			<h2>Tabella delle Transazioni</h2>
-			<button data-button-kind="newTransaction">Nuova Transazione</button>
+			<input type="button" data-button-kind="newTransaction" value="Nuova Transazione">
 			<!-- Inserisci qui la tabella delle transazioni -->
 			<table id="transazioniTable">
 				<!-- Intestazione della tabella -->
@@ -100,22 +100,6 @@
 
 		<!-- Registra una Nuova Transazione -->
 		<section id="newTransaction" class="hidden">
-			<h2>Registra una Nuova Transazione</h2>
-			<form id="newTransactionForm" action="javascript:void(0)">
-				<label for="newData">Data:</label>
-				<input type="date" id="newData" name="data" required>
-				<label for="newImporto">Importo:</label>
-				<input type="number" id="newImporto" name="importo" step="0.01" required>
-				<label for="newTag">Tag:</label>
-				<input list="tags-datalist" id="newTag" name="tag" required>
-				<!-- Datalist per i tag -->
-				<datalist id="tags-datalist">
-				</datalist>
-				<label for="newDescrizione">Descrizione:</label>
-				<input type="text" id="newDescrizione" name="descrizione">
-				<button type="button" data-button-kind="newTransactionHide">Annulla</button>
-				<button type="submit" id="submitNewTransaction">Registra Transazione</button>
-			</form>
 		</section>
 
 		<!-- Modifica Transazione -->

@@ -97,11 +97,29 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				<input type="submit" value="Conferma Abbandono">
 			</div>
 		</form>`;
+	
+	let popupNewTransaction = `<h2>Registra una Nuova Transazione</h2>
+		<form id="/movimento/new">
+			<div id="newTransactionError" class="hidden">{{ NewTransactionError }}</div>
+			<label for="newData">Data:</label>
+			<input type="date" id="newData" name="newData" required>
+			<label for="newImporto">Importo (€):</label>
+			<input type="number" id="newImporto" name="newImporto" step="0.01" required>
+			<label for="newTag"><span lang="en">Tag</span>:</label>
+			<input list="tags-datalist" id="newTag" name="newTag">
+			<!-- Datalist per i tag -->
+			<datalist id="tags-datalist">
+			</datalist>
+			<label for="newDescrizione">Descrizione:</label>
+			<input type="text" id="newDescrizione" name="newDescrizione">
+			<input type="button" data-button-kind="newTransaction" value="Annulla">
+			<input type="submit" value="Registra Transazione">
+		</form>`
 
 	let diz = { 'accedi': popUpAccedi, 'registrati': popUpRegistrati,
 		'newProject': popUpNewProject, 'modificaCredenziali': popUpModifyCredentials,
 		'editProject': popUpEditProject, 'deleteProject': popupDeleteProject,
-		'disjoinProject': popUpDisjoinProject};
+		'disjoinProject': popUpDisjoinProject, 'newTransaction': popupNewTransaction};
 
 	document.body.addEventListener("click", function(event) {
 		// Check if the clicked element is a button
@@ -208,7 +226,6 @@ function postRequest(event) {
 		const decodedValue = decodeURIComponent(value);
 		datas[decodedKey] = decodedValue;
 	});
-	
 
 	fetch(event.target.id, {
 		method: 'POST',

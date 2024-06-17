@@ -57,7 +57,7 @@ class TransazioniSingleton {
 	static async get() {
 		let transazioni = await TransazioniSingleton.get_all()
 
-		if (Transazione.tag != null) {
+		if (TransazioniSingleton.tag != null) {
 			transazioni = transazioni.filter((transazione) => {
 				transazione.tag === TransazioniSingleton.tag
 			})
@@ -70,7 +70,7 @@ class TransazioniSingleton {
 
 	static setPeriod(days) {
 		TransazioniSingleton.begin = new Date(TransazioniSingleton.end.getTime() - days * ms_per_day)
-		Transazione.update()
+		TransazioniSingleton.update()
 	}
 
 	static nextPeriod(flag) {
@@ -82,12 +82,12 @@ class TransazioniSingleton {
 			TransazioniSingleton.end = TransazioniSingleton.begin
 			TransazioniSingleton.begin = new Date(TransazioniSingleton.begin.getTime() - period)
 		}
-		Transazione.update()
+		TransazioniSingleton.update()
 	}
 
 	static setTag(tag) {
 		TransazioniSingleton.tag = tag
-		Transazione.update();
+		TransazioniSingleton.update();
 	}
 
 	/** Aggiunge un observer alla lista degli observer

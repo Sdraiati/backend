@@ -9,9 +9,9 @@ function update_period(int) {
 }
 
 document.getElementById("transazioni-precedenti").addEventListener("click", async function() {
-	nextPeriod(false)
+	TransazioniSingleton.nextPeriod(false)
 	let t = await TransazioniSingleton.get_all()
-	if (t.filter((transazione) => transazione.data < getPeriod().begin).length == 0)
+	if (t.filter((transazione) => transazione.data < TransazioniSingleton.getPeriod().begin).length == 0)
 		document.getElementById("transazioni-precedenti").disabled = true
 	document.getElementById("transazioni-successive").disabled = false
 })
@@ -32,8 +32,8 @@ document.getElementById("transazioni-periodo-1-anno").addEventListener("click", 
 })
 
 document.getElementById("transazioni-successive").addEventListener("click", function() {
-	nextPeriod(true)
-	if (new Date() <= getPeriod().end) {
+	TransazioniSingleton.nextPeriod(true)
+	if (new Date() <= TransazioniSingleton.getPeriod().end) {
 		document.getElementById("transazioni-successive").disabled = true
 	}
 	document.getElementById("transazioni-precedenti").disabled = false

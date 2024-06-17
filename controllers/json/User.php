@@ -53,10 +53,10 @@ $loginUser = (new JsonApiBuilder())
 
 $modifyUser = (new JsonApiBuilder())
 	->setPath('user/modify')
-	->setInputParams(['newEmail', 'newUsername', 'newPassword'])
+	->setInputParams(['newEmail', 'newUsername', 'newPassword', 'oldPassword'])
 	->setLogicFn(
 		function ($params) {
-			if (!isLogged()) {
+			if (!isLogged() || !checkPassword($params[3])) {
 				http_response_code(401);
 				echo json_encode(['error' => "Unauthorized"]);
 				return;

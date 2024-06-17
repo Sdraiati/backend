@@ -269,16 +269,6 @@ button[disabled]
     box-sizing: border-box;
 }
 
-section#chart{
-    display: grid;
-    grid-template-rows: repeat(2, auto);
-    gap: 20px;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    text-align: center;
-}
-
 #line-chart {
 	width: 100%;
     max-width: 1000px;
@@ -296,6 +286,10 @@ ul#line-chart-buttons{
     justify-content: center;
     flex-wrap: wrap;
     gap:var(--borderRadiusSM);
+}
+
+#cake-chart {
+    width: 50%;
 }
 
 .container {
@@ -541,13 +535,13 @@ li.projectContainer form input{
     header h1{
         border: none;
     }
-    .projectContainer form{
+    .projectContainer ul{
         grid-template-columns: 1fr;
     }
     .projectContainer {
         height: 320px;
     }
-    
+
     li.projectContainer form{
         grid-row: 3 / 3;
         grid-column: 1 / 3;

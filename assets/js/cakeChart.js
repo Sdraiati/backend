@@ -231,7 +231,7 @@ async function drawCakeChart(transactions) {
     let ctx = canvas.getContext("2d");
     let radius = Math.min(canvas.width, canvas.height) / 1.1;
     let offset_x = canvas.width / 2 +150;
-    let offset_y = canvas.height / 2 + 60;
+    let offset_y = canvas.height / 2 + 80;
 
     let cake = new Cake(offset_x, offset_y, radius, ctx, 90, total_amount);
     categories.forEach((tag, index) => {

@@ -53,12 +53,15 @@ function createCell(row, text) {
 * @param {number} index - Indice della transazione
 */
 function createButtonCell(row, index) {
+	let form = document.createElement("form")
 	let td = document.createElement("td")
-	let button = document.createElement("button")
-	button.textContent = "Modifica"
+	let button = document.createElement("input")
 	button.setAttribute("data-button-kind", "editTransaction")
 	button.setAttribute("data-transazione-index", index)
-	td.appendChild(button)
+	button.setAttribute("type", "button")
+	button.setAttribute("value", "Modifica")
+	form.appendChild(button)
+	td.appendChild(form)
 	row.appendChild(td)
 }
 

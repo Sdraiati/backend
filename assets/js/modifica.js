@@ -103,14 +103,13 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		</form>`;
 	//<input list="tags-datalist" id="newTag" name="newTag">
 	let popupNewTransaction = `<h2>Registra una Nuova Transazione</h2>
-		<div id="newTransactionError" class="hidden">{{ NewTransactionError }}</div>
 		<form id="nuovoMovimento" action="/movimento/new">
 			<label for="newData">Data:</label>
 			<input type="date" id="newData" name="newData" required>
 			<label for="newImporto">Importo (€):</label>
 			<input type="number" id="newImporto" name="newImporto" step="0.01" required>
-			<label for="newTag"><span lang="en">Tag</span>:</label>
-			<select id="cars" name="newTag">
+			<label for="newTag"><span lang="en">Tag</span>:</label> -->
+			<select id="newTag" name="newTag">
 				<option value="volvo">Volvo</option>
 				<option value="saab">Saab</option>
 				<option value="opel">Opel</option>
@@ -125,17 +124,42 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="submit" value="Registra Transazione">
 		</form>`
 
+	let popupEditTransaction = `<h2>Modifica una Transazione</h2>
+		<form id="modificaMovimento" action="/movimento/modify">
+			<input type="number" name="transactionId" value="{{ tr-id }}" class="hidden">
+			<label for="editData">Data:</label>
+			<input type="date" id="editData" name="editData" required>
+			<label for="editImporto">Importo (€):</label>
+			<input type="number" id="editImporto" name="editImporto" step="0.01" required>
+			<label for="editTag"><span lang="en">Tag</span>:</label>
+			<select id="editTag" name="editTag">
+				<option value="volvo">Volvo</option>
+				<option value="saab">Saab</option>
+				<option value="opel">Opel</option>
+				<option value="audi">Audi</option>
+			</select>
+			<!-- Datalist per i tag -->
+			<datalist id="tags-datalist">
+			</datalist>
+			<label for="editDescrizione">Descrizione:</label>
+			<input type="text" id="editDescrizione" name="editDescrizione">
+			<input type="button" data-button-kind="editTransaction" value="Annulla">
+			<input type="submit" value="Registra Transazione">
+		</form>`
 
-	let diz = { 'accedi': popUpAccedi, 'registrati': popUpRegistrati,
+	let diz = {
+		'accedi': popUpAccedi, 'registrati': popUpRegistrati,
 		'newProject': popUpNewProject, 'modificaCredenziali': popUpModifyCredentials,
 		'editProject': popUpEditProject, 'deleteProject': popupDeleteProject,
-		'disjoinProject': popUpDisjoinProject, 'newTransaction': popupNewTransaction};
+		'disjoinProject': popUpDisjoinProject, 'newTransaction': popupNewTransaction,
+		'editTransaction': popupEditTransaction
+	};
 
 	document.body.addEventListener("click", function(event) {
 		// Check if the clicked element is a button
 		if (event.target.tagName === "INPUT") {
 			// Show an alert with the ID of the clicked button
-			
+
 			let id = event.target.dataset.buttonKind
 			//if(id == "newTransaction") {mostra le option in popupNewTransaction}
 			if (id == null) {
@@ -157,7 +181,15 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				focusableElements.forEach(element => {
 					element.setAttribute('tabindex', '-1');
 				});
-				document.getElementById(id).innerHTML = diz[id];	
+
+				if (id === "editTransaction") {
+					let content = popupEditTransaction.toString();
+					content = content.replace("{{ tr-id }}", event.target.dataset.transazioneIndex);
+					console.log(content);
+					diz[id] = content;
+				}
+
+				document.getElementById(id).innerHTML = diz[id];
 			}
 		}
 	});
@@ -224,107 +256,53 @@ function openProjectPage(link) {
 
 function makePopUpAppear(id, message) {
 	let popUpDiv = document.createElement("div");
-  	popUpDiv.id = id;
-  	popUpDiv.innerHTML = message;
-  	document.body.appendChild(popUpDiv);
+	popUpDiv.id = id;
+	popUpDiv.innerHTML = message;
+	document.body.appendChild(popUpDiv);
 
-  	setTimeout(() => {
-    	document.body.removeChild(popUpDiv);
-  	}, 3000);
+	setTimeout(() => {
+		document.body.removeChild(popUpDiv);
+	}, 3000);
 }
 
 function postRequest(event /*,isModifyProject = false*/) {
-  // PARTE NUOVA
-  //   var datas = {};
+	// PARTE NUOVA
+	//   var datas = {};
 
-    data = Object.fromEntries(new FormData(event.target).entries());
+	data = Object.fromEntries(new FormData(event.target).entries());
 
-    const urlString = window.location.href;
-    const url = new URL(urlString);
-    const upar = url.searchParams;
+	const urlString = window.location.href;
+	const url = new URL(urlString);
+	const upar = url.searchParams;
 	console.log(upar);
 
-    upar.forEach((value, key) => {
-      const decodedKey = decodeURIComponent(key);
-      const decodedValue = decodeURIComponent(value);
-      data[decodedKey] = decodedValue;
-    });
+	upar.forEach((value, key) => {
+		const decodedKey = decodeURIComponent(key);
+		const decodedValue = decodeURIComponent(value);
+		data[decodedKey] = decodedValue;
+	});
 
-    console.log(event.target.action);
+	console.log(event.target.action);
 	console.log(data);
 
-    fetch(event.target.action, { method: "POST", body: JSON.stringify(data) })
-      .then(async (data) => {
-        if (!data.ok) {
-          throw await data.json();
-        }
-        data = await data.json();
-        console.log(data);
-		makePopUpAppear("success", data.message);
+	fetch(event.target.action, { method: "POST", body: JSON.stringify(data) })
+		.then(async (data) => {
+			if (!data.ok) {
+				throw await data.json();
+			}
+			data = await data.json();
+			console.log(data);
+			makePopUpAppear("success", data.message);
 
-        // redirezione alla pagina di login.
+			// redirezione alla pagina di login.
 
-      })
-      .catch((err) => {
+		})
+		.catch((err) => {
 
-		console.log(err);
-		makePopUpAppear("error", err.error);
-    	// document.getElementById("error").innerText = err.error;
-      });
-
-  // PARTE VECCHIA
-//   if(isModifyProject) {
-// 		const urlString = window.location.href;
-// 		const url = new URL(urlString);
-// 		const upar = url.searchParams;
-// 		datas = {
-// 			project_id: upar.get('project_id'),
-// 		};
-// 	}
-
-//     const elements = document.querySelectorAll(
-//       "section.allert input[name], section.allert textarea[name]"
-//     );
-//     elements.forEach((element) => {
-//       datas[element.name] = element.value;
-//     });
-
-//     const urlString = window.location.href;
-//     const url = new URL(urlString);
-//     const upar = url.searchParams;
-
-//     upar.forEach((value, key) => {
-//       const decodedKey = decodeURIComponent(key);
-//       const decodedValue = decodeURIComponent(value);
-//       datas[decodedKey] = decodedValue;
-//     });
-
-//     console.log(upar);
-
-//     fetch(event.target.id, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(datas),
-//     })
-//       .then((response) => {
-//         response.json();
-//         console.log("ricevuto: " + response);
-//       })
-//       .then((data) => {
-//         console.log("ricevuto: " + data);
-//         if (
-//           event.target.id == "/user/login" ||
-//           event.target.id == "/user/register"
-//         )
-//           window.location.href = "/account_home";
-//         else location.reload(true);
-//       })
-//       .catch((error) => {
-//         console.error("Errore ricevuto da API:", error);
-//         alert(error);
-//       });
+			console.log(err);
+			makePopUpAppear("error", err.error);
+			// document.getElementById("error").innerText = err.error;
+		});
 }
 
 function joinProject() {
@@ -358,61 +336,7 @@ function joinProject() {
 	}
 }
 
-// function deleteProject(link) {
-// 	if (validaAccess()) {
-// 		const data = {
-// 			link: link,
-// 		};
-//
-// 		fetch('/project/delete', {
-// 			method: 'POST',
-// 			headers: {
-// 				'Content-Type': 'application/json'
-// 			},
-// 			body: JSON.stringify(data)
-// 		})
-// 			.then(response => response.json())
-// 			.then(data_content => {
-// 				alert(data_content['status']);
-// 				window.location.reload(); // Refresh della pagina
-// 			})
-// 			.catch((error) => {
-// 				console.error('Error:', error);
-// 			});
-// 	}
-// 	else {
-// 		alert("Prima effettuare il login.");
-// 	}
-// }
-
-// function disjoinProject(link) {
-// 	if (validaAccess()) {
-// 		const data = {
-// 			link: link,
-// 		};
-//
-// 		fetch('/project/disjoin', {
-// 			method: 'POST',
-// 			headers: {
-// 				'Content-Type': 'application/json'
-// 			},
-// 			body: JSON.stringify(data)
-// 		})
-// 			.then(response => response.json())
-// 			.then(data_content => {
-// 				alert(data_content['status']);
-// 				window.location.reload();
-// 			})
-// 			.catch((error) => {
-// 				console.error('Error:', error);
-// 			});
-// 	}
-// 	else {
-// 		alert("Prima effettuare il login.");
-// 	}
-// }
-
-function toogleView(name="password") {
+function toogleView(name = "password") {
 	var elements = document.getElementsByName(name);
 	for (var i = 0; i < elements.length; i++) {
 		if (elements[i].type === "password") {

@@ -150,19 +150,18 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				const focusableElements = document.querySelectorAll('a, button, input, textarea, select, [tabindex]');
 				focusableElements.forEach(element => {
 					element.removeAttribute('tabindex');
+					element.classList.toggle('overlay');
 				});
 				document.getElementById(id).innerHTML = ``;
-				document.querySelector('main').classList.toggle('overlay')
-				document.querySelector('header').classList.toggle('overlay')
+
 			}
 			else {
 				const focusableElements = document.querySelectorAll('a, button, input, textarea, select, [tabindex]');
 				focusableElements.forEach(element => {
 					element.setAttribute('tabindex', '-1');
+					element.classList.toggle('overlay');
 				});
 				document.getElementById(id).innerHTML = diz[id];	
-				document.querySelector('main').classList.toggle('overlay')
-				document.querySelector('header').classList.toggle('overlay')
 			}
 		}
 	});

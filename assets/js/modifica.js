@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				<input type="submit" value="Conferma Abbandono">
 			</div>
 		</form>`;
-	
+	//<input list="tags-datalist" id="newTag" name="newTag">
 	let popupNewTransaction = `<h2>Registra una Nuova Transazione</h2>
 		<div id="newTransactionError" class="hidden">{{ NewTransactionError }}</div>
 		<form id="nuovoMovimento" action="/movimento/new">
@@ -110,7 +110,12 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<label for="newImporto">Importo (€):</label>
 			<input type="number" id="newImporto" name="newImporto" step="0.01" required>
 			<label for="newTag"><span lang="en">Tag</span>:</label>
-			<input list="tags-datalist" id="newTag" name="newTag">
+			<select id="cars" name="newTag">
+				<option value="volvo">Volvo</option>
+				<option value="saab">Saab</option>
+				<option value="opel">Opel</option>
+				<option value="audi">Audi</option>
+			</select>
 			<!-- Datalist per i tag -->
 			<datalist id="tags-datalist">
 			</datalist>
@@ -130,7 +135,9 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		// Check if the clicked element is a button
 		if (event.target.tagName === "INPUT") {
 			// Show an alert with the ID of the clicked button
+			
 			let id = event.target.dataset.buttonKind
+			//if(id == "newTransaction") {mostra le option in popupNewTransaction}
 			if (id == null) {
 				return;
 			}

@@ -1,8 +1,5 @@
-let popupError = `<div id="error">{{ LoginError }}</div>`
-
 document.addEventListener("DOMContentLoaded", function(_) {
 
-	
 	let popUpAccedi = `<h2>Login</h2>
 		<div id="loginError" class="hidden">{{ LoginError }}</div>
 		<form id="loginForm" action="/user/login" method="POST">
@@ -16,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				<input type="submit" value="Accedi">
 			</div>
 		</form>`;
+
 	let popUpRegistrati = `<h2>Registrazione</h2>
 		<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
 		<form id="registratiForm" action="/user/register">
@@ -217,6 +215,16 @@ function openProjectPage(link) {
 	window.location = `/page_project?link=${link}`;
 }
 
+function makePopUpAppear(id, message) {
+	let popUpDiv = document.createElement("div");
+  	popUpDiv.id = id;
+  	popUpDiv.innerHTML = message;
+  	document.body.appendChild(popUpDiv);
+
+  	setTimeout(() => {
+    	document.body.removeChild(popUpDiv);
+  	}, 3000);
+}
 
 function postRequest(event /*,isModifyProject = false*/) {
   // PARTE NUOVA
@@ -245,21 +253,15 @@ function postRequest(event /*,isModifyProject = false*/) {
         }
         data = await data.json();
         console.log(data);
+		makePopUpAppear("success", data.message);
+
         // redirezione alla pagina di login.
+
       })
       .catch((err) => {
 
 		console.log(err);
-
-		let errorDiv = document.createElement("div");
-        errorDiv.id = "error";
-		errorDiv.innerHTML = err.error;
-        document.body.appendChild(errorDiv);
-
-		setTimeout(() => {
-			document.body.removeChild(errorDiv);
-		}, 3000);
-
+		makePopUpAppear("error", err.error);
     	// document.getElementById("error").innerText = err.error;
       });
 

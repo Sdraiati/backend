@@ -1,5 +1,3 @@
-var transazioni_observers_fn = []
-
 class Transazione {
 	/** Crea un oggetto Transazione
 	* @param {Date} data - Oggetto Date che rappresenta la data
@@ -29,88 +27,14 @@ class Transazione {
 		return newRow
 	}
 
-	/** Restituisce un array di oggetti Transazione
-	* setta transazioni in sessionStorage
-	*/
-	static async fetch() {
-		let project_id = get_project_id()
-		let options = {
-			method: "POST",
-			body: JSON.stringify({ id_progetto: project_id }),
-		}
-
-		return await
-			fetch(`api/progetto/movimenti_progetto.php`, options)
-				.then(async response => {
-					if (response.ok) {
-						let data = await response.json()
-						return data
-					} else {
-						throw new Error("Errore nella richiesta")
-					}
-				})
-				.then((data) => {
-					data = data.map((obj) =>
-						new Transazione(
-							obj.id,
-							new Date(obj.data),
-							parseFloat(obj.importo),
-							obj.tag,
-							obj.descrizione)
-					)
-					sessionStorage.setItem(`${project_id}`, JSON.stringify(data))
-					return data
-				})
-	}
-
-	/** Restituisce un array di oggetti Transazione
-	* @returns {Transazione[]} Array di oggetti Transazione dal server e setta
-		* transazioni in sessionStorage
-	*/
-	static async get() {
-		// Supponiamo che tu abbia un array di oggetti che rappresentano le transazioni
-		let project_id = get_project_id()
-		let transazioni = []
-		if (sessionStorage.getItem(`${project_id}`) == null) {
-			transazioni = await Transazione.fetch()
-		} else {
-			transazioni = JSON.parse(sessionStorage.getItem(`${project_id}`))
-
-			// Convert the parsed data back into an array of Transazione objects
-			transazioni = transazioni.map((obj) =>
-				new Transazione(
-					obj.id,
-					new Date(obj.data),
-					parseFloat(obj.importo),
-					obj.tag,
-					obj.descrizione)
-			)
-		}
-		if (Transazione.tag != null) {
-			transazioni = transazioni.filter((transazione) => transazione.tag == Transazione.tag)
-		}
-		return transazioni
-	}
-
-	static setTag(tag) {
-		this.tag = tag
-		Transazione.update();
-	}
-
-	/** Aggiunge un observer alla lista degli observer
-	* @param {function} fn - Funzione da aggiungere alla lista degli observer
-	*/
-	static addObserver(fn) {
-		transazioni_observers_fn.push(fn);
-	}
-
-	/** Update the observers
-	* @param {Transazione[]} transazioni - Array di oggetti Transazione
-	*/
-	static update() {
-		Transazione.get().then((transazioni) => {
-			transazioni_observers_fn.forEach((observer_fn) => observer_fn(transazioni))
-		})
+	static fromJsonObj(obj) {
+		return new Transazione(
+			obj.id,
+			new Date(obj.data),
+			parseFloat(obj.importo),
+			obj.tag,
+			obj.descrizione
+		)
 	}
 }
 
@@ -150,11 +74,6 @@ function dateToString(date) {
 	// Formatta la data nel formato "GG/MM/YYYY"
 	let dataFormattata = (giorno < 10 ? '0' : '') + giorno + '/' + (mese < 10 ? '0' : '') + mese + '/' + anno
 	return dataFormattata
-}
-
-function get_project_id() {
-	let url = new URL(window.location.href)
-	return parseInt(url.searchParams.get("id"))
 }
 
 export { Transazione }

@@ -76,7 +76,7 @@ class Movimento extends DatabaseManager
 					tag.nome as tag 
 				FROM 
 					movimento 
-				JOIN 
+				LEFT JOIN 
 					tag 
 				ON 
 					movimento.tag_id = tag.id

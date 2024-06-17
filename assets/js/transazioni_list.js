@@ -1,3 +1,4 @@
+import { TransazioniSingleton } from "./TransazioniSingleton.js"
 import { Transazione } from "./transazione.js"
 
 function update_transazioni_table(transazioni) {
@@ -33,73 +34,11 @@ document.addEventListener("DOMContentLoaded", function() {
 			document.getElementById("editDescrizione").value = t.descrizione
 		}
 	});
-
-	// Event handler per il pulsante "Elimina Transazione" del form di Modifica Transazione
-	document.getElementById('deleteTransazioneButton').addEventListener('click', function() {
-		let url = new URL(window.location.href)
-		let project_id = parseInt(url.searchParams.get("id"))
-		console.log(project_id)
-		let options = {
-			method: "POST",
-			body: JSON.stringify({
-				id_transazione: selected_transaction,
-				id_progetto: `${project_id}`
-			}),
-		}
-		fetch('api/movimento/elimina_movimento.php', options)
-			.then((response) => {
-				if (response.ok) {
-					Transazione.fetch()
-					window.location.href = url
-				}
-			})
-			.catch((error) => {
-				console.log(error)
-			})
-	})
-
-	document.getElementById('editTransazioneForm').addEventListener('submit', function(event) {
-		event.preventDefault()
-		let url = new URL(window.location.href)
-
-		fetch(event.target.action, {
-			method: event.target.method,
-			body: new FormData(event.target),
-		})
-			.then((response) => {
-				if (response.ok) {
-					Transazione.fetch()
-					window.location.href = url
-				}
-			})
-			.catch((error) => {
-				console.log(error)
-			})
-	})
-
-	document.getElementById('newTransazioneForm').addEventListener('submit', function(event) {
-		event.preventDefault()
-		let url = new URL(window.location.href)
-
-		fetch(event.target.action, {
-			method: event.target.method,
-			body: new FormData(event.target),
-		})
-			.then((response) => {
-				if (response.ok) {
-					Transazione.fetch()
-					window.location.href = url
-				}
-			})
-			.catch((error) => {
-				console.log(error)
-			})
-	})
 });
 
 function get_project_id() {
 	let url = new URL(window.location.href)
-	return parseInt(url.searchParams.get("id"))
+	return parseInt(url.searchParams.get("project_id"))
 }
 
 function dateToString(date) {
@@ -111,7 +50,3 @@ function dateToString(date) {
 	let dataFormattata = anno + '-' + (mese < 10 ? '0' : '') + mese + '-' + (giorno < 10 ? '0' : '') + giorno
 	return dataFormattata
 }
-
-Transazione.fetch()
-Transazione.addObserver(update_transazioni_table)
-Transazione.update()

@@ -1,8 +1,7 @@
-import { setPeriod, nextPeriod, getPeriod } from './lineChart.js';
-import { Transazione } from './transazione.js';
+import { TransazioniSingleton } from './TransazioniSingleton.js';
 
 function update_period(int) {
-	setPeriod(int)
+	TransazioniSingleton.setPeriod(int)
 	document.getElementById("transazioni-precedenti").disabled = false
 	document.getElementById("transazioni-periodo-1-mese").disabled = false
 	document.getElementById("transazioni-periodo-6-mesi").disabled = false
@@ -11,7 +10,7 @@ function update_period(int) {
 
 document.getElementById("transazioni-precedenti").addEventListener("click", async function() {
 	nextPeriod(false)
-	let t = await Transazione.get()
+	let t = await TransazioniSingleton.get_all()
 	if (t.filter((transazione) => transazione.data < getPeriod().begin).length == 0)
 		document.getElementById("transazioni-precedenti").disabled = true
 	document.getElementById("transazioni-successive").disabled = false

@@ -10,31 +10,31 @@ $newMovimento = (new JsonApiBuilder())
 	->setInputParams(['project_id', 'newData', 'newImporto', 'newDescrizione', 'newTag'])
 	->setLogicFn(
 		function ($params) {
-            try {
-                $project_id = $params[0];
-                if (!isLogged() || !isUserInProject($project_id)) {
-                    http_response_code(401);
-                    echo json_encode(['error' => "Unauthorized"]);
-                    return;
-                }
-            } catch (Exception $e) {
-                http_response_code(400);
-                echo json_encode(['error' => $e->getMessage()]);
-            }
-            global $movimentoDb;
-            global $tagDb;
-            if($params[4] != "")
-                $tag_id = $tagDb->getIdByName($project_id, $params[4]);
-            else
-                $tag_id = null;
-            try {
-                $movimentoDb->new($project_id, $params[1], $params[2], $params[3], $tag_id);
-                http_response_code(200);
-                echo json_encode(['message' => "Movimento added"]);
-            } catch (Exception $e) {
-                http_response_code(400);
-                echo json_encode(['error' => $e->getMessage()]);
-            }
+			try {
+				$project_id = $params[0];
+				if (!isLogged() || !isUserInProject($project_id)) {
+					http_response_code(401);
+					echo json_encode(['error' => "Unauthorized"]);
+					return;
+				}
+			} catch (Exception $e) {
+				http_response_code(400);
+				echo json_encode(['error' => $e->getMessage()]);
+			}
+			global $movimentoDb;
+			global $tagDb;
+			if ($params[4] != "")
+				$tag_id = $tagDb->getIdByName($project_id, $params[4]);
+			else
+				$tag_id = null;
+			try {
+				$movimentoDb->new($project_id, $params[1], $params[2], $params[3], $tag_id);
+				http_response_code(200);
+				echo json_encode(['message' => "Movimento added"]);
+			} catch (Exception $e) {
+				http_response_code(400);
+				echo json_encode(['error' => $e->getMessage()]);
+			}
 		}
 	)
 	->createApi();
@@ -95,5 +95,31 @@ $deleteMovimento = (new JsonApiBuilder())
 	)
 	->createApi();
 
+$getMovimenti = (new JsonApiBuilder())
+	->setPath('movimento/get')
+	->setInputParams(['project_id'])
+	->setLogicFn(
+		function ($params) {
+			if (!isLogged() || !isUserInProject($params[0])) {
+				http_response_code(401);
+				echo json_encode(['error' => "Unauthorized"]);
+				return;
+			}
+			global $movimentoDb;
+			try {
+				$movimenti = $movimentoDb->get($params[0]);
+
+				http_response_code(200);
+				echo json_encode($movimenti);
+			} catch (Exception $_) {
+				http_response_code(400);
+				echo json_encode(['error' => "Error getting movimenti"]);
+			}
+		}
+	)
+	->createApi();
+
 $mov_router = new Router();
 $mov_router->addRoute($newMovimento);
+$mov_router->addRoute($getMovimenti);
+

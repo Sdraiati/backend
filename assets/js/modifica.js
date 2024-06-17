@@ -5,64 +5,121 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		<form id="loginForm" action="/user/login" method="POST" onsubmit="return postRequest(event)">
 			<label for="loginEmail">Email:</label>
 			<input type="email" id="loginEmail" name="email" required autocomplete="email">
-			<label for="loginPassword">Password:</label>
+			<label for="loginPassword"><span lang="en">Password</span>:</label>
 			<input type="password" id="loginPassword" name="password" required autocomplete="current-password">
-			<input type="button" data-button-kind="accedi" value="Annulla">
-			<input type="submit" value="Accedi">
+			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
+			<div>
+				<input type="button" data-button-kind="accedi" value="Annulla">
+				<input type="submit" value="Accedi">
+			</div>
 		</form>`;
 	let popUpRegistrati = `<h2>Registrazione</h2>
-		<form id="/user/register" onsubmit="return postRequest(event)">
+		<form id="/user/register">
 			<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
 			<label for="signupUsername">Nome Utente:</label>
 			<input type="text" id="signupUsername" name="username" required autocomplete="username">
-			<label for="signupEmail">Email:</label>
+			<label for="signupEmail"><span lang="en">Email</span>:</label>
 			<input type="email" id="signupEmail" name="email" required autocomplete="email">
-			<label for="signupPassword">Password:</label>
+			<label for="signupPassword"><span lang="en">Password</span>:</label>
 			<input type="password" id="signupPassword" name="password" required autocomplete="new-password">
-			<span id="passwordError" class="hidden">Le due password non coincidono.</span>
-			<label for="signupConfirmPassword">Ripeti Password:</label>
+			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
+			<span id="passwordError" class="hidden">Le due <span lang="en">password</span> non coincidono.</span>
+			<label for="signupConfirmPassword">Ripeti <span lang="en">Password</span>:</label>
 			<input type="password" id="signupConfirmPassword" name="password" required autocomplete="new-password">
-			<input type="button" data-button-kind="registrati" value="Annulla">
-			<input type="submit" value="Registrati">
+			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
+			<div>
+				<input type="button" data-button-kind="registrati" value="Annulla">
+				<input type="submit" value="Registrati">
+			</div>
 		</form>`;
 	let popUpNewProject = `<h2>Crea un Nuovo Progetto</h2>
-		<form id="/project/new" onsubmit="return postRequest(event)">
+		<form id="/project/new">
+			<div id="newProjectError" class="hidden">{{ NewProjectError }}</div>
 			<label for=" inputNomeProgetto">Nome Progetto:</label>
 			<input type="text" id="inputNomeProgetto" name="nomeProgetto" required>
 			<label for="inputDescrizioneProgetto">Descrizione:</label>
-			<textarea id="inputDescrizioneProgetto" name="descrizioneProgetto" required></textarea>
-			<input type="button" data-button-kind="newProject" value="Annulla">Annulla
+			<textarea id="inputDescrizioneProgetto" name="descrizioneProgetto"></textarea>
+			<input type="button" data-button-kind="newProject" value="Annulla">
 			<input type="submit" value="Crea Progetto">
 		</form>`
 	let popUpModifyCredentials = `<h2>Modifica informazioni dell'account</h2>
-		<form id="/user/modify" onsubmit="return postRequest(event)">
-			<label for="newEmail">Nuova Email:</label>
+		<form id="/user/modify">
+			<div id="modifyError" class="hidden">{{ ModifyError }}</div>
+			<label for="newEmail">Nuova <span lang="en">Email</span>:</label>
 			<input type="email" id="newEmail" name="newEmail">
 			<label for="newUsername">Nuovo Nome Utente:</label>
 			<input type="text" id="newUsername" name="newUsername">
-			<label for="newPassword">Nuova Password:</label>
+			<label for="newPassword">Nuova <span lang="en">Password</span>:</label>
 			<input type="password" id="newPassword" name="newPassword">
-			<label for="confirmNewPassword">Conferma Nuova Password:</label>
+			<input type="checkbox" onclick="toogleView('newPassword')">Mostra <span lang="en">Password</span>
+			<label for="confirmNewPassword">Conferma Nuova <span lang="en">Password</span>:</label>
 			<input type="password" id="confirmNewPassword" name="confirmNewPassword">
-			<label for="oldPassword">Vecchia Password:</label>
+			<input type="checkbox" onclick="toogleView('confirmNewPassword')">Mostra <span lang="en">Password</span>
+			<label for="oldPassword">Vecchia <span lang="en">Password</span>:</label>
 			<input type="password" id="oldPassword" name="oldPassword" required>
-			<input type="button" data-button-kind="modificaCredenziali" value="Annulla">
-			<input type="submit" value="Salva Modifiche">
+			<input type="checkbox" onclick="toogleView('oldPassword')">Mostra <span lang="en">Password</span>
+			<div>
+				<input type="button" data-button-kind="modificaCredenziali" value="Annulla">
+				<input type="submit" value="Salva Modifiche">
+			</div>
 		</form>`;
 	let popUpEditProject = `<h2>Modifica Progetto</h2>
-		<form id="/project/modify" onsubmit="return postRequest(event)">
+		<form id="/project/modify">
+			<div id="modifyProjectError" class="hidden">{{ ModifyProjectError }}</div>
 			<label for="inputNewNomeProgetto">Nuovo Nome Progetto:</label>
 			<input type="text" id="newNewNomeProgetto" name="newNomeProgetto">
 			<label for="inputNewDescrizioneProgetto">Nuova Descrizione:</label>
 			<textarea id="newDescrizioneProgetto" name="newDescrizioneProgetto"></textarea>
-			<input type="button" data-button-kind="deleteProject" value="Elimina Progetto">
 			<input type="button" data-button-kind="editProject" value="Annulla">
 			<input type="submit" value="Salva Modifiche">
-		</form>`;//true
+		</form>`;
+
+	let popupDeleteProject = `<h2>Conferma Eliminazione Progetto</h2>
+	<form id="/project/delete">
+		<div id="deleteProjectError" class="hidden">{{ DeleteProjectError }}</div>
+		<label for="inputPassword">Inserisci la <span lang="en">Password</span>:</label>
+		<input type="password" id="checkPassword" name="checkPassword" required>
+		<input type="checkbox" onclick="toogleView('checkPassword')">Mostra <span lang="en">Password</span>
+		<div>
+			<input type="button" data-button-kind="deleteProject" value="Annulla">
+			<input type="submit" value="Conferma Eliminazione">
+		</div>
+	</form>`;
+
+	let popUpDisjoinProject = `<h2>Conferma Abbandono Progetto</h2>
+		<form id="/project/disjoin">
+			<div id="disjoinProjectError" class="hidden">{{ DisjoinProjectError }}</div>
+			<label for="inputPassword">Inserisci la <span lang="en">Password</span>:</label>
+			<input type="password" id="checkPassword" name="checkPassword" required>
+			<input type="checkbox" onclick="toogleView('checkPassword')">Mostra <span lang="en">Password</span>
+			<div>
+				<input type="button" data-button-kind="disjoinProject" value="Annulla">
+				<input type="submit" value="Conferma Abbandono">
+			</div>
+		</form>`;
+	
+	let popupNewTransaction = `<h2>Registra una Nuova Transazione</h2>
+		<form id="/movimento/new">
+			<div id="newTransactionError" class="hidden">{{ NewTransactionError }}</div>
+			<label for="newData">Data:</label>
+			<input type="date" id="newData" name="newData" required>
+			<label for="newImporto">Importo (€):</label>
+			<input type="number" id="newImporto" name="newImporto" step="0.01" required>
+			<label for="newTag"><span lang="en">Tag</span>:</label>
+			<input list="tags-datalist" id="newTag" name="newTag">
+			<!-- Datalist per i tag -->
+			<datalist id="tags-datalist">
+			</datalist>
+			<label for="newDescrizione">Descrizione:</label>
+			<input type="text" id="newDescrizione" name="newDescrizione">
+			<input type="button" data-button-kind="newTransaction" value="Annulla">
+			<input type="submit" value="Registra Transazione">
+		</form>`
 
 	let diz = { 'accedi': popUpAccedi, 'registrati': popUpRegistrati,
 		'newProject': popUpNewProject, 'modificaCredenziali': popUpModifyCredentials,
-		'editProject': popUpEditProject};
+		'editProject': popUpEditProject, 'deleteProject': popupDeleteProject,
+		'disjoinProject': popUpDisjoinProject, 'newTransaction': popupNewTransaction};
 
 	document.body.addEventListener("click", function(event) {
 		// Check if the clicked element is a button
@@ -90,6 +147,13 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				});
 				document.getElementById(id).innerHTML = diz[id];	
 			}
+		}
+	});
+
+	document.body.addEventListener("submit", function(event) {
+		if (event.target.tagName === "FORM") {
+			event.preventDefault();
+			postRequest(event);
 		}
 	});
 })
@@ -255,56 +319,67 @@ function joinProject() {
 	}
 }
 
-function deleteProject(link) {
-	if (validaAccess()) {
-		const data = {
-			link: link,
-		};
+// function deleteProject(link) {
+// 	if (validaAccess()) {
+// 		const data = {
+// 			link: link,
+// 		};
+//
+// 		fetch('/project/delete', {
+// 			method: 'POST',
+// 			headers: {
+// 				'Content-Type': 'application/json'
+// 			},
+// 			body: JSON.stringify(data)
+// 		})
+// 			.then(response => response.json())
+// 			.then(data_content => {
+// 				alert(data_content['status']);
+// 				window.location.reload(); // Refresh della pagina
+// 			})
+// 			.catch((error) => {
+// 				console.error('Error:', error);
+// 			});
+// 	}
+// 	else {
+// 		alert("Prima effettuare il login.");
+// 	}
+// }
 
-		fetch('/project/delete', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data)
-		})
-			.then(response => response.json())
-			.then(data_content => {
-				alert(data_content['status']);
-				window.location.reload(); // Refresh della pagina
-			})
-			.catch((error) => {
-				console.error('Error:', error);
-			});
-	}
-	else {
-		alert("Prima effettuare il login.");
-	}
-}
+// function disjoinProject(link) {
+// 	if (validaAccess()) {
+// 		const data = {
+// 			link: link,
+// 		};
+//
+// 		fetch('/project/disjoin', {
+// 			method: 'POST',
+// 			headers: {
+// 				'Content-Type': 'application/json'
+// 			},
+// 			body: JSON.stringify(data)
+// 		})
+// 			.then(response => response.json())
+// 			.then(data_content => {
+// 				alert(data_content['status']);
+// 				window.location.reload();
+// 			})
+// 			.catch((error) => {
+// 				console.error('Error:', error);
+// 			});
+// 	}
+// 	else {
+// 		alert("Prima effettuare il login.");
+// 	}
+// }
 
-function disjoinProject(link) {
-	if (validaAccess()) {
-		const data = {
-			link: link,
-		};
-
-		fetch('/project/disjoin', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data)
-		})
-			.then(response => response.json())
-			.then(data_content => {
-				alert(data_content['status']);
-				window.location.reload();
-			})
-			.catch((error) => {
-				console.error('Error:', error);
-			});
-	}
-	else {
-		alert("Prima effettuare il login.");
+function toogleView(name="password") {
+	var elements = document.getElementsByName(name);
+	for (var i = 0; i < elements.length; i++) {
+		if (elements[i].type === "password") {
+			elements[i].type = "text";
+		} else {
+			elements[i].type = "password";
+		}
 	}
 }

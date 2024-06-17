@@ -18,14 +18,13 @@ function randomString($lunghezza = 10, $caratteri = '0123456789abcdefghijklmnopq
 
 $deleteProject = (new JsonApiBuilder())
 	->setPath('project/delete')
-	->setInputParams(['link'])
+    ->setInputParams(['project_id', 'checkPassword'])
 	->setLogicFn(
 		function ($params) {
 			// check that the user is logged in and is in the project
 			try {
-				global $projectManager;
-				$project_id = $projectManager->getIDProjectByLink($params[0]);
-				if (!isLogged() || !isUserInProject($project_id)) {
+                $project_id = $params[0];
+				if (!isLogged() || !isUserInProject($project_id) || !checkPassword($params[1])) {
 					error_log("Unauthorized");
                     http_response_code(401);
 					echo json_encode(['error' => "Unauthorized"]);
@@ -35,11 +34,9 @@ $deleteProject = (new JsonApiBuilder())
 				http_response_code(400);
 				echo json_encode(['error' => $e->getMessage()]);
 			}
-			global $projectManager;
 			global $projectDel;
 			try {
-				$id_project = $projectManager->getIDProjectByLink($params[0]);
-				$projectDel->deleteProject($id_project);
+				$projectDel->deleteProject($project_id);
 
 				http_response_code(200);
 				echo json_encode(['message' => 'Project deleted']);
@@ -53,15 +50,19 @@ $deleteProject = (new JsonApiBuilder())
 
 $disjoinProject = (new JsonApiBuilder())
 	->setPath('project/disjoin')
-	->setInputParams(['link'])
+	->setInputParams(['project_id', 'checkPassword'])
 	->setLogicFn(
 		function ($params) {
-			global $projectManager;
 			global $projectDJ;
 			try {
-				$id_project = $projectManager->getIDProjectByLink($params[0]);
+                $project_id = $params[0];
+                if (!isLogged() || !isUserInProject($project_id) || !checkPassword($params[1])) {
+                    http_response_code(401);
+                    echo json_encode(['error' => "Unauthorized"]);
+                    return;
+                }
 				$email = json_decode($_SESSION["LogIn"], true)["email"];
-				$projectDJ->disjoinProject($email, $id_project);
+				$projectDJ->disjoinProject($email, $project_id);
 
 				http_response_code(200);
 				echo json_encode(['message' => 'Project disjoined']);

@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{{ Project Name }} - Project Home</title>
 	<!--<base href="/">-->
-	<meta name="description" content="un sito per mostrare cose">
+	<meta name="description" content="Tieni traccia delle tue spese tramite progetti personali o condivisi">
 	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
 	<link rel="stylesheet" type="text/css" href="views\index.css">
 	<script src="assets/js/modifica.js"></script>
@@ -27,8 +27,11 @@
 			{{ header }}
 		</nav>
 		<h1>{{ Project Name }}</h1>
+		<div aria-label="descrizione">{{ Project Description }}</div>
 		<input type="button" data-button-kind="editProject" value="Modifica Progetto">
-		<input type="button" data-button-kind="shareProject" value="Condividi Progetto">
+		<input type="button" data-button-kind="deleteProject" value="Elimina">
+		<input type="button" data-button-kind="disjoinProject" value="Abbandona Progetto">
+		<input type="button" onclick='share("{{ project-link }}")' value="Condividi Progetto">
 	</header>
 
 	<section id="accedi" class="hidden">
@@ -45,15 +48,10 @@
 
 	<!-- Elimina Progetto -->
 	<section id="deleteProject" class="hidden">
-		<h2>Conferma Eliminazione Progetto</h2>
-		<form id="deleteProjectForm" action="javascript:void(0)">
-			<label for="inputPassword">Inserisci la Password:</label>
-			<input type="password" id="inputPassword" name="password" required>
-			<div class="form-buttons">
-				<button type="button" data-button-kind="deleteProjectHide">Annulla</button>
-				<button type="submit" id="submitDeleteProject">Conferma Eliminazione</button>
-			</div>
-		</form>
+	</section>
+
+	<!-- Abbandona Progetto -->
+	<section id="disjoinProject" class="hidden">
 	</section>
 
 	<main>
@@ -82,7 +80,7 @@
 
 		<section>
 			<h2>Tabella delle Transazioni</h2>
-			<button data-button-kind="newTransaction">Nuova Transazione</button>
+			<input type="button" data-button-kind="newTransaction" value="Nuova Transazione">
 			<!-- Inserisci qui la tabella delle transazioni -->
 			<table id="transazioniTable">
 				<!-- Intestazione della tabella -->
@@ -102,22 +100,6 @@
 
 		<!-- Registra una Nuova Transazione -->
 		<section id="newTransaction" class="hidden">
-			<h2>Registra una Nuova Transazione</h2>
-			<form id="newTransactionForm" action="javascript:void(0)">
-				<label for="newData">Data:</label>
-				<input type="date" id="newData" name="data" required>
-				<label for="newImporto">Importo:</label>
-				<input type="number" id="newImporto" name="importo" step="0.01" required>
-				<label for="newTag">Tag:</label>
-				<input list="tags-datalist" id="newTag" name="tag" required>
-				<!-- Datalist per i tag -->
-				<datalist id="tags-datalist">
-				</datalist>
-				<label for="newDescrizione">Descrizione:</label>
-				<input type="text" id="newDescrizione" name="descrizione">
-				<button type="button" data-button-kind="newTransactionHide">Annulla</button>
-				<button type="submit" id="submitNewTransaction">Registra Transazione</button>
-			</form>
 		</section>
 
 		<!-- Modifica Transazione -->
@@ -174,16 +156,16 @@
 			<h3>Prodotto</h3>
 			<ul>
 				<li><a href="account_home">I Miei Progetti</a></li>
-				<li><a href="about_us">About Us</a></li>
+				<li><a href="about_us"><span lang="en">About Us</span></a></li>
 			</ul>
 		</div>
 		<div class="footer-list">
 			<h3>Risorse</h3>
 			<ul>
-				<li><a href="/">Homepage</a></li>
-				<li><a href="release_notes">Release Notes</a></li>
+				<li><a href="/"><span lang="en">Homepage</span></a></li>
+				<li><a href="release_notes"><span lang="en">Release Notes</span></a></li>
 				<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
-							id="github-mark"> GitHub </a></li>
+																				id="github-mark"><span lang="en">GitHub</span></a></li>
 			</ul>
 		</div>
 	</footer>

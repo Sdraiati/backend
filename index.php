@@ -42,6 +42,7 @@ if (array_key_exists($url, $routes)) {
 
 require_once("controllers/json/User.php");
 require_once("controllers/json/Project.php");
+require_once("controllers/json/Movimento.php");
 require_once("controllers/html/HtmlRouter.php");
 require_once("controllers/Router.php");
 
@@ -61,5 +62,6 @@ $router = new Router();
 $router->addRoute($project_router);
 $router->addRoute($user_router);
 $router->addRoute($html_router);
+$router->addRoute($mov_router);
 
 $router->handle($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

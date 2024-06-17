@@ -45,7 +45,7 @@ $loginUser = (new JsonApiBuilder())
 				}
 			} catch (Exception $_) {
 				http_response_code(400);
-				echo json_encode(['error' => "Invalid credentials"]);
+				echo json_encode(['error' => "Invalid credentials", 'uiComponent' => "loginError"]);
 			}
 		}
 	)

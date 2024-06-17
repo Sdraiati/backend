@@ -1,4 +1,7 @@
+let popupError = `<div id="error">{{ LoginError }}</div>`
+
 document.addEventListener("DOMContentLoaded", function(_) {
+
 	
 	let popUpAccedi = `<h2>Login</h2>
 		<div id="loginError" class="hidden">{{ LoginError }}</div>
@@ -14,15 +17,15 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			</div>
 		</form>`;
 	let popUpRegistrati = `<h2>Registrazione</h2>
-		<form id="/user/register">
-			<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
+		<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
+		<form id="registratiForm" action="/user/register">
 			<label for="signupUsername">Nome Utente:</label>
 			<input type="text" id="signupUsername" name="username" required autocomplete="username">
 			<label for="signupEmail"><span lang="en">Email</span>:</label>
 			<input type="email" id="signupEmail" name="email" required autocomplete="email">
 			<label for="signupPassword"><span lang="en">Password</span>:</label>
 			<input type="password" id="signupPassword" name="password" required autocomplete="new-password">
-			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
+			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span> <br>
 			<span id="passwordError" class="hidden">Le due <span lang="en">password</span> non coincidono.</span>
 			<label for="signupConfirmPassword">Ripeti <span lang="en">Password</span>:</label>
 			<input type="password" id="signupConfirmPassword" name="password" required autocomplete="new-password">
@@ -32,9 +35,10 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				<input type="submit" value="Registrati">
 			</div>
 		</form>`;
+
 	let popUpNewProject = `<h2>Crea un Nuovo Progetto</h2>
-		<form id="/project/new">
-			<div id="newProjectError" class="hidden">{{ NewProjectError }}</div>
+		<div id="newProjectError" class="hidden">{{ NewProjectError }}</div>
+		<form id="nuovoProgettoForm" action="/project/new">
 			<label for=" inputNomeProgetto">Nome Progetto:</label>
 			<input type="text" id="inputNomeProgetto" name="nomeProgetto" required>
 			<label for="inputDescrizioneProgetto">Descrizione:</label>
@@ -42,9 +46,10 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="button" data-button-kind="newProject" value="Annulla">
 			<input type="submit" value="Crea Progetto">
 		</form>`
+
 	let popUpModifyCredentials = `<h2>Modifica informazioni dell'account</h2>
-		<form id="/user/modify">
-			<div id="modifyError" class="hidden">{{ ModifyError }}</div>
+		<div id="modifyError" class="hidden">{{ ModifyError }}</div>
+		<form id="modificaCredenzialiForm" action="/user/modify">
 			<label for="newEmail">Nuova <span lang="en">Email</span>:</label>
 			<input type="email" id="newEmail" name="newEmail">
 			<label for="newUsername">Nuovo Nome Utente:</label>
@@ -63,9 +68,10 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				<input type="submit" value="Salva Modifiche">
 			</div>
 		</form>`;
+
 	let popUpEditProject = `<h2>Modifica Progetto</h2>
-		<form id="/project/modify">
-			<div id="modifyProjectError" class="hidden">{{ ModifyProjectError }}</div>
+		<div id="modifyProjectError" class="hidden">{{ ModifyProjectError }}</div>
+		<form id="modificaProgettoForm" action"/project/modify">
 			<label for="inputNewNomeProgetto">Nuovo Nome Progetto:</label>
 			<input type="text" id="newNewNomeProgetto" name="newNomeProgetto">
 			<label for="inputNewDescrizioneProgetto">Nuova Descrizione:</label>
@@ -75,8 +81,8 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		</form>`;
 
 	let popupDeleteProject = `<h2>Conferma Eliminazione Progetto</h2>
-	<form id="/project/delete">
-		<div id="deleteProjectError" class="hidden">{{ DeleteProjectError }}</div>
+	<div id="deleteProjectError" class="hidden">{{ DeleteProjectError }}</div>
+	<form id="eliminaProgettoForm" action="/project/delete">
 		<label for="inputPassword">Inserisci la <span lang="en">Password</span>:</label>
 		<input type="password" id="checkPassword" name="checkPassword" required>
 		<input type="checkbox" onclick="toogleView('checkPassword')">Mostra <span lang="en">Password</span>
@@ -87,8 +93,8 @@ document.addEventListener("DOMContentLoaded", function(_) {
 	</form>`;
 
 	let popUpDisjoinProject = `<h2>Conferma Abbandono Progetto</h2>
-		<form id="/project/disjoin">
-			<div id="disjoinProjectError" class="hidden">{{ DisjoinProjectError }}</div>
+		<div id="disjoinProjectError" class="hidden">{{ DisjoinProjectError }}</div>
+		<form id="abbandonaProgettoForm" action="/project/disjoin">
 			<label for="inputPassword">Inserisci la <span lang="en">Password</span>:</label>
 			<input type="password" id="checkPassword" name="checkPassword" required>
 			<input type="checkbox" onclick="toogleView('checkPassword')">Mostra <span lang="en">Password</span>
@@ -99,8 +105,8 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		</form>`;
 	
 	let popupNewTransaction = `<h2>Registra una Nuova Transazione</h2>
-		<form id="/movimento/new">
-			<div id="newTransactionError" class="hidden">{{ NewTransactionError }}</div>
+		<div id="newTransactionError" class="hidden">{{ NewTransactionError }}</div>
+		<form id="nuovoMovimento" action="/movimento/new">
 			<label for="newData">Data:</label>
 			<input type="date" id="newData" name="newData" required>
 			<label for="newImporto">Importo (€):</label>
@@ -115,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="button" data-button-kind="newTransaction" value="Annulla">
 			<input type="submit" value="Registra Transazione">
 		</form>`
+
 
 	let diz = { 'accedi': popUpAccedi, 'registrati': popUpRegistrati,
 		'newProject': popUpNewProject, 'modificaCredenziali': popUpModifyCredentials,
@@ -212,84 +219,103 @@ function openProjectPage(link) {
 
 
 function postRequest(event /*,isModifyProject = false*/) {
-// PARTE NUOVA
-//   var datas = {};
+  // PARTE NUOVA
+  //   var datas = {};
 
-	console.log("postRequest");
+    data = Object.fromEntries(new FormData(event.target).entries());
 
-    if (event.target.id == "loginForm") {
-      console.log(event.target.action);
-      data = Object.fromEntries(new FormData(event.target).entries());
-      fetch(event.target.action, { method: "POST", body: JSON.stringify(data) })
-        .then(async (data) => {
-          if (!data.ok) {
-            throw await data.json();
-          }
-          data = await data.json();
+    const urlString = window.location.href;
+    const url = new URL(urlString);
+    const upar = url.searchParams;
+	console.log(upar);
 
-          // redirezione alla pagina di login.
-        })
-        .catch((err) => {
-          const errormsgelement = document.getElementById("loginError");
-          errormsgelement.classList.toggle("hidden");
-          errormsgelement.innerText = err.error;
-        });
-      return;
-    }
+    upar.forEach((value, key) => {
+      const decodedKey = decodeURIComponent(key);
+      const decodedValue = decodeURIComponent(value);
+      data[decodedKey] = decodedValue;
+    });
 
-	// PARTE VECCHIA 
-  /*if(isModifyProject) {
-		const urlString = window.location.href;
-		const url = new URL(urlString);
-		const upar = url.searchParams;
-		datas = {
-			project_id: upar.get('project_id'),
-		};
-	}*/
+    console.log(event.target.action);
+	console.log(data);
 
-//   const elements = document.querySelectorAll(
-//     "section.allert input[name], section.allert textarea[name]"
-//   );
-//   elements.forEach((element) => {
-//     datas[element.name] = element.value;
-//   });
+    fetch(event.target.action, { method: "POST", body: JSON.stringify(data) })
+      .then(async (data) => {
+        if (!data.ok) {
+          throw await data.json();
+        }
+        data = await data.json();
+        console.log(data);
+        // redirezione alla pagina di login.
+      })
+      .catch((err) => {
 
-//   const urlString = window.location.href;
-//   const url = new URL(urlString);
-//   const upar = url.searchParams;
+		console.log(err);
 
-//   upar.forEach((value, key) => {
-//     const decodedKey = decodeURIComponent(key);
-//     const decodedValue = decodeURIComponent(value);
-//     datas[decodedKey] = decodedValue;
-//   });
+		let errorDiv = document.createElement("div");
+        errorDiv.id = "error";
+		errorDiv.innerHTML = err.error;
+        document.body.appendChild(errorDiv);
 
-//   console.log(upar);
+		setTimeout(() => {
+			document.body.removeChild(errorDiv);
+		}, 3000);
 
-//   fetch(event.target.id, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(datas),
-//   })
-//     .then((response) => {
-//       response.json();
-//       console.log("ricevuto: " + response);
-//     })
-//     .then((data) => {
-//       console.log("ricevuto: " + data);
-//       if (
-//         event.target.id == "/user/login" ||
-//         event.target.id == "/user/register"
-//       )
-//         window.location.href = "/account_home";
-//       else location.reload(true);
-//     })
-//     .catch((error) => {
-//       console.error("Errore ricevuto da API:", error);
-//       alert(error);
+    	// document.getElementById("error").innerText = err.error;
+      });
+
+  // PARTE VECCHIA
+//   if(isModifyProject) {
+// 		const urlString = window.location.href;
+// 		const url = new URL(urlString);
+// 		const upar = url.searchParams;
+// 		datas = {
+// 			project_id: upar.get('project_id'),
+// 		};
+// 	}
+
+//     const elements = document.querySelectorAll(
+//       "section.allert input[name], section.allert textarea[name]"
+//     );
+//     elements.forEach((element) => {
+//       datas[element.name] = element.value;
 //     });
+
+//     const urlString = window.location.href;
+//     const url = new URL(urlString);
+//     const upar = url.searchParams;
+
+//     upar.forEach((value, key) => {
+//       const decodedKey = decodeURIComponent(key);
+//       const decodedValue = decodeURIComponent(value);
+//       datas[decodedKey] = decodedValue;
+//     });
+
+//     console.log(upar);
+
+//     fetch(event.target.id, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(datas),
+//     })
+//       .then((response) => {
+//         response.json();
+//         console.log("ricevuto: " + response);
+//       })
+//       .then((data) => {
+//         console.log("ricevuto: " + data);
+//         if (
+//           event.target.id == "/user/login" ||
+//           event.target.id == "/user/register"
+//         )
+//           window.location.href = "/account_home";
+//         else location.reload(true);
+//       })
+//       .catch((error) => {
+//         console.error("Errore ricevuto da API:", error);
+//         alert(error);
+//       });
 }
 
 function joinProject() {

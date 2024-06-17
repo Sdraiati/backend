@@ -6,6 +6,7 @@
     --titlesColor: #F4DF57;
     --buttonsColor: #F4DF57;
     --textButtonHoverColor: #f4df57dc;
+    --textError: #FF657A;
     --linkHoverColor: #A1BDDD;
     --linkColor: #ffffff;
     --textColor: #ffffff;
@@ -285,6 +286,17 @@ button[disabled]
 
 .container div{
     flex: 40%;
+}
+
+#error {
+    z-index: 2000;
+    position:  fixed;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+    padding: 10px;
+    background-color: var(--popUpColor);
+    color: var(--textError);
 }
 
 #project-list {

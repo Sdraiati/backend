@@ -35,7 +35,7 @@ $loginUser = (new JsonApiBuilder())
 			try {
 				$user = new UserInfo(Database::getInstance(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD));
 				if (!$user->checkCredentials($params[0], $params[1])) {
-					throw new Exception("Invalid credentials");
+					throw new Exception("Formato delle credenziali non corretto!");
 				} else {
 					$user = $user->getUser($params[0]);
 					setCookieUser($user['email'], $user['username'], $user['password']);

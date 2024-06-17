@@ -24,6 +24,10 @@ $routes = array(
     {
         access($method);
     },
+    // "/user/login" => function($method, $_)
+    // {
+    //     access($method);
+    // },
     "/modifyCredentials" => function($method, $_)
     {
         modifyCredentials($method);

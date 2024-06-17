@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function(_) {
 	
-	let popUpAccedi = `<h2><span lang="en">Login</span></h2>
-		<form id="/user/login">
-			<div id="loginError" class="hidden">{{ LoginError }}</div>
-			<label for="loginEmail"><span lang="en">Email</span>:</label>
+	let popUpAccedi = `<h2>Login</h2>
+		<div id="loginError" class="hidden">{{ LoginError }}</div>
+		<form id="loginForm" action="/user/login" method="POST">
+			<label for="loginEmail">Email:</label>
 			<input type="email" id="loginEmail" name="email" required autocomplete="email">
 			<label for="loginPassword"><span lang="en">Password</span>:</label>
 			<input type="password" id="loginPassword" name="password" required autocomplete="current-password">
@@ -210,42 +210,86 @@ function openProjectPage(link) {
 	window.location = `/page_project?link=${link}`;
 }
 
-function postRequest(event) {
-	var datas = {};
-	const elements = document.querySelectorAll('section.allert input[name], section.allert textarea[name]');
-	elements.forEach(element => {
-		datas[element.name] = element.value;
-	});
 
-	const urlString = window.location.href;
-	const url = new URL(urlString);
-	const upar = url.searchParams;
+function postRequest(event /*,isModifyProject = false*/) {
+// PARTE NUOVA
+//   var datas = {};
 
-	upar.forEach((value, key) => {
-		const decodedKey = decodeURIComponent(key);
-		const decodedValue = decodeURIComponent(value);
-		datas[decodedKey] = decodedValue;
-	});
+	console.log("postRequest");
 
-	fetch(event.target.id, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(datas)
-	})
-		.then(response => response.json())
-		.then(data => {
-			console.log(data['status']);
-			if (event.target.id == "/user/login" || event.target.id == "/user/register")
-				window.location.href = '/account_home';
-			else
-				location.reload(true);
-		})
-		.catch((error) => {
-			console.error('Error:', error);
-			alert(error)
-		});
+    if (event.target.id == "loginForm") {
+      console.log(event.target.action);
+      data = Object.fromEntries(new FormData(event.target).entries());
+      fetch(event.target.action, { method: "POST", body: JSON.stringify(data) })
+        .then(async (data) => {
+          if (!data.ok) {
+            throw await data.json();
+          }
+          data = await data.json();
+
+          // redirezione alla pagina di login.
+        })
+        .catch((err) => {
+          const errormsgelement = document.getElementById("loginError");
+          errormsgelement.classList.toggle("hidden");
+          errormsgelement.innerText = err.error;
+        });
+      return;
+    }
+
+	// PARTE VECCHIA 
+  /*if(isModifyProject) {
+		const urlString = window.location.href;
+		const url = new URL(urlString);
+		const upar = url.searchParams;
+		datas = {
+			project_id: upar.get('project_id'),
+		};
+	}*/
+
+//   const elements = document.querySelectorAll(
+//     "section.allert input[name], section.allert textarea[name]"
+//   );
+//   elements.forEach((element) => {
+//     datas[element.name] = element.value;
+//   });
+
+//   const urlString = window.location.href;
+//   const url = new URL(urlString);
+//   const upar = url.searchParams;
+
+//   upar.forEach((value, key) => {
+//     const decodedKey = decodeURIComponent(key);
+//     const decodedValue = decodeURIComponent(value);
+//     datas[decodedKey] = decodedValue;
+//   });
+
+//   console.log(upar);
+
+//   fetch(event.target.id, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(datas),
+//   })
+//     .then((response) => {
+//       response.json();
+//       console.log("ricevuto: " + response);
+//     })
+//     .then((data) => {
+//       console.log("ricevuto: " + data);
+//       if (
+//         event.target.id == "/user/login" ||
+//         event.target.id == "/user/register"
+//       )
+//         window.location.href = "/account_home";
+//       else location.reload(true);
+//     })
+//     .catch((error) => {
+//       console.error("Errore ricevuto da API:", error);
+//       alert(error);
+//     });
 }
 
 function joinProject() {

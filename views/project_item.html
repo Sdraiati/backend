@@ -1,10 +1,8 @@
-<il class='projectContainer'>
+<li class='projectContainer'>
 	<span class='nome'>{{ project-name }}</span>
 	<span class='descrizione'>{{ project-description }}</span>
-	<ul>
-		<li><input type="button" onclick='share("{{ project-link }}")' value="Condividi"></li>
-		<li>
-			<input type="button" onclick='window.location.href = "project_home?project_id={{ project-id }}"' value="Apri">
-		</li>
-	</ul>
-</il>
+	<form>
+		<input type="button" onclick='share("{{ project-link }}")' value="Condividi">
+		<input type="button" onclick='window.location.href = "project_home?project_id={{ project-id }}"' value="Apri">
+	</form>
+</li>

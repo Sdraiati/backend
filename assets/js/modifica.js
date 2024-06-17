@@ -110,6 +110,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="number" id="newImporto" name="newImporto" step="0.01" required>
 			<label for="newTag"><span lang="en">Tag</span>:</label> -->
 			<select id="newTag" name="newTag">
+				<option value=""></option>
 				<option value="volvo">Volvo</option>
 				<option value="saab">Saab</option>
 				<option value="opel">Opel</option>
@@ -173,13 +174,16 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				const focusableElements = document.querySelectorAll('a, button, input, textarea, select, [tabindex]');
 				focusableElements.forEach(element => {
 					element.removeAttribute('tabindex');
+					element.classList.toggle('overlay');
 				});
 				document.getElementById(id).innerHTML = ``;
+
 			}
 			else {
 				const focusableElements = document.querySelectorAll('a, button, input, textarea, select, [tabindex]');
 				focusableElements.forEach(element => {
 					element.setAttribute('tabindex', '-1');
+					element.classList.toggle('overlay');
 				});
 
 				if (id === "editTransaction") {

@@ -205,9 +205,9 @@ function logOut() {
 function share(link) {
 	url = window.location.hostname + `/project_shared?link=${link}`;
 	navigator.clipboard.writeText(url).then(function() {
-		alert("Testo copiato negli appunti!");
+		makePopUpAppear("success", "Testo copiato negli appunti!");
 	}).catch(function(error) {
-		console.error("Errore durante la copia del testo: ", error);
+		makePopUpAppear("error", error);
 	});
 }
 

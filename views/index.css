@@ -159,7 +159,7 @@ a:hover {
     font-weight: bold;
 }
 
-section {
+section, aside {
     padding: var(--paddingElements);;
 }
 
@@ -267,13 +267,33 @@ button[disabled]
     box-sizing: border-box;
 }
 
+section#chart{
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
 #line-chart {
-	width: 50%;
+	width: 100%;
+    max-width: 1000px;
+    margin: auto;
 	--fontSize: 1;
 	--lineColor: var(--textColor);
 	--lineWidth: 2;
 	--decorationColor: var(--linkHoverColor);
 	--decorationWidth: 1;
+}
+
+ul#line-chart-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap:var(--borderRadiusSM);
 }
 
 .container {

@@ -111,6 +111,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="number" id="newImporto" name="newImporto" step="0.01" required>
 			<label for="newTag"><span lang="en">Tag</span>:</label>
 			<select id="cars" name="newTag">
+				<option value=""></option>
 				<option value="volvo">Volvo</option>
 				<option value="saab">Saab</option>
 				<option value="opel">Opel</option>

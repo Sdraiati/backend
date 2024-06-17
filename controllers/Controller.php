@@ -77,12 +77,12 @@ class Controller
                 $projectList = $projectList . "<il class='projectContainer'>
                                                 <span class='nome'>".$project['nome']."</span>
                                                 <span class='descrizione'>".$project['descrizione']."</span>
-                                                <ul>
-                                                    <li><button onclick='share(\"".$link."\")'><span lang='en'>share</span></button></li>
-                                                    <li><button onclick='openProjectPage(\"".$link."\")'><span lang='en'>open</span></button></li>
-                                                    <li><button onclick='deleteProject(\"".$link."\")'><span lang='en'>delete</span></button></li>
-                                                    <li><button onclick='disjoinProject(\"".$link."\")'><span lang='en'>exit</span></button></li>
-                                                </ul>
+                                                <form>
+                                                    <input type='button' onclick='share(\"".$link."\")'><span lang='en'>share</span>
+                                                    <input type='button' onclick='openProjectPage(\"".$link."\")'><span lang='en'>open</span>
+                                                    <input type='button' onclick='deleteProject(\"".$link."\")'><span lang='en'>delete</span>
+                                                    <input type='button' onclick='disjoinProject(\"".$link."\")'><span lang='en'>exit</span>
+                                                </form>
                                                 </il>";
             }
         }

@@ -228,7 +228,9 @@ button[disabled]
     display: none;
 }
 
-
+.overlay{
+    pointer-events: none;
+}
 .allert
 {
     display: flex;
@@ -391,6 +393,20 @@ ul#line-chart-buttons{
     margin: var(--minMarginDef);
 }
 
+li.projectContainer form{
+    grid-row: 3 / 3;
+    grid-column: 1 / 3;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+}
+
+li.projectContainer form input{
+    width: 80%;
+    height: 40px;
+    margin: auto;
+}
+
 .projectContainer ul{
     grid-row: 3 / 3;
     grid-column: 1 / 3;
@@ -525,10 +541,25 @@ ul#line-chart-buttons{
     header h1{
         border: none;
     }
-    .projectContainer ul{
+    .projectContainer form{
         grid-template-columns: 1fr;
     }
     .projectContainer {
         height: 320px;
+    }
+    
+    li.projectContainer form{
+        grid-row: 3 / 3;
+        grid-column: 1 / 3;
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap:var(--borderRadiusLG);
+    }
+
+    li.projectContainer form input{
+        width: 80%;
+        height: 40px;
+        margin: auto;
     }
 }

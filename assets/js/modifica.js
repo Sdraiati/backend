@@ -152,6 +152,8 @@ document.addEventListener("DOMContentLoaded", function(_) {
 					element.removeAttribute('tabindex');
 				});
 				document.getElementById(id).innerHTML = ``;
+				document.querySelector('main').classList.toggle('overlay')
+				document.querySelector('header').classList.toggle('overlay')
 			}
 			else {
 				const focusableElements = document.querySelectorAll('a, button, input, textarea, select, [tabindex]');
@@ -159,6 +161,8 @@ document.addEventListener("DOMContentLoaded", function(_) {
 					element.setAttribute('tabindex', '-1');
 				});
 				document.getElementById(id).innerHTML = diz[id];	
+				document.querySelector('main').classList.toggle('overlay')
+				document.querySelector('header').classList.toggle('overlay')
 			}
 		}
 	});

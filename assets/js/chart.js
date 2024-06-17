@@ -85,10 +85,9 @@ class Chart {
 	text(text, x, y, color = 'black', padding = 5) {
 		this.ctx.fillStyle = color
 		let p_font = this.ctx.font
-		this.ctx.font = `${this.fontSize}em Arial`
+		this.ctx.font = `${this.canvas.height * this.axis.y * 9 / 10}px Arial`
 
 		if (typeof text === 'number') {
-			// bug fix
 			text = Math.round(text * 100) / 100
 		}
 
@@ -183,7 +182,7 @@ class Chart {
 
 		this.lines(dashedPoints, [5, 5], this.decorations.color, this.decorations.width)
 		let y_text = transazioni[index].importo.toFixed(0)
-		let date = transazioni[index].data.toLocaleDateString()
+		let date = transazioni[index].data.toLocaleDateString('en-GB')
 
 
 		this.text(`${y_text}`, 0 - this.axis.x, y, this.decorations.color)

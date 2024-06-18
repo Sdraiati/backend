@@ -56,4 +56,20 @@ class TagInfo extends DatabaseManager {
             return -1;
         }
     }
+
+    public function getTagList($projectId)
+    {
+        $sql = "SELECT nome FROM tag WHERE id_progetto = ?";
+        $params = [
+            ['type' => 'i', 'value' => $projectId]
+        ];
+        $stmt = $this->db->prepareAndBindParams($sql, $params);
+        $stmt->execute() or die($stmt->error);
+        $result = $stmt->get_result();
+        $tagList = [];
+        while ($row = $result->fetch_assoc()) {
+            $tagList[] = $row['nome'];
+        }
+        return $tagList;
+    }
 }

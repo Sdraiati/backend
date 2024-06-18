@@ -1,6 +1,6 @@
 import { TransazioniSingleton } from './TransazioniSingleton.js'
 
-const PALETTE = ["#D25AF3", "#3DA179", "#BB891C", "#8264C7", "#3D9AA0", "#808059", "#E9476A", "#CE4129", "#8D69D0", "#AE7D22", "#5293C4", "#CF298A", "#BF5A5A", "#779F19", "#548461", "#989021"];
+var PALETTE = []/*= ["#D25AF3", "#3DA179", "#BB891C", "#8264C7", "#3D9AA0", "#808059", "#E9476A", "#CE4129", "#8D69D0", "#AE7D22", "#5293C4", "#CF298A", "#BF5A5A", "#779F19", "#548461", "#989021"]*/;
 const LEGEND_LIMIT = 6;
 const elementId = "cake-chart"
 
@@ -117,7 +117,10 @@ class Cake {
 
     getPaletteColor() {
         let color = PALETTE[this.#palette_index];
-        if (this.#palette_index == PALETTE.length - 1) return console.log("Palette overflow");
+        if (this.#palette_index === PALETTE.length - 1) {
+            //palette overflow
+            return this.getColor();
+        }
         ++this.#palette_index;
         return color;
     }
@@ -228,6 +231,9 @@ async function drawCakeChart(transactions) {
             console.error(`Le coordinate x=${offset_x}, y=${offset_y} sono fuori dai limiti del canvas.`);
             return;
         }
+
+        //get color palette
+        PALETTE=getComputedStyle(canvas).getPropertyValue('--palette').split(',');
 
         let cake = new Cake(offset_x, offset_y, radius, ctx, 90, total_amount);
         cake.setTotalData(total_amount);

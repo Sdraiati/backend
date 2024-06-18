@@ -292,6 +292,7 @@ ul#line-chart-buttons{
     width: 100%;
     max-width: 1000px;
     margin: auto;
+    --palette: #D25AF3, #3DA179, #BB891C, #8264C7, #3D9AA0, #808059, #E9476A, #CE4129, #8D69D0, #AE7D22, #5293C4, #CF298A, #BF5A5A, #779F19, #548461, #989021;
 }
 
 .container {

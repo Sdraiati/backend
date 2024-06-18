@@ -50,8 +50,21 @@ class UserInfo extends DatabaseManager
 			['type' => 's', 'value' => $password]
 		];
 		$stmt = $this->db->prepareAndBindParams($sql, $params);
-		$stmt->execute() or die($stmt->error);
+
+        if (!$stmt) {
+            error_log("Failed to prepare statement");
+            return false;
+        }
+
+        $result = $stmt->execute();
+
+        if (!$result) {
+            error_log("Failed to execute statement");
+            return false;
+        }
+
 		$result = $stmt->get_result();
+
 		return $result->num_rows > 0;
 	}
 

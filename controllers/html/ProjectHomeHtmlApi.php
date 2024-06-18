@@ -78,12 +78,13 @@ class ProjectHomeHtmlApi extends HtmlApi
 			return;
 		}
 		$project_id = $_GET['project_id'];
+        global $projectManager;
 
 		$content = $this->getContent($this->path);
 		$content = str_replace('{{ header }}', $this->getHeader(), $content);
 		$content = str_replace('{{ Project Name }}', $this->get_project_name($project_id), $content);
         $content = str_replace('{{ Project Description }}', $this->get_project_description($project_id), $content);
-
+        $content = str_replace('{{ project-link }}', $projectManager->getProjectInfo($project_id)['link_condivisione'], $content);
         $content = str_replace('{{ partecipants }}', $this->get_partecipants_list(), $content);
 
         echo $content;

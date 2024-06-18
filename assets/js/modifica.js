@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
     }
   }
 
-  // Function to remove specific parameters from the URL
+  // Funzione che rimuove parametri specifici dall'url. 
   function removeUrlParameter(parameter) {
     let url = new URL(window.location.href);
     url.searchParams.delete(parameter);
@@ -342,10 +342,16 @@ function postRequest(event /*,isModifyProject = false*/) {
 			let params = new URLSearchParams({
         		redirect_message: data["message"]
       		});
-			const redirect = data["redirect"];
 			console.log(params);
+			const redirect = data["redirect"];
 			if (redirect && redirect !== "") {
-        		window.location.href = `${redirect}?${params.toString()}`;
+				let page = `${redirect}`;
+				if (redirect.includes("?")) { // redirezione all'interno della pagina project e nella pagina dei tag.
+					page += `&${params.toString()}`;
+				} else {
+					page += `?${params.toString()}`; // redirezione in tutti gli altri casi.
+				}
+        		window.location.href = page;
 			} 
 			makePopUpAppear("success", data.message);
 		})

@@ -30,7 +30,7 @@ $newMovimento = (new JsonApiBuilder())
 			try {
 				$movimentoDb->new($project_id, $params[1], $params[2], $params[3], $tag_id);
 				http_response_code(200);
-				echo json_encode(['message' => "Movimento added"]);
+				echo json_encode(['message' => "Movimento added", "redirect" => "project_home?project_id=" . $params[0]]);
 			} catch (Exception $e) {
 				http_response_code(400);
 				echo json_encode(['error' => $e->getMessage()]);
@@ -70,7 +70,7 @@ $modifyMovimento = (new JsonApiBuilder())
 				);
 
 				http_response_code(200);
-				echo json_encode(['message' => "Movimento edited"]);
+				echo json_encode(['message' => "Movimento edited", "redirect" => "project_home?project_id=" . $params[0]]);
 			} catch (Exception $_) {
 				error_log($_);
 				http_response_code(400);

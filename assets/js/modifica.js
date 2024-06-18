@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 
   let popUpEditProject = `<h2>Modifica Progetto</h2>
 		<div id="modifyProjectError" class="hidden">{{ ModifyProjectError }}</div>
-		<form id="modificaProgettoForm" action"/project/modify">
+		<form id="modificaProgettoForm" action="/project/modify">
 			<label for="inputNewNomeProgetto">Nuovo Nome Progetto:</label>
 			<input type="text" id="newNewNomeProgetto" name="newNomeProgetto">
 			<label for="inputNewDescrizioneProgetto">Nuova Descrizione:</label>

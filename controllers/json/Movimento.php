@@ -41,7 +41,7 @@ $newMovimento = (new JsonApiBuilder())
 
 $modifyMovimento = (new JsonApiBuilder())
 	->setPath('movimento/modify')
-	->setInputParams(['id_progetto', 'id_transazione', 'editData', 'editImporto', 'editDescrizione', 'editTag'])
+	->setInputParams(['project_id', 'transactionId', 'editData', 'editImporto', 'editDescrizione', 'editTag'])
 	->setLogicFn(
 		function ($params) {
 			if (!isLogged() || !isUserInProject($params[0])) {
@@ -50,20 +50,29 @@ $modifyMovimento = (new JsonApiBuilder())
 				return;
 			}
 			global $movimentoDb;
+			global $tagDb;
+
+			// get the tag id of the following 'tag_id' => $params[5]
 			try {
+				$tag_id = $tagDb->getIdByName($params[0], $params[5]);
+				if ($tag_id == -1) {
+					$tag_id = null;
+				}
+
 				$movimentoDb->update(
 					$params[0],
 					[
 						'data' => $params[2],
 						'importo' => $params[3],
 						'descrizione' => $params[4],
-						'tag_id' => $params[5]
+						'tag_id' => $tag_id,
 					]
 				);
 
 				http_response_code(200);
 				echo json_encode(['message' => "Movimento edited"]);
 			} catch (Exception $_) {
+				error_log($_);
 				http_response_code(400);
 				echo json_encode(['error' => "Error editing movimento"]);
 			}
@@ -122,4 +131,5 @@ $getMovimenti = (new JsonApiBuilder())
 $mov_router = new Router();
 $mov_router->addRoute($newMovimento);
 $mov_router->addRoute($getMovimenti);
-
+$mov_router->addRoute($modifyMovimento);
+$mov_router->addRoute($deleteMovimento);

@@ -1,4 +1,3 @@
-import { TransazioniSingleton } from "./TransazioniSingleton.js"
 import { Transazione } from "./transazione.js"
 
 function update_transazioni_table(transazioni) {
@@ -15,7 +14,11 @@ function update_transazioni_table(transazioni) {
 
 export { update_transazioni_table }
 
+/*
+import { TransazioniSingleton } from "./TransazioniSingleton.js"
+
 let selected_transaction = null
+
 
 document.addEventListener("DOMContentLoaded", function() {
 	// update selected_transaction when a button is clicked
@@ -50,3 +53,4 @@ function dateToString(date) {
 	let dataFormattata = anno + '-' + (mese < 10 ? '0' : '') + mese + '-' + (giorno < 10 ? '0' : '') + giorno
 	return dataFormattata
 }
+*/

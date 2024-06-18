@@ -95,15 +95,12 @@ class Cake {
         this.#palette_index = 0;
         this.#legend = null;
 
-        this.setup();
-
         this.#context.beginPath();
         this.#context.arc(this.#x, this.#y, this.#radius, 0, 2 * Math.PI);
         this.#context.fillStyle = this.#used_colors[0];
         this.#context.fill();
     }
 
-    getTotalData() { return this.#total_data; }
 
     setTotalData(total) { this.#total_data = total; }
 
@@ -123,30 +120,6 @@ class Cake {
         if (this.#palette_index == PALETTE.length - 1) return console.log("Palette overflow");
         ++this.#palette_index;
         return color;
-    }
-
-    setup() {
-        this.devicePixelRatio = window.devicePixelRatio || 1;
-        const computedStyle = getComputedStyle(this.#context.canvas);
-        const cssWidth = parseInt(computedStyle.getPropertyValue('width'), 10);
-        const cssHeight = parseInt(computedStyle.getPropertyValue('height'), 10);
-
-        this.fontSize = parseInt(computedStyle.getPropertyValue('--fontSize')) * this.#context.canvas.width / (400 * this.devicePixelRatio);
-
-        this.#context.canvas.width = Math.floor(cssWidth * this.devicePixelRatio);
-        this.#context.canvas.height = Math.floor(cssHeight * this.devicePixelRatio);
-    }
-
-    clear() {
-        this.#context.clearRect(0, 0, this.#context.canvas.width, this.#context.canvas.height);
-    }
-
-    x(x) {
-        return this.#x + x * this.#context.canvas.width / this.devicePixelRatio;
-    }
-
-    y(y) {
-        return this.#y + y * this.#context.canvas.height / this.devicePixelRatio;
     }
 
     createSliceLine(angle) {
@@ -202,44 +175,68 @@ class Cake {
     }
 }
 
+function isInsideCanvas(x, y, canvas) {
+    return x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height;
+}
+
+function resizeCanvas(canvas) {
+    const computedStyle = getComputedStyle(canvas);
+    const cssWidth = parseInt(computedStyle.getPropertyValue('width'), 10);
+    const cssHeight = parseInt(computedStyle.getPropertyValue('height'), 10);
+
+    canvas.width = cssWidth;
+    canvas.height = cssHeight;
+}
+
 /** Disegna il grafico a torta
  * @param {Transazione[]} transactions - Array di transazioni
  */
 async function drawCakeChart(transactions) {
-    let period = TransazioniSingleton.getPeriod();
-    let BEGIN = period.begin;
-    let END = period.end;
+    //check if no transactions is given
+    if (transactions.length !== 0) {
+        let period = TransazioniSingleton.getPeriod();
+        let BEGIN = period.begin;
+        let END = period.end;
 
-    let filtered_transactions = transactions.filter((transazione) => {
-        return transazione.data >= BEGIN && transazione.data <= END;
-    });
+        let filtered_transactions = transactions.filter((transazione) => {
+            return transazione.data >= BEGIN && transazione.data <= END;
+        });
 
-    let grouped_transactions = {};
-    filtered_transactions.forEach((transazione) => {
-        if (!grouped_transactions[transazione.tag]) {
-            grouped_transactions[transazione.tag] = 0;
+        let grouped_transactions = {};
+        filtered_transactions.forEach((transazione) => {
+            if (!grouped_transactions[transazione.tag]) {
+                grouped_transactions[transazione.tag] = 0;
+            }
+            grouped_transactions[transazione.tag] += transazione.importo;
+        });
+
+        let total_amount = Object.values(grouped_transactions).reduce((acc, importo) => acc + importo, 0);
+
+        let categories = Object.keys(grouped_transactions);
+        let amounts = Object.values(grouped_transactions);
+
+        let canvas = document.getElementById(elementId);
+        let ctx = canvas.getContext("2d");
+
+        resizeCanvas(canvas);
+
+        let radius = Math.min(canvas.width, canvas.height) / 2;
+        let offset_x = canvas.width * 0.5;
+        let offset_y = canvas.height * 0.5;
+
+        if (!isInsideCanvas(offset_x, offset_y, canvas)) {
+            console.error(`Le coordinate x=${offset_x}, y=${offset_y} sono fuori dai limiti del canvas.`);
+            return;
         }
-        grouped_transactions[transazione.tag] += transazione.importo;
-    });
 
-    let total_amount = Object.values(grouped_transactions).reduce((acc, importo) => acc + importo, 0);
+        let cake = new Cake(offset_x, offset_y, radius, ctx, 90, total_amount);
+        cake.setTotalData(total_amount);
+        categories.forEach((tag, index) => {
+            cake.addSliceFromData(amounts[index]);
+        });
 
-    let categories = Object.keys(grouped_transactions);
-    let amounts = Object.values(grouped_transactions);
-
-    let canvas = document.getElementById(elementId);
-    let ctx = canvas.getContext("2d");
-    let radius = Math.min(canvas.width, canvas.height) / 1.1;
-    let offset_x = canvas.width / 2 +150;
-    let offset_y = canvas.height / 2 + 80;
-
-    let cake = new Cake(offset_x, offset_y, radius, ctx, 90, total_amount);
-    categories.forEach((tag, index) => {
-        let angle = (amounts[index] / total_amount) * 360;
-        cake.addSlice(angle);
-    });
-
-    cake.createLegend(categories);
+        cake.createLegend(categories);
+    }
 }
 
 export { drawCakeChart };

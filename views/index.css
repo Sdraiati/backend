@@ -289,7 +289,9 @@ ul#line-chart-buttons{
 }
 
 #cake-chart {
-    width: 50%;
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
 }
 
 .container {

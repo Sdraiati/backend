@@ -1,5 +1,27 @@
 document.addEventListener("DOMContentLoaded", function(_) {
 
+	const urlString = window.location.href;
+	const url = new URL(urlString);
+	const upar = url.searchParams;
+
+	if (upar.size > 0) {
+		// debug
+		console.log(upar);
+		params = [];
+		upar.forEach((value, key) => {
+			const decodedKey = decodeURIComponent(key);
+			const decodedValue = decodeURIComponent(value);
+			params[decodedKey] = decodedValue;
+		});
+
+		// se vi è un feedback da visualizzare nella pagina destinazione.
+		if (params["redirect_message"]) {
+			console.log("messaggio di redirezione presente all'interno dei parametri");
+			const message = params["redirect_message"];
+			makePopUpAppear("success", message);
+		}
+	}
+
 	let popUpAccedi = `<h2>Login</h2>
 		<div id="loginError" class="hidden">{{ LoginError }}</div>
 		<form id="loginForm" action="/user/login" method="POST">
@@ -296,14 +318,27 @@ function postRequest(event /*,isModifyProject = false*/) {
 			}
 			data = await data.json();
 			console.log(data);
+
+			// redirezione 
+			let params = new URLSearchParams({
+        		redirect_message: data["message"]
+      		});
+			const redirect = data["redirect"];
+			console.log(params);
+			if (redirect && redirect !== "") {
+        		window.location.href = `${redirect}?${params.toString()}`;
+			} 
 			makePopUpAppear("success", data.message);
-
-			// redirezione alla pagina di login.
-
 		})
 		.catch((err) => {
-
 			console.log(err);
+			const redirect = err["redirect"];
+      		let params = new URLSearchParams({
+        		param1: "value1",
+      		});
+      		if (redirect && redirect !== "") {
+        		window.location.href = `${redirect}?${params.toString()}`;
+      		}
 			makePopUpAppear("error", err.error);
 			// document.getElementById("error").innerText = err.error;
 		});

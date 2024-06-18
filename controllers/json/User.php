@@ -41,11 +41,11 @@ $loginUser = (new JsonApiBuilder())
 					setCookieUser($user['email'], $user['username'], $user['password']);
 
 					http_response_code(200);
-					echo json_encode(['message' => "User logged in"]);
+					echo json_encode(['message' => "User logged in", "redirect" => "account_home"]);
 				}
 			} catch (Exception $_) {
 				http_response_code(400);
-				echo json_encode(['error' => "Invalid credentials", 'uiComponent' => "loginError"]);
+				echo json_encode(['error' => "Invalid credentials"]);
 			}
 		}
 	)

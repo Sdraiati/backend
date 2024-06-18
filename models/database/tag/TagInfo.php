@@ -6,6 +6,21 @@ class TagInfo extends DatabaseManager {
         parent::__construct($db);
     }
 
+    public function getTagsByIdProgetto($projectId) {
+        $query = "SELECT tag.id, tag.nome, tag.descrizione FROM tag
+			WHERE tag.id_progetto = ?";
+
+        $params = [
+            ['type' => 'i', 'value' => $projectId],
+        ];
+
+        $stmt = $this->db->prepareAndBindParams($sql, $params);
+
+        $stmt->execute() or die($stmt->error);
+
+        return $result->fetch_assoc();
+    }
+
     public function hasTag($projectId, $tagId): bool {
         $sql = "SELECT * FROM tag WHERE id_progetto = ? AND id = ?";
 

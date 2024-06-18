@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 
 	let popUpModifyCredentials = `<h2>Modifica informazioni dell'account</h2>
 		<div id="modifyError" class="hidden">{{ ModifyError }}</div>
-		<form id="modificaCredenzialiForm" action="/user/modify">
+		<form id="modificaCredenzialiForm" action="/user/modify" onsubmit="return validaForm()">
 			<label for="newEmail">Nuova <span lang="en">Email</span>:</label>
 			<input type="email" id="newEmail" name="newEmail">
 			<label for="newUsername">Nuovo Nome Utente:</label>

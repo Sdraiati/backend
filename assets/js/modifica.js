@@ -179,6 +179,16 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="submit" value="Registra Transazione">
 		</form>`;
 
+  let popupDeleteTransaction = `<h2>Conferma Eliminazione Transazione</h2>
+		<form id="eliminaMovimento" action="/movimento/delete">
+			<input type="number" name="transactionId" value="{{ tr-id }}" class="hidden">
+			<label for="checkPassword">Inserisci la <span lang="en">Password</span>:</label>
+			<input type="password" id="checkPassword" name="checkPassword" required>
+			<input type="checkbox" onclick="toogleView('checkPassword')">Mostra <span lang="en">Password</span>
+			<input type="button" data-button-kind="deleteTransaction" value="Annulla">
+			<input type="submit" value="Conferma Eliminazione">
+		</form>`;
+
   let diz = {
     accedi: popUpAccedi,
     registrati: popUpRegistrati,
@@ -189,6 +199,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
     disjoinProject: popUpDisjoinProject,
     newTransaction: popupNewTransaction,
     editTransaction: popupEditTransaction,
+  	deleteTransaction: popupDeleteTransaction,
   };
 
   document.body.addEventListener("click", function (event) {
@@ -228,9 +239,16 @@ document.addEventListener("DOMContentLoaded", function(_) {
             "{{ tr-id }}",
             event.target.dataset.transazioneIndex
           );
-          console.log(content);
           diz[id] = content;
         }
+		else if (id === "deleteTransaction") {
+			let content = popupDeleteTransaction.toString();
+			content = content.replace(
+				"{{ tr-id }}",
+				event.target.dataset.transazioneIndex
+			);
+			diz[id] = content;
+		}
 
         document.getElementById(id).innerHTML = diz[id];
       }

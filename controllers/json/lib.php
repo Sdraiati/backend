@@ -28,7 +28,6 @@ function isLogged(): bool
 	global $userDb;
 	if (isset($_SESSION['LogIn'])) {
 		$data = json_decode($_SESSION['LogIn'], true);
-        error_log(json_encode($data));
 		$logged = $userDb->existsByEmail($data['email']);
 		if ($logged) {
 			return true;

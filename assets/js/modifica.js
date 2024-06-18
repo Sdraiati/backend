@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded", function(_) {
   const upar = url.searchParams;
 
   if (upar.size > 0) {
-    // debug
-    console.log(upar);
     params = [];
     upar.forEach((value, key) => {
       const decodedKey = decodeURIComponent(key);

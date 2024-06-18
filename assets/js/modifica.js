@@ -357,13 +357,6 @@ function postRequest(event /*,isModifyProject = false*/) {
 		})
 		.catch((err) => {
 			console.log(err);
-			const redirect = err["redirect"];
-      		let params = new URLSearchParams({
-        		param1: "value1",
-      		});
-      		if (redirect && redirect !== "") {
-        		window.location.href = `${redirect}?${params.toString()}`;
-      		}
 			makePopUpAppear("error", err.error);
 			// document.getElementById("error").innerText = err.error;
 		});

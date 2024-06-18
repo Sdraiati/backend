@@ -2,9 +2,11 @@
 
 include_once 'HtmlApi.php';
 include_once __PROJECTROOT__ . '/models/database/project/ProjectInfo.php';
+include_once __PROJECTROOT__ . '/models/database/user/UserInfo.php';
 
 global $database;
 $projectManager = new ProjectInfo($database);
+$userManager = new UserInfo($database);
 
 class ProjectHomeHtmlApi extends HtmlApi
 {
@@ -52,6 +54,21 @@ class ProjectHomeHtmlApi extends HtmlApi
 		return (!$this->isLogged() || !isset($_GET['project_id']) || !$this->user_has_access_to_project($_GET['project_id']));
 	}
 
+    private function get_partecipants_list() : string
+    {
+        global $userManager;
+        $project_id = $_GET['project_id'];
+        $partecipants = $userManager->getPartecipantsList($project_id);
+        if (count($partecipants) === 1 && $partecipants[0] === null) {
+            return '<p>Non ci sono partecipanti</p>';
+        }
+        $partecipants_list = '';
+        foreach ($partecipants as $partecipant) {
+            $partecipants_list .= '<li>' . $partecipant . '</li>';
+        }
+        return $partecipants_list;
+    }
+
 	public function handle()
 	{
 		if ($this->access_guard()) {
@@ -66,6 +83,9 @@ class ProjectHomeHtmlApi extends HtmlApi
 		$content = str_replace('{{ header }}', $this->getHeader(), $content);
 		$content = str_replace('{{ Project Name }}', $this->get_project_name($project_id), $content);
         $content = str_replace('{{ Project Description }}', $this->get_project_description($project_id), $content);
-		echo $content;
+
+        $content = str_replace('{{ partecipants }}', $this->get_partecipants_list(), $content);
+
+        echo $content;
 	}
 }

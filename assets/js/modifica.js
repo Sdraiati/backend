@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<span id="passwordError" class="hidden">Le due <span lang="en">password</span> non coincidono.</span>
 			<label for="signupConfirmPassword">Ripeti <span lang="en">Password</span>:</label>
 			<input type="password" id="signupConfirmPassword" name="confirmpassword" required autocomplete="new-password">
-			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
+			<input type="checkbox" onclick="toogleView('confirmpassword')">Mostra <span lang="en">Password</span>
 			<div>
 				<input type="button" data-button-kind="registrati" value="Annulla">
 				<input type="submit" value="Registrati">

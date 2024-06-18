@@ -74,7 +74,7 @@ $modifyUser = (new JsonApiBuilder())
 				setCookieUser($user['email'], $user['username'], $user['password']);
 
 				http_response_code(200);
-				echo json_encode(['message' => "User modified"]);
+				echo json_encode(['message' => "User modified", "redirect" => "account_home"]);
 			} catch (Exception $_) {
 
 				http_response_code(400);

@@ -39,7 +39,7 @@ $deleteProject = (new JsonApiBuilder())
 				$projectDel->deleteProject($project_id);
 
 				http_response_code(200);
-				echo json_encode(['message' => 'Project deleted']);
+				echo json_encode(['message' => 'Project deleted', "redirect" => "account_home"]);
 			} catch (Exception $e) {
 				http_response_code(400);
 				echo json_encode(['error' => $e->getMessage()]);
@@ -65,7 +65,7 @@ $disjoinProject = (new JsonApiBuilder())
 				$projectDJ->disjoinProject($email, $project_id);
 
 				http_response_code(200);
-				echo json_encode(['message' => 'Project disjoined']);
+				echo json_encode(['message' => 'Project disjoined', "redirect" => "account_home"]);
 			} catch (Exception $e) {
 				http_response_code(400);
 				echo json_encode(['error' => "You are the only one in the project"]);
@@ -92,7 +92,7 @@ $newProject = (new JsonApiBuilder())
 				$projectNew->createProject($email, $params[0], $link_condivisione, $params[1]);
 
 				http_response_code(201);
-				echo json_encode(['message' => 'Project created']);
+				echo json_encode(['message' => 'Project created', "redirect" => "account_home"]);
 			} catch (Exception $e) {
 				http_response_code(400);
 				echo json_encode(['error' => $e->getMessage()]);
@@ -140,7 +140,7 @@ $modifyProject = (new JsonApiBuilder())
                 $modProject->modify($params[0], ['nome' => $params[1], 'descrizione' => $params[2] ]);
 
                 http_response_code(200);
-                echo json_encode(['message' => "Project modified"]);
+                echo json_encode(['message' => "Project modified", "redirect" => "project_home?project_id=" . $params[0]]);
             } catch (Exception $_) {
 
                 http_response_code(400);

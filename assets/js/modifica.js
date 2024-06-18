@@ -1,28 +1,39 @@
 document.addEventListener("DOMContentLoaded", function(_) {
+  const urlString = window.location.href;
+  const url = new URL(urlString);
+  const upar = url.searchParams;
 
-	const urlString = window.location.href;
-	const url = new URL(urlString);
-	const upar = url.searchParams;
+  if (upar.size > 0) {
+    // debug
+    console.log(upar);
+    params = [];
+    upar.forEach((value, key) => {
+      const decodedKey = decodeURIComponent(key);
+      const decodedValue = decodeURIComponent(value);
+      params[decodedKey] = decodedValue;
+    });
 
-	if (upar.size > 0) {
-		// debug
-		console.log(upar);
-		params = [];
-		upar.forEach((value, key) => {
-			const decodedKey = decodeURIComponent(key);
-			const decodedValue = decodeURIComponent(value);
-			params[decodedKey] = decodedValue;
-		});
+    // se vi è un feedback da visualizzare nella pagina destinazione.
+    if (params["redirect_message"]) {
+      console.log(
+        "messaggio di redirezione presente all'interno dei parametri"
+      );
+      const message = params["redirect_message"];
+      makePopUpAppear("success", message);
+      removeUrlParameter("redirect_message");
+    }
+  }
 
-		// se vi è un feedback da visualizzare nella pagina destinazione.
-		if (params["redirect_message"]) {
-			console.log("messaggio di redirezione presente all'interno dei parametri");
-			const message = params["redirect_message"];
-			makePopUpAppear("success", message);
-		}
-	}
+  // Function to remove specific parameters from the URL
+  function removeUrlParameter(parameter) {
+    let url = new URL(window.location.href);
+    url.searchParams.delete(parameter);
+    window.history.replaceState({}, document.title, url.toString());
+  }
 
-	let popUpAccedi = `<h2>Login</h2>
+  // Example: Remove 'param1' from the URL
+
+  let popUpAccedi = `<h2>Login</h2>
 		<div id="loginError" class="hidden">{{ LoginError }}</div>
 		<form id="loginForm" action="/user/login" method="POST">
 			<label for="loginEmail">Email:</label>
@@ -36,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			</div>
 		</form>`;
 
-	let popUpRegistrati = `<h2>Registrazione</h2>
+  let popUpRegistrati = `<h2>Registrazione</h2>
 		<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
 		<form id="registratiForm" action="/user/register">
 			<label for="signupUsername">Nome Utente:</label>
@@ -56,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			</div>
 		</form>`;
 
-	let popUpNewProject = `<h2>Crea un Nuovo Progetto</h2>
+  let popUpNewProject = `<h2>Crea un Nuovo Progetto</h2>
 		<div id="newProjectError" class="hidden">{{ NewProjectError }}</div>
 		<form id="nuovoProgettoForm" action="/project/new">
 			<label for=" inputNomeProgetto">Nome Progetto:</label>
@@ -65,9 +76,9 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<textarea id="inputDescrizioneProgetto" name="descrizioneProgetto"></textarea>
 			<input type="button" data-button-kind="newProject" value="Annulla">
 			<input type="submit" value="Crea Progetto">
-		</form>`
+		</form>`;
 
-	let popUpModifyCredentials = `<h2>Modifica informazioni dell'account</h2>
+  let popUpModifyCredentials = `<h2>Modifica informazioni dell'account</h2>
 		<div id="modifyError" class="hidden">{{ ModifyError }}</div>
 		<form id="modificaCredenzialiForm" action="/user/modify" onsubmit="return validaForm()">
 			<label for="newEmail">Nuova <span lang="en">Email</span>:</label>
@@ -89,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			</div>
 		</form>`;
 
-	let popUpEditProject = `<h2>Modifica Progetto</h2>
+  let popUpEditProject = `<h2>Modifica Progetto</h2>
 		<div id="modifyProjectError" class="hidden">{{ ModifyProjectError }}</div>
 		<form id="modificaProgettoForm" action"/project/modify">
 			<label for="inputNewNomeProgetto">Nuovo Nome Progetto:</label>
@@ -100,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="submit" value="Salva Modifiche">
 		</form>`;
 
-	let popupDeleteProject = `<h2>Conferma Eliminazione Progetto</h2>
+  let popupDeleteProject = `<h2>Conferma Eliminazione Progetto</h2>
 	<div id="deleteProjectError" class="hidden">{{ DeleteProjectError }}</div>
 	<form id="eliminaProgettoForm" action="/project/delete">
 		<label for="inputPassword">Inserisci la <span lang="en">Password</span>:</label>
@@ -112,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		</div>
 	</form>`;
 
-	let popUpDisjoinProject = `<h2>Conferma Abbandono Progetto</h2>
+  let popUpDisjoinProject = `<h2>Conferma Abbandono Progetto</h2>
 		<div id="disjoinProjectError" class="hidden">{{ DisjoinProjectError }}</div>
 		<form id="abbandonaProgettoForm" action="/project/disjoin">
 			<label for="inputPassword">Inserisci la <span lang="en">Password</span>:</label>
@@ -123,8 +134,8 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				<input type="submit" value="Conferma Abbandono">
 			</div>
 		</form>`;
-	//<input list="tags-datalist" id="newTag" name="newTag">
-	let popupNewTransaction = `<h2>Registra una Nuova Transazione</h2>
+  //<input list="tags-datalist" id="newTag" name="newTag">
+  let popupNewTransaction = `<h2>Registra una Nuova Transazione</h2>
 		<form id="nuovoMovimento" action="/movimento/new">
 			<label for="newData">Data:</label>
 			<input type="date" id="newData" name="newData" required>
@@ -145,9 +156,9 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="text" id="newDescrizione" name="newDescrizione">
 			<input type="button" data-button-kind="newTransaction" value="Annulla">
 			<input type="submit" value="Registra Transazione">
-		</form>`
+		</form>`;
 
-	let popupEditTransaction = `<h2>Modifica una Transazione</h2>
+  let popupEditTransaction = `<h2>Modifica una Transazione</h2>
 		<form id="modificaMovimento" action="/movimento/modify">
 			<input type="number" name="transactionId" value="{{ tr-id }}" class="hidden">
 			<label for="editData">Data:</label>
@@ -168,64 +179,72 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="text" id="editDescrizione" name="editDescrizione">
 			<input type="button" data-button-kind="editTransaction" value="Annulla">
 			<input type="submit" value="Registra Transazione">
-		</form>`
+		</form>`;
 
-	let diz = {
-		'accedi': popUpAccedi, 'registrati': popUpRegistrati,
-		'newProject': popUpNewProject, 'modificaCredenziali': popUpModifyCredentials,
-		'editProject': popUpEditProject, 'deleteProject': popupDeleteProject,
-		'disjoinProject': popUpDisjoinProject, 'newTransaction': popupNewTransaction,
-		'editTransaction': popupEditTransaction
-	};
+  let diz = {
+    accedi: popUpAccedi,
+    registrati: popUpRegistrati,
+    newProject: popUpNewProject,
+    modificaCredenziali: popUpModifyCredentials,
+    editProject: popUpEditProject,
+    deleteProject: popupDeleteProject,
+    disjoinProject: popUpDisjoinProject,
+    newTransaction: popupNewTransaction,
+    editTransaction: popupEditTransaction,
+  };
 
-	document.body.addEventListener("click", function(event) {
-		// Check if the clicked element is a button
-		if (event.target.tagName === "INPUT") {
-			// Show an alert with the ID of the clicked button
+  document.body.addEventListener("click", function (event) {
+    // Check if the clicked element is a button
+    if (event.target.tagName === "INPUT") {
+      // Show an alert with the ID of the clicked button
 
-			let id = event.target.dataset.buttonKind
-			//if(id == "newTransaction") {mostra le option in popupNewTransaction}
-			if (id == null) {
-				return;
-			}
-			else {
-				document.getElementById(id).classList.toggle('hidden');
-				document.getElementById(id).classList.toggle('allert');
-			}
-			if (document.getElementById(id).classList.contains("hidden")) {
-				const focusableElements = document.querySelectorAll('a, button, input, textarea, select, [tabindex]');
-				focusableElements.forEach(element => {
-					element.removeAttribute('tabindex');
-					element.classList.toggle('overlay');
-				});
-				document.getElementById(id).innerHTML = ``;
+      let id = event.target.dataset.buttonKind;
+      //if(id == "newTransaction") {mostra le option in popupNewTransaction}
+      if (id == null) {
+        return;
+      } else {
+        document.getElementById(id).classList.toggle("hidden");
+        document.getElementById(id).classList.toggle("allert");
+      }
+      if (document.getElementById(id).classList.contains("hidden")) {
+        const focusableElements = document.querySelectorAll(
+          "a, button, input, textarea, select, [tabindex]"
+        );
+        focusableElements.forEach((element) => {
+          element.removeAttribute("tabindex");
+          element.classList.toggle("overlay");
+        });
+        document.getElementById(id).innerHTML = ``;
+      } else {
+        const focusableElements = document.querySelectorAll(
+          "a, button, input, textarea, select, [tabindex]"
+        );
+        focusableElements.forEach((element) => {
+          element.setAttribute("tabindex", "-1");
+          element.classList.toggle("overlay");
+        });
 
-			}
-			else {
-				const focusableElements = document.querySelectorAll('a, button, input, textarea, select, [tabindex]');
-				focusableElements.forEach(element => {
-					element.setAttribute('tabindex', '-1');
-					element.classList.toggle('overlay');
-				});
+        if (id === "editTransaction") {
+          let content = popupEditTransaction.toString();
+          content = content.replace(
+            "{{ tr-id }}",
+            event.target.dataset.transazioneIndex
+          );
+          console.log(content);
+          diz[id] = content;
+        }
 
-				if (id === "editTransaction") {
-					let content = popupEditTransaction.toString();
-					content = content.replace("{{ tr-id }}", event.target.dataset.transazioneIndex);
-					console.log(content);
-					diz[id] = content;
-				}
+        document.getElementById(id).innerHTML = diz[id];
+      }
+    }
+  });
 
-				document.getElementById(id).innerHTML = diz[id];
-			}
-		}
-	});
-
-	document.body.addEventListener("submit", function(event) {
-		if (event.target.tagName === "FORM") {
-			event.preventDefault();
-			postRequest(event);
-		}
-	});
+  document.body.addEventListener("submit", function (event) {
+    if (event.target.tagName === "FORM") {
+      event.preventDefault();
+      postRequest(event);
+    }
+  });
 })
 
 function validaForm() {

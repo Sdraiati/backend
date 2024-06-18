@@ -160,9 +160,9 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		<form id="modificaMovimento" action="/movimento/modify">
 			<input type="number" name="transactionId" value="{{ tr-id }}" class="hidden">
 			<label for="editData">Data:</label>
-			<input type="date" id="editData" name="editData" required>
+			<input type="date" id="editData" name="editData">
 			<label for="editImporto">Importo (€):</label>
-			<input type="number" id="editImporto" name="editImporto" step="0.01" required>
+			<input type="number" id="editImporto" name="editImporto" step="0.01">
 			<label for="editTag"><span lang="en">Tag</span>:</label>
 			<select id="editTag" name="editTag">
 				<option value="volvo">Volvo</option>

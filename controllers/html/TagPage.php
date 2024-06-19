@@ -21,13 +21,15 @@ class TagPageHtmlApi extends HtmlApi
 		if (count($tags) === 0) {
 			return 'NON vi sono tag associati a questo progetto';
 		} else {
+			// html generato
 			$tag_list = '';
+
 			foreach ($tags as $tag) {
-				// fare la stessa cosa con i tag.
 				if ($tag) {
 					$tag_item = $this->getContent('tag_item');
 					$tag_item = str_replace('{{ tag-name }}', $tag["nome"], $tag_item);
 					$tag_item = str_replace('{{ tag-desc }}', $tag["descrizione"], $tag_item);
+					$tag_item = str_replace('{{ tag-id }}', $tag["id"], $tag_item);
 					$tag_list .= $tag_item;
 				}
 			}
@@ -43,6 +45,7 @@ class TagPageHtmlApi extends HtmlApi
 		}
 		$content = str_replace('{{ header }}', $this->getHeader(), $content);
 		$content = str_replace('{{ tag-list }}', $this->get_tag_list(), $content);
+		$content = str_replace('{{ proj-id }}', $_GET['project_id'], $content);
 		echo $content;
 	}
 }

@@ -190,15 +190,25 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		</form>`;
 
 	let popUpModificaTag = `<h2>Modifica tag</h2>
-		<form id="modificaTagForm" action="/tag/modify" method="POST">
-			<label for="nomeTag">Nuovo nome <span lang="en">tag</span>:</label>
-			<input id="nomeTag" name="password" required autocomplete="current-password">
-			<label for="newDescrizione">Nuova descrizione:</label>
-			<input type="text" id="newDescrizione" name="newDescrizione">
-			<div>
-				<input type="button" data-button-kind="modificaTag" value="Annulla">
-				<input type="submit" data-button-kind="modificaTag" value="Modifica">
-			</div>
+		<form id="modificaTagForm" action="/tag/modify">
+		 	<input type="number" name="tag_id" value="{{ tag-id }}" class="hidden">
+			<label for="new_name">Nuovo nome <span lang="en">tag</span>:</label>
+			<input id="nomeTag" name="new_name">
+			<label for="new_description">Nuova descrizione:</label>
+			<input type="text" id="newDescrizione" name="new_description">
+			<input type="button" data-button-kind="modificaTag" value="Annulla">
+			<input type="submit" value="Modifica">
+		</form>`;
+
+	let popUpCreaTag = `<h2>Crea tag</h2>
+		<form id="creaTagForm" action="/tag/create">
+		 	<!-- <input type="number" name="project_id" value="{{ proj-id }}" class="hidden"> -->
+			<label for="new_name">Nome:</label>
+			<input id="nomeTag" name="new_name">
+			<label for="new_description">Descrizione:</label>
+			<input type="text" id="newDescrizione" name="new_description">
+			<input type="button" data-button-kind="creaTag" value="Annulla">
+			<input type="submit" value="Crea">
 		</form>`;
 
   let diz = {
@@ -212,7 +222,8 @@ document.addEventListener("DOMContentLoaded", function(_) {
     newTransaction: popupNewTransaction,
     editTransaction: popupEditTransaction,
   	deleteTransaction: popupDeleteTransaction,
-	modificaTag: popUpModificaTag
+	modificaTag: popUpModificaTag,
+	creaTag: popUpCreaTag
   };
 
   document.body.addEventListener("click", function (event) {
@@ -262,6 +273,22 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			);
 			diz[id] = content;
 		}
+		else if (id === "modificaTag") {
+			let content = popUpModificaTag.toString();
+			content = content.replace(
+				"{{ tag-id }}",
+				event.target.dataset.tagIndex
+			);
+			diz[id] = content;
+		}
+		// else if (id === "creaTag") {
+		// 	let content = popUpCreaTag.toString();
+		// 	content = content.replace(
+		// 		"{{ proj-id }}",
+		// 		event.target.dataset.projectIndex
+		// 	);
+		// 	diz[id] = content;
+		// }
 		// aggiungere gli id per la pagina dei tag.
 
         document.getElementById(id).innerHTML = diz[id];
@@ -357,7 +384,6 @@ function postRequest(event /*,isModifyProject = false*/) {
 		data[decodedKey] = decodedValue;
 	});
 
-	console.log(event.target.action);
 	console.log(data);
 
 	fetch(event.target.action, { method: "POST", body: JSON.stringify(data) })

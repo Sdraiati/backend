@@ -7,11 +7,10 @@ class DeleteTag extends DatabaseManager {
         parent::__construct($db);
     }
 
-    public function deleteTag($projectId, $tagId) : bool {
-        $sql = "DELETE FROM tag WHERE id_progetto = ? AND id = ?";
+    public function deleteTag($tagId) : bool {
+        $sql = "DELETE FROM tag WHERE id = ?";
 
         $params = [
-            ['type' => 'i', 'value' => $projectId],
             ['type' => 'i', 'value' => $tagId]
         ];
 

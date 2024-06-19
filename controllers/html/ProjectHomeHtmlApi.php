@@ -64,6 +64,7 @@ class ProjectHomeHtmlApi extends HtmlApi
 
 		$content = $this->getContent($this->path);
 		$content = str_replace('{{ header }}', $this->getHeader(), $content);
+		$content = str_replace('{{ project-id }}', $project_id, $content);
 		$content = str_replace('{{ Project Name }}', $this->get_project_name($project_id), $content);
         $content = str_replace('{{ Project Description }}', $this->get_project_description($project_id), $content);
 		echo $content;

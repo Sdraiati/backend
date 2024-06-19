@@ -14,11 +14,6 @@
 
 
 <body>
-
-	<!-- <title>{{Project Name}}</title> -->
-	<!-- Riferimento al file JavaScript esterno per la generazione del line chart -->
-	<!-- <script src="line_chart_script.js"></script> -->
-
 	<header>
 		<nav>
 			<div class="Logo">
@@ -42,15 +37,12 @@
 
 	<script type="module" src="assets/js/nav.js"></script>
 
-	<!-- Modifica Progetto -->
 	<section id="editProject" class="hidden">
 	</section>
 
-	<!-- Elimina Progetto -->
 	<section id="deleteProject" class="hidden">
 	</section>
 
-	<!-- Abbandona Progetto -->
 	<section id="disjoinProject" class="hidden">
 	</section>
 
@@ -60,18 +52,18 @@
 			<h2>Condividi Progetto</h2>
 			<form id="linkForm">
 				<input type="text" id="linkField" value="https://example.com" readonly>
-				<input type="button" data-button-kind="shareProjectHide">Annulla</input>
-				<input type="button" id="copyShareProject">Copy Link</input>
+				<input type="button" data-button-kind="shareProjectHide" value="Annulla">
+				<input type="button" id="copyShareProject" value="Copy Link">
 			</form>
 		</section>
 
 		<section id="chart">
 			<ul id="line-chart-buttons">
-				<li><input type="button" id="transazioni-precedenti">Precedente</input></li>
-				<li><input type="button" id="transazioni-periodo-1-mese">1 mese</input></li>
-				<li><input type="button" id="transazioni-periodo-6-mesi">6 mesi</input></li>
-				<li><input type="button" id="transazioni-periodo-1-anno">1 anno</input></li>
-				<li><input type="button" id="transazioni-successive">Successivo</input></li>
+				<li><input type="button" id="transazioni-precedenti" value="Precedente"></li>
+				<li><input type="button" id="transazioni-periodo-1-mese" value="1 mese"></li>
+				<li><input type="button" id="transazioni-periodo-6-mesi" value="6 mesi"></li>
+				<li><input type="button" id="transazioni-periodo-1-anno" value="1 anno"></li>
+				<li><input type="button" id="transazioni-successive" value="Successivo"></li>
 			</ul>
 			<!-- Canvas per il line chart -->
 			<canvas id="line-chart" class="line-chart"></canvas>

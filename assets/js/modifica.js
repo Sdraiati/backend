@@ -189,6 +189,12 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="submit" value="Conferma Eliminazione">
 		</form>`;
 
+	let popUpModificaTag = `<h2>Modifica tag</h2>
+		<form id="modificaTagForm" action="/tag/modify" method="POST">
+			<label for="nomeTag"><span lang="en">Tag</span>:</label>
+			<input id="nomeTag" name="password" required autocomplete="current-password">
+		</form>`;
+
   let diz = {
     accedi: popUpAccedi,
     registrati: popUpRegistrati,
@@ -200,6 +206,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
     newTransaction: popupNewTransaction,
     editTransaction: popupEditTransaction,
   	deleteTransaction: popupDeleteTransaction,
+	modificaTag: popUpModificaTag
   };
 
   document.body.addEventListener("click", function (event) {

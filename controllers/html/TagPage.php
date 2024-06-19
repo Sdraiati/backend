@@ -26,7 +26,8 @@ class TagPageHtmlApi extends HtmlApi
 				// fare la stessa cosa con i tag.
 				if ($tag) {
 					$tag_item = $this->getContent('tag_item');
-					$tag_item = str_replace('{{ tag-name }}', $tag, $tag_item);
+					$tag_item = str_replace('{{ tag-name }}', $tag["nome"], $tag_item);
+					$tag_item = str_replace('{{ tag-desc }}', $tag["descrizione"], $tag_item);
 					$tag_list .= $tag_item;
 				}
 			}
@@ -43,6 +44,5 @@ class TagPageHtmlApi extends HtmlApi
 		$content = str_replace('{{ header }}', $this->getHeader(), $content);
 		$content = str_replace('{{ tag-list }}', $this->get_tag_list(), $content);
 		echo $content;
-		// echo json_encode($this->get_tag_list());
 	}
 }

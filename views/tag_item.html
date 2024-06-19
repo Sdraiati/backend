@@ -1,8 +1,9 @@
-<li class='projectContainer'>
-	<span class='nome'>{{ tag-name }}</span>
-	<form>
-		<input type="button" onclick='console.log("modifica")' value="Modifica">
-		<input type="button" onclick='console.log("elimina")' value="Elimina">
+<li>
+	<h3 class='nome'>{{ tag-name }}</h3>
+	<p class='descrizione'>{{ tag-desc }}</p>
+	<input type="button" value="Modifica">
+	<form action="tag/delete">
+		<input type="submit" value="Elimina">
 	</form>
 </li>
 

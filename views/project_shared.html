@@ -35,87 +35,19 @@
 
 	<script type="module" src="assets/js/nav.js"></script>
 
-	<main>
-		<canvas id="line-chart-canvas" class="line-chart-container"></canvas>
-		<!-- Tabella delle transazioni -->
-		<section>
-			<h2>Tabella delle Transazioni</h2>
-			<input type="button" data-button-kind="newTransaction" value="Nuova Transazione">
-			<!-- Inserisci qui la tabella delle transazioni -->
-			<table id="transazioniTable">
-				<!-- Intestazione della tabella -->
-				<thead>
-					<tr>
-						<th>Data</th>
-						<th>Costo (€)</th>
-						<th>Tag</th>
-						<th>Descrizione</th>
-					</tr>
-				</thead>
-				<!-- Corpo della tabella -->
-				<tbody>
-				</tbody>
-			</table>
-		</section>
+	<section id="joinProject" class="hidden">
+		<h1>Partecipa al progetto</h1>
+		<form id="joinProjectForm" action="javascript:void(0)">
+			<div class="form-buttons">
+				<input type="button" data-button-kind="joinProjectHide" value="Annulla">
+				<input type="button" data-button-kind="submitJoinProject" value="Partecipa">
+			</div>
+	</section>
 
-		<!-- Registra una Nuova Transazione -->
-		<section id="newTransaction" class="hidden">
-			<h2>Registra una Nuova Transazione</h2>
-			<form id="newTransactionForm" action="javascript:void(0)">
-				<label for="newData">Data:</label>
-				<input type="date" id="newData" name="data" required>
-				<label for="newImporto">Importo:</label>
-				<input type="number" id="newImporto" name="importo" step="0.01" required>
-				<label for="newTag">Tag:</label>
-				<input list="tags-datalist" id="newTag" name="tag" required>
-				<!-- Datalist per i tag -->
-				<datalist id="tags-datalist">
-				</datalist>
-				<label for="newDescrizione">Descrizione:</label>
-				<input type="text" id="newDescrizione" name="descrizione">
-				<input type="button" data-button-kind="newTransactionHide" value="Annulla">
-				<input type="submit" id="submitNewTransaction" value="Registra Transazione">
-			</form>
-		</section>
-
-		<!-- Modifica Transazione -->
-		<section id="editTransaction" class="hidden">
-			<h2>Modifica Transazione</h2>
-			<form id="editTransactionForm" action="javascript:void(0)">
-				<label for="editData">Nuova Data:</label>
-				<input type="date" id="editData" name="data">
-				<label for="editCosto">Nuovo Importo (€):</label>
-				<input type="number" id="editCosto" name="costo" step="0.01">
-				<label for="editTag">Nuovo Tag:</label>
-				<input list="tags-datalist" id="editTag" name="tag" required>
-				<label for="editDescrizione">Nuova Descrizione:</label>
-				<input type="text" id="editDescrizione" name="descrizione">
-				<div class="form-buttons">
-					<input type="button" id="deleteTransazioneButton" value="Elimina Transazione">
-					<input type="button" data-button-kind="editTransactionHide" value="Annulla">
-					<input type="submit" id="submitEditTransaction" value="Salva Modifiche">
-				</div>
-			</form>
-		</section>
-
-		<script type="module" src="assets/js/transazioni_list.js"></script>
-
-		<section id="joinProject" class="hidden">
-			<h1>Partecipa al progetto</h1>
-			<form id="joinProjectForm" action="javascript:void(0)">
-				<div class="form-buttons">
-					<input type="button" data-button-kind="joinProjectHide" value="Annulla">
-					<input type="button" data-button-kind="submitJoinProject" value="Partecipa">
-				</div>
-		</section>
-
-		<section>
-			<!--<form  id="join_project" action="/join_project" method="post" onsubmit="return validaForm()">-->
-			<input type="button" onclick="joinProject()" value="Partecipa">
-			<!--</form>-->
-		</section>
+	<section>
+		<input type="button" onclick="joinProject()" value="Partecipa">
+	</section>
 	</main>
-
 
 	<footer>
 		<div class="footer-list">

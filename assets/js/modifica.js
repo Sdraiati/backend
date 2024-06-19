@@ -1,37 +1,37 @@
 document.addEventListener("DOMContentLoaded", function(_) {
-  const urlString = window.location.href;
-  const url = new URL(urlString);
-  const upar = url.searchParams;
+	const urlString = window.location.href;
+	const url = new URL(urlString);
+	const upar = url.searchParams;
 
-  if (upar.size > 0) {
-    params = [];
-    upar.forEach((value, key) => {
-      const decodedKey = decodeURIComponent(key);
-      const decodedValue = decodeURIComponent(value);
-      params[decodedKey] = decodedValue;
-    });
+	if (upar.size > 0) {
+		params = [];
+		upar.forEach((value, key) => {
+			const decodedKey = decodeURIComponent(key);
+			const decodedValue = decodeURIComponent(value);
+			params[decodedKey] = decodedValue;
+		});
 
-    // se vi è un feedback da visualizzare nella pagina destinazione.
-    if (params["redirect_message"]) {
-      console.log(
-        "messaggio di redirezione presente all'interno dei parametri"
-      );
-      const message = params["redirect_message"];
-      makePopUpAppear("success", message);
-      removeUrlParameter("redirect_message");
-    }
-  }
+		// se vi è un feedback da visualizzare nella pagina destinazione.
+		if (params["redirect_message"]) {
+			console.log(
+				"messaggio di redirezione presente all'interno dei parametri"
+			);
+			const message = params["redirect_message"];
+			makePopUpAppear("success", message);
+			removeUrlParameter("redirect_message");
+		}
+	}
 
-  // Funzione che rimuove parametri specifici dall'url. 
-  function removeUrlParameter(parameter) {
-    let url = new URL(window.location.href);
-    url.searchParams.delete(parameter);
-    window.history.replaceState({}, document.title, url.toString());
-  }
+	// Funzione che rimuove parametri specifici dall'url. 
+	function removeUrlParameter(parameter) {
+		let url = new URL(window.location.href);
+		url.searchParams.delete(parameter);
+		window.history.replaceState({}, document.title, url.toString());
+	}
 
-  // Example: Remove 'param1' from the URL
+	// Example: Remove 'param1' from the URL
 
-  let popUpAccedi = `<h2>Login</h2>
+	let popUpAccedi = `<h2>Login</h2>
 		<div id="loginError" class="hidden">{{ LoginError }}</div>
 		<form id="loginForm" action="/user/login" method="POST">
 			<label for="loginEmail">Email:</label>
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			</div>
 		</form>`;
 
-  let popUpRegistrati = `<h2>Registrazione</h2>
+	let popUpRegistrati = `<h2>Registrazione</h2>
 		<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
 		<form id="registratiForm" action="/user/register">
 			<label for="signupUsername">Nome Utente:</label>
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			</div>
 		</form>`;
 
-  let popUpNewProject = `<h2>Crea un Nuovo Progetto</h2>
+	let popUpNewProject = `<h2>Crea un Nuovo Progetto</h2>
 		<div id="newProjectError" class="hidden">{{ NewProjectError }}</div>
 		<form id="nuovoProgettoForm" action="/project/new">
 			<label for=" inputNomeProgetto">Nome Progetto:</label>
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="submit" value="Crea Progetto">
 		</form>`;
 
-  let popUpModifyCredentials = `<h2>Modifica informazioni dell'account</h2>
+	let popUpModifyCredentials = `<h2>Modifica informazioni dell'account</h2>
 		<div id="modifyError" class="hidden">{{ ModifyError }}</div>
 		<form id="modificaCredenzialiForm" action="/user/modify" onsubmit="return validaForm()">
 			<label for="newEmail">Nuova <span lang="en">Email</span>:</label>
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			</div>
 		</form>`;
 
-  let popUpEditProject = `<h2>Modifica Progetto</h2>
+	let popUpEditProject = `<h2>Modifica Progetto</h2>
 		<div id="modifyProjectError" class="hidden">{{ ModifyProjectError }}</div>
 		<form id="modificaProgettoForm" action="/project/modify">
 			<label for="inputNewNomeProgetto">Nuovo Nome Progetto:</label>
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="submit" value="Salva Modifiche">
 		</form>`;
 
-  let popupDeleteProject = `<h2>Conferma Eliminazione Progetto</h2>
+	let popupDeleteProject = `<h2>Conferma Eliminazione Progetto</h2>
 	<div id="deleteProjectError" class="hidden">{{ DeleteProjectError }}</div>
 	<form id="eliminaProgettoForm" action="/project/delete">
 		<label for="inputPassword">Inserisci la <span lang="en">Password</span>:</label>
@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		</div>
 	</form>`;
 
-  let popUpDisjoinProject = `<h2>Conferma Abbandono Progetto</h2>
+	let popUpDisjoinProject = `<h2>Conferma Abbandono Progetto</h2>
 		<div id="disjoinProjectError" class="hidden">{{ DisjoinProjectError }}</div>
 		<form id="abbandonaProgettoForm" action="/project/disjoin">
 			<label for="inputPassword">Inserisci la <span lang="en">Password</span>:</label>
@@ -132,8 +132,8 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				<input type="submit" value="Conferma Abbandono">
 			</div>
 		</form>`;
-  //<input list="tags-datalist" id="newTag" name="newTag">
-  let popupNewTransaction = `<h2>Registra una Nuova Transazione</h2>
+	//<input list="tags-datalist" id="newTag" name="newTag">
+	let popupNewTransaction = `<h2>Registra una Nuova Transazione</h2>
 		<form id="nuovoMovimento" action="/movimento/new">
 			<label for="newData">Data:</label>
 			<input type="date" id="newData" name="newData" required>
@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="submit" value="Registra Transazione">
 		</form>`;
 
-  let popupEditTransaction = `<h2>Modifica una Transazione</h2>
+	let popupEditTransaction = `<h2>Modifica una Transazione</h2>
 		<form id="modificaMovimento" action="/movimento/modify">
 			<input type="number" name="transactionId" value="{{ tr-id }}" class="hidden">
 			<label for="editData">Data:</label>
@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="submit" value="Registra Transazione">
 		</form>`;
 
-  let popupDeleteTransaction = `<h2>Conferma Eliminazione Transazione</h2>
+	let popupDeleteTransaction = `<h2>Conferma Eliminazione Transazione</h2>
 		<form id="eliminaMovimento" action="/movimento/delete">
 			<input type="number" name="transactionId" value="{{ tr-id }}" class="hidden">
 			<label for="checkPassword">Inserisci la <span lang="en">Password</span>:</label>
@@ -211,97 +211,97 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="submit" value="Crea">
 		</form>`;
 
-  let diz = {
-    accedi: popUpAccedi,
-    registrati: popUpRegistrati,
-    newProject: popUpNewProject,
-    modificaCredenziali: popUpModifyCredentials,
-    editProject: popUpEditProject,
-    deleteProject: popupDeleteProject,
-    disjoinProject: popUpDisjoinProject,
-    newTransaction: popupNewTransaction,
-    editTransaction: popupEditTransaction,
-  	deleteTransaction: popupDeleteTransaction,
-	modificaTag: popUpModificaTag,
-	creaTag: popUpCreaTag
-  };
+	let diz = {
+		accedi: popUpAccedi,
+		registrati: popUpRegistrati,
+		newProject: popUpNewProject,
+		modificaCredenziali: popUpModifyCredentials,
+		editProject: popUpEditProject,
+		deleteProject: popupDeleteProject,
+		disjoinProject: popUpDisjoinProject,
+		newTransaction: popupNewTransaction,
+		editTransaction: popupEditTransaction,
+		deleteTransaction: popupDeleteTransaction,
+		modificaTag: popUpModificaTag,
+		creaTag: popUpCreaTag
+	};
 
-  document.body.addEventListener("click", function (event) {
-    // Check if the clicked element is a button
-    if (event.target.tagName === "INPUT") {
-      // Show an alert with the ID of the clicked button
+	document.body.addEventListener("click", function(event) {
+		// Check if the clicked element is a button
+		if (event.target.tagName === "INPUT") {
+			// Show an alert with the ID of the clicked button
 
-      let id = event.target.dataset.buttonKind;
-      //if(id == "newTransaction") {mostra le option in popupNewTransaction}
-      if (id == null) {
-        return;
-      } else {
-        document.getElementById(id).classList.toggle("hidden");
-        document.getElementById(id).classList.toggle("allert");
-      }
-      if (document.getElementById(id).classList.contains("hidden")) {
-        const focusableElements = document.querySelectorAll(
-          "a, button, input, textarea, select, [tabindex]"
-        );
-        focusableElements.forEach((element) => {
-          element.removeAttribute("tabindex");
-          element.classList.toggle("overlay");
-        });
-        document.getElementById(id).innerHTML = ``;
-      } else {
-        const focusableElements = document.querySelectorAll(
-          "a, button, input, textarea, select, [tabindex]"
-        );
-        focusableElements.forEach((element) => {
-          element.setAttribute("tabindex", "-1");
-          element.classList.toggle("overlay");
-        });
+			let id = event.target.dataset.buttonKind;
+			//if(id == "newTransaction") {mostra le option in popupNewTransaction}
+			if (id == null) {
+				return;
+			} else {
+				document.getElementById(id).classList.toggle("hidden");
+				document.getElementById(id).classList.toggle("allert");
+			}
+			if (document.getElementById(id).classList.contains("hidden")) {
+				const focusableElements = document.querySelectorAll(
+					"a, button, input, textarea, select, [tabindex]"
+				);
+				focusableElements.forEach((element) => {
+					element.removeAttribute("tabindex");
+					element.classList.toggle("overlay");
+				});
+				document.getElementById(id).innerHTML = ``;
+			} else {
+				const focusableElements = document.querySelectorAll(
+					"a, button, input, textarea, select, [tabindex]"
+				);
+				focusableElements.forEach((element) => {
+					element.setAttribute("tabindex", "-1");
+					element.classList.toggle("overlay");
+				});
 
-        if (id === "editTransaction") {
-          let content = popupEditTransaction.toString();
-          content = content.replace(
-            "{{ tr-id }}",
-            event.target.dataset.transazioneIndex
-          );
-          diz[id] = content;
-        }
-		else if (id === "deleteTransaction") {
-			let content = popupDeleteTransaction.toString();
-			content = content.replace(
-				"{{ tr-id }}",
-				event.target.dataset.transazioneIndex
-			);
-			diz[id] = content;
+				if (id === "editTransaction") {
+					let content = popupEditTransaction.toString();
+					content = content.replace(
+						"{{ tr-id }}",
+						event.target.dataset.transazioneIndex
+					);
+					diz[id] = content;
+				}
+				else if (id === "deleteTransaction") {
+					let content = popupDeleteTransaction.toString();
+					content = content.replace(
+						"{{ tr-id }}",
+						event.target.dataset.transazioneIndex
+					);
+					diz[id] = content;
+				}
+				else if (id === "modificaTag") {
+					let content = popUpModificaTag.toString();
+					content = content.replace(
+						"{{ tag-id }}",
+						event.target.dataset.tagIndex
+					);
+					diz[id] = content;
+				}
+				// else if (id === "creaTag") {
+				// 	let content = popUpCreaTag.toString();
+				// 	content = content.replace(
+				// 		"{{ proj-id }}",
+				// 		event.target.dataset.projectIndex
+				// 	);
+				// 	diz[id] = content;
+				// }
+				// aggiungere gli id per la pagina dei tag.
+
+				document.getElementById(id).innerHTML = diz[id];
+			}
 		}
-		else if (id === "modificaTag") {
-			let content = popUpModificaTag.toString();
-			content = content.replace(
-				"{{ tag-id }}",
-				event.target.dataset.tagIndex
-			);
-			diz[id] = content;
+	});
+
+	document.body.addEventListener("submit", function(event) {
+		if (event.target.tagName === "FORM") {
+			event.preventDefault();
+			postRequest(event);
 		}
-		// else if (id === "creaTag") {
-		// 	let content = popUpCreaTag.toString();
-		// 	content = content.replace(
-		// 		"{{ proj-id }}",
-		// 		event.target.dataset.projectIndex
-		// 	);
-		// 	diz[id] = content;
-		// }
-		// aggiungere gli id per la pagina dei tag.
-
-        document.getElementById(id).innerHTML = diz[id];
-      }
-    }
-  });
-
-  document.body.addEventListener("submit", function (event) {
-    if (event.target.tagName === "FORM") {
-      event.preventDefault();
-      postRequest(event);
-    }
-  });
+	});
 })
 
 function validaForm() {
@@ -396,8 +396,8 @@ function postRequest(event /*,isModifyProject = false*/) {
 
 			// redirezione 
 			let params = new URLSearchParams({
-        		redirect_message: data["message"]
-      		});
+				redirect_message: data["message"]
+			});
 			console.log(params);
 			const redirect = data["redirect"];
 			if (redirect && redirect !== "") {
@@ -407,8 +407,8 @@ function postRequest(event /*,isModifyProject = false*/) {
 				} else {
 					page += `?${params.toString()}`; // redirezione in tutti gli altri casi.
 				}
-        		window.location.href = page;
-			} 
+				window.location.href = page;
+			}
 			makePopUpAppear("success", data.message);
 		})
 		.catch((err) => {
@@ -436,16 +436,22 @@ function joinProject() {
 			},
 			body: JSON.stringify(datas)
 		})
-			.then(response => response.json())
-			.then(data => {
-				alert(data['status']);
+			.then(async response => {
+				if (!response.ok) {
+					throw await response.json()
+				} else {
+					return response.json();
+				}
+			})
+			.then(_ => {
+				makePopUpAppear("success", 'Progetto aggiunto con successo!');
 			})
 			.catch((error) => {
-				console.error('Error:', error);
+				makePopUpAppear("error", error.error);
 			});
 	}
 	else {
-		alert("Prima effettuare il login.");
+		makePopUpAppear("error", "Prima effettuare il login.");
 	}
 }
 

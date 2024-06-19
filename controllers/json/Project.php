@@ -18,15 +18,15 @@ function randomString($lunghezza = 10, $caratteri = '0123456789abcdefghijklmnopq
 
 $deleteProject = (new JsonApiBuilder())
 	->setPath('project/delete')
-    ->setInputParams(['project_id', 'checkPassword'])
+	->setInputParams(['project_id', 'checkPassword'])
 	->setLogicFn(
 		function ($params) {
 			// check that the user is logged in and is in the project
 			try {
-                $project_id = $params[0];
+				$project_id = $params[0];
 				if (!isLogged() || !isUserInProject($project_id) || !checkPassword($params[1])) {
 					error_log("Unauthorized");
-                    http_response_code(401);
+					http_response_code(401);
 					echo json_encode(['error' => "Unauthorized"]);
 					return;
 				}
@@ -55,12 +55,12 @@ $disjoinProject = (new JsonApiBuilder())
 		function ($params) {
 			global $projectDJ;
 			try {
-                $project_id = $params[0];
-                if (!isLogged() || !isUserInProject($project_id) || !checkPassword($params[1])) {
-                    http_response_code(401);
-                    echo json_encode(['error' => "Unauthorized"]);
-                    return;
-                }
+				$project_id = $params[0];
+				if (!isLogged() || !isUserInProject($project_id) || !checkPassword($params[1])) {
+					http_response_code(401);
+					echo json_encode(['error' => "Unauthorized"]);
+					return;
+				}
 				$email = json_decode($_SESSION["LogIn"], true)["email"];
 				$projectDJ->disjoinProject($email, $project_id);
 
@@ -123,44 +123,44 @@ $joinProject = (new JsonApiBuilder())
 				echo json_encode(['message' => 'Project joined']);
 			} catch (Exception $e) {
 				http_response_code(400);
-				echo json_encode(['error' => $e->getMessage()]);
+				echo json_encode(['error' => 'You are already in the project']);
 			}
 		}
 	)
 	->createApi();
 
 $modifyProject = (new JsonApiBuilder())
-    ->setPath('project/modify')
-    ->setInputParams(['project_id', 'newNomeProgetto', 'newDescrizioneProgetto'])
-    ->setLogicFn(
-        function ($params) {
-            // check that the user is logged in and is in the project
-            try {
-                $project_id = $params[0];
-                if (!isLogged() || !isUserInProject($project_id)) {
-                    error_log("Unauthorized");
-                    http_response_code(401);
-                    echo json_encode(['error' => "Unauthorized"]);
-                    return;
-                }
-            } catch (Exception $e) {
-                http_response_code(400);
-                echo json_encode(['error' => $e->getMessage()]);
-            }
-            global $modProject;
-            try {
-                $modProject->modify($params[0], ['nome' => $params[1], 'descrizione' => $params[2] ]);
+	->setPath('project/modify')
+	->setInputParams(['project_id', 'newNomeProgetto', 'newDescrizioneProgetto'])
+	->setLogicFn(
+		function ($params) {
+			// check that the user is logged in and is in the project
+			try {
+				$project_id = $params[0];
+				if (!isLogged() || !isUserInProject($project_id)) {
+					error_log("Unauthorized");
+					http_response_code(401);
+					echo json_encode(['error' => "Unauthorized"]);
+					return;
+				}
+			} catch (Exception $e) {
+				http_response_code(400);
+				echo json_encode(['error' => $e->getMessage()]);
+			}
+			global $modProject;
+			try {
+				$modProject->modify($params[0], ['nome' => $params[1], 'descrizione' => $params[2]]);
 
-                http_response_code(200);
-                echo json_encode(['message' => "Project modified", "redirect" => "project_home?project_id=" . $params[0]]);
-            } catch (Exception $_) {
+				http_response_code(200);
+				echo json_encode(['message' => "Project modified", "redirect" => "project_home?project_id=" . $params[0]]);
+			} catch (Exception $_) {
 
-                http_response_code(400);
-                echo json_encode(['error' => "Invalid credentials"]);
-            }
-        }
-    )
-    ->createApi();
+				http_response_code(400);
+				echo json_encode(['error' => "Invalid credentials"]);
+			}
+		}
+	)
+	->createApi();
 
 $project_router = new Router();
 $project_router->addRoute($deleteProject);

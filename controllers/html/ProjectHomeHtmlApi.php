@@ -76,7 +76,7 @@ class ProjectHomeHtmlApi extends HtmlApi
         $project_id = $_GET['project_id'];
         $tags = $tagManager->getTagList($project_id);
         if (count($tags) === 1 && $tags[0] === null) {
-            return '<p>Non ci sono tag</p>';
+            return '<p>Non ci sono <span lang="en">tag</span></p>';
         }
         $tags_list = '';
         //inserisce un bottone per ogni tag

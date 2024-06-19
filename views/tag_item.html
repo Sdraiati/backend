@@ -1,9 +1,12 @@
 <li>
 	<h3 class='nome'>{{ tag-name }}</h3>
 	<p class='descrizione'>{{ tag-desc }}</p>
-	<input type="button" value="Modifica">
+	<input type="button" data-button-kind="modificaTag" value="Modifica">
 	<form action="tag/delete">
 		<input type="submit" value="Elimina">
 	</form>
+		<!-- Modifica informazioni dell'account -->
+	<section id="modificaTag" class="hidden">
+	</section>
 </li>
 

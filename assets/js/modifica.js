@@ -191,8 +191,14 @@ document.addEventListener("DOMContentLoaded", function(_) {
 
 	let popUpModificaTag = `<h2>Modifica tag</h2>
 		<form id="modificaTagForm" action="/tag/modify" method="POST">
-			<label for="nomeTag"><span lang="en">Tag</span>:</label>
+			<label for="nomeTag">Nuovo nome <span lang="en">tag</span>:</label>
 			<input id="nomeTag" name="password" required autocomplete="current-password">
+			<label for="newDescrizione">Nuova descrizione:</label>
+			<input type="text" id="newDescrizione" name="newDescrizione">
+			<div>
+				<input type="button" data-button-kind="modificaTag" value="Annulla">
+				<input type="submit" data-button-kind="modificaTag" value="Modifica">
+			</div>
 		</form>`;
 
   let diz = {
@@ -256,6 +262,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			);
 			diz[id] = content;
 		}
+		// aggiungere gli id per la pagina dei tag.
 
         document.getElementById(id).innerHTML = diz[id];
       }

@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="email" id="signupEmail" name="email" required autocomplete="email">
 			<label for="signupPassword"><span lang="en">Password</span>:</label>
 			<input type="password" id="signupPassword" name="password" required autocomplete="new-password">
-			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span> <br>
+			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
 			<span id="passwordError" class="hidden">Le due <span lang="en">password</span> non coincidono.</span>
 			<label for="signupConfirmPassword">Ripeti <span lang="en">Password</span>:</label>
 			<input type="password" id="signupConfirmPassword" name="confirmpassword" required autocomplete="new-password">

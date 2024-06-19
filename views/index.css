@@ -72,6 +72,15 @@ section#first-para div p{
     width: 50%;
 }
 
+section#chart{
+    width: 100%;
+    text-align: center;
+}
+section#chart canvas{
+    width: 40%;
+    margin: auto;
+}
+
 header {
     padding: 10px;
     text-align: center;
@@ -102,6 +111,7 @@ ul{
 nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px;
     margin: 0; 
 }
@@ -426,7 +436,53 @@ li.projectContainer form input{
     height: 40px;
 }
 
+/*
+section#tabella{
+    display: block;
+    text-align: center;
+}*/
 
+#transazioniTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin-inline: auto;
+
+}
+
+#transazioniTable thead th {
+    background-color: #111314;
+    color: #ffffff;
+    text-align: left;
+    padding: 10px;
+    font-weight: bold;
+}
+
+#transazioniTable tbody td {
+    padding: 10px;
+}
+
+#transazioniTable tbody tr:nth-child(even) {
+    background-color: #6d2222;
+}
+
+#transazioniTable tbody td:nth-child(-n+4) {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#transazioniTable tbody form{
+    display: block;
+    text-align: center;
+}
+
+.Login ul.login-list
+{
+
+}
+
+.Login ul.login-list li{
+
+}
 
 @media (max-width: 1280px) {
     .allert
@@ -445,9 +501,14 @@ li.projectContainer form input{
         transform: translate(-50%, -50%);
         border-radius: 10px;
     }
+    section#chart{
+        display: grid;
+    justify-items: center;
+    align-content: center;
+    }
 }
-
 @media (max-width: 600px) {
+
 
     header h1{
         width: 50%;

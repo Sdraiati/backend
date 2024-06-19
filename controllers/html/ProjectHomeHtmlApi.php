@@ -81,7 +81,7 @@ class ProjectHomeHtmlApi extends HtmlApi
         $tags_list = '';
         //inserisce un bottone per ogni tag
         foreach ($tags as $tag) {
-            $tags_list .= '<li><input type="button" value="' . $tag . '"></li>';
+            $tags_list .= '<li><input type="button" value="' . $tag['nome'] . '"></li>';
         }
         return $tags_list;
     }

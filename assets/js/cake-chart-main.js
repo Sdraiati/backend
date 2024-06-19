@@ -1,9 +1,9 @@
 import { TransazioniSingleton } from './TransazioniSingleton.js'
 import { drawCakeChart } from './cakeChart.js'
-import { update_transazioni_table } from './transazioni_list.js'
+import { updateTransazioniTable } from './transazioni_list.js'
 
 TransazioniSingleton.addObserver(drawCakeChart)
-TransazioniSingleton.addObserver(update_transazioni_table)
+TransazioniSingleton.addObserver(updateTransazioniTable)
 
 TransazioniSingleton.fetch()
 TransazioniSingleton.update()

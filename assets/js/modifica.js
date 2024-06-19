@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded", function(_) {
   const upar = url.searchParams;
 
   if (upar.size > 0) {
-    // debug
-    console.log(upar);
     params = [];
     upar.forEach((value, key) => {
       const decodedKey = decodeURIComponent(key);
@@ -60,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<span id="passwordError" class="hidden">Le due <span lang="en">password</span> non coincidono.</span>
 			<label for="signupConfirmPassword">Ripeti <span lang="en">Password</span>:</label>
 			<input type="password" id="signupConfirmPassword" name="confirmpassword" required autocomplete="new-password">
-			<input type="checkbox" onclick="toogleView()">Mostra <span lang="en">Password</span>
+			<input type="checkbox" onclick="toogleView('confirmpassword')">Mostra <span lang="en">Password</span>
 			<div>
 				<input type="button" data-button-kind="registrati" value="Annulla">
 				<input type="submit" value="Registrati">
@@ -102,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 
   let popUpEditProject = `<h2>Modifica Progetto</h2>
 		<div id="modifyProjectError" class="hidden">{{ ModifyProjectError }}</div>
-		<form id="modificaProgettoForm" action"/project/modify">
+		<form id="modificaProgettoForm" action="/project/modify">
 			<label for="inputNewNomeProgetto">Nuovo Nome Progetto:</label>
 			<input type="text" id="newNewNomeProgetto" name="newNomeProgetto">
 			<label for="inputNewDescrizioneProgetto">Nuova Descrizione:</label>
@@ -162,9 +160,9 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		<form id="modificaMovimento" action="/movimento/modify">
 			<input type="number" name="transactionId" value="{{ tr-id }}" class="hidden">
 			<label for="editData">Data:</label>
-			<input type="date" id="editData" name="editData" required>
+			<input type="date" id="editData" name="editData">
 			<label for="editImporto">Importo (€):</label>
-			<input type="number" id="editImporto" name="editImporto" step="0.01" required>
+			<input type="number" id="editImporto" name="editImporto" step="0.01">
 			<label for="editTag"><span lang="en">Tag</span>:</label>
 			<select id="editTag" name="editTag">
 				<option value="volvo">Volvo</option>
@@ -181,6 +179,16 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="submit" value="Registra Transazione">
 		</form>`;
 
+  let popupDeleteTransaction = `<h2>Conferma Eliminazione Transazione</h2>
+		<form id="eliminaMovimento" action="/movimento/delete">
+			<input type="number" name="transactionId" value="{{ tr-id }}" class="hidden">
+			<label for="checkPassword">Inserisci la <span lang="en">Password</span>:</label>
+			<input type="password" id="checkPassword" name="checkPassword" required>
+			<input type="checkbox" onclick="toogleView('checkPassword')">Mostra <span lang="en">Password</span>
+			<input type="button" data-button-kind="deleteTransaction" value="Annulla">
+			<input type="submit" value="Conferma Eliminazione">
+		</form>`;
+
   let diz = {
     accedi: popUpAccedi,
     registrati: popUpRegistrati,
@@ -191,6 +199,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
     disjoinProject: popUpDisjoinProject,
     newTransaction: popupNewTransaction,
     editTransaction: popupEditTransaction,
+  	deleteTransaction: popupDeleteTransaction,
   };
 
   document.body.addEventListener("click", function (event) {
@@ -230,9 +239,16 @@ document.addEventListener("DOMContentLoaded", function(_) {
             "{{ tr-id }}",
             event.target.dataset.transazioneIndex
           );
-          console.log(content);
           diz[id] = content;
         }
+		else if (id === "deleteTransaction") {
+			let content = popupDeleteTransaction.toString();
+			content = content.replace(
+				"{{ tr-id }}",
+				event.target.dataset.transazioneIndex
+			);
+			diz[id] = content;
+		}
 
         document.getElementById(id).innerHTML = diz[id];
       }

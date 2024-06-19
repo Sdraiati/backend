@@ -82,10 +82,10 @@ $modifyMovimento = (new JsonApiBuilder())
 
 $deleteMovimento = (new JsonApiBuilder())
 	->setPath('movimento/delete')
-	->setInputParams(['id_progetto', 'id_transazione'])
+	->setInputParams(['project_id', 'transactionId', 'checkPassword'])
 	->setLogicFn(
 		function ($params) {
-			if (!isLogged() || !isUserInProject($params[0])) {
+            if (!isLogged() || !isUserInProject($params[0]) || !checkPassword($params[2])) {
 				http_response_code(401);
 				echo json_encode(['error' => "Unauthorized"]);
 				return;

@@ -134,9 +134,21 @@ $modifyProject = (new JsonApiBuilder())
     ->setInputParams(['project_id', 'newNomeProgetto', 'newDescrizioneProgetto'])
     ->setLogicFn(
         function ($params) {
+            // check that the user is logged in and is in the project
             try {
-                global $projectManager;
-                global $modProject;
+                $project_id = $params[0];
+                if (!isLogged() || !isUserInProject($project_id)) {
+                    error_log("Unauthorized");
+                    http_response_code(401);
+                    echo json_encode(['error' => "Unauthorized"]);
+                    return;
+                }
+            } catch (Exception $e) {
+                http_response_code(400);
+                echo json_encode(['error' => $e->getMessage()]);
+            }
+            global $modProject;
+            try {
                 $modProject->modify($params[0], ['nome' => $params[1], 'descrizione' => $params[2] ]);
 
                 http_response_code(200);

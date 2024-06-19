@@ -7,7 +7,7 @@ const ms_per_day = 1000 * 60 * 60 * 24
 /** Disegna il grafico
 * @param {Transazione[]} transazioni - Array di transazioni
 */
-async function draw_chart(transactions) {
+async function drawChart(transactions) {
 	let period = TransazioniSingleton.getPeriod()
 	let BEGIN = period.begin
 	let END = period.end
@@ -82,4 +82,4 @@ function drawLineChart(chart, saldi) {
 		})
 }
 
-export { draw_chart }
+export { drawChart }

@@ -23,7 +23,8 @@ class Transazione {
 		createCell(newRow, this.importo.toFixed(2))
 		createCell(newRow, this.tag)
 		createCell(newRow, this.descrizione)
-		createButtonCell(newRow, this.id)
+		createButtonCell(newRow, this.id, "Modifica", "editTransaction")
+		createButtonCell(newRow, this.id, "Elimina", "deleteTransaction")
 		return newRow
 	}
 
@@ -52,14 +53,14 @@ function createCell(row, text) {
 * @param {HTMLTableRowElement} row - Riga della tabella
 * @param {number} index - Indice della transazione
 */
-function createButtonCell(row, index) {
+function createButtonCell(row, index, value, buttonKind) {
 	let form = document.createElement("form")
 	let td = document.createElement("td")
 	let button = document.createElement("input")
-	button.setAttribute("data-button-kind", "editTransaction")
+	button.setAttribute("data-button-kind", buttonKind)
 	button.setAttribute("data-transazione-index", index)
 	button.setAttribute("type", "button")
-	button.setAttribute("value", "Modifica")
+	button.setAttribute("value", value)
 	form.appendChild(button)
 	td.appendChild(form)
 	row.appendChild(td)

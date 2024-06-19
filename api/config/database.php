@@ -56,9 +56,9 @@ class Database {
         }
 
         // Log the SQL and parameters for debugging
-        error_log("SQL: " . $sql);
-        error_log("Types: " . $types);
-        error_log("Values: " . json_encode($values));
+//        error_log("SQL: " . $sql);
+//        error_log("Types: " . $types);
+//        error_log("Values: " . json_encode($values));
 
         return $stmt;
     }

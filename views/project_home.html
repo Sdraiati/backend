@@ -22,7 +22,7 @@
 	<header>
 		<nav>
 			<div class="Logo">
-				<a href="/"><img src="assets/img/logo.jpeg" alt="logo"></a>
+				<a href="/"><img src="assets/img/logo.png" alt="logo"></a>
 			</div>
 			{{ header }}
 		</nav>
@@ -106,15 +106,20 @@
 		<!-- Modifica Transazione -->
 		<section id="editTransaction" class="hidden"> </section>
 
+		<!-- Elimina Transazione -->
+		<section id="deleteTransaction" class="hidden"> </section>
+
 		<script type="module" src="assets/js/transazioni_list.js"></script>
 
 
 		<!-- Filtri per tag -->
 		<aside class="filtri-tag-container">
-			<a href="project_cake.html">Vai al Grafico a Torta</a>
 			<h2>Filtri per Tag</h2>
 			<!-- Inserisci qui i filtri per tag -->
 			<form id="tag_sidebar">
+				<ul>
+					{{ tags }}
+				</ul>
 			</form>
 
 			<a onclick='window.location.href = "tag_page?project_id={{ project-id }}"'>Vai alla Pagina dei Tag</a>
@@ -127,6 +132,7 @@
 			<h2>Partecipanti</h2>
 			<!-- Inserisci qui l'elenco dei partecipanti -->
 			<ul id="partecipanti-list">
+				{{ partecipants }}
 			</ul>
 		</aside>
 

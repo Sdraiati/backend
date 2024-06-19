@@ -46,24 +46,52 @@ class Movimento extends DatabaseManager
 
 	public function update($movimento_id, array $fields): bool
 	{
-		$sql = "UPDATE movimento SET ";
-		$params = [];
-		$setStatements = [];
-		foreach ($fields as $key => $value) {
-			$setStatements[] = "$key = ?";
-			$params[] = ['type' => 's', 'value' => $value];
-		}
+        //If there is null fields, remove from fields
+        foreach ($fields as $key => $value) {
+            if ($value === "") {
+                unset($fields[$key]);
+            }
+        }
 
-		if (empty($setStatements)) {
-			return false;
-		}
+        if (empty($fields)) {
+            return false;
+        }
 
-		$sql .= implode(', ', $setStatements);
-		$sql .= " WHERE id = ?";
-		$params[] = ['type' => 'i', 'value' => $movimento_id];
-		$stmt = $this->db->prepareAndBindParams($sql, $params);
-		$stmt->execute() or die($stmt->error);
-		return true;
+        $sql = "UPDATE movimento SET ";
+        $params = [];
+
+        $setStatements = [];
+        foreach ($fields as $key => $value) {
+            if ($value !== null) {
+                $setStatements[] = "$key = ?";
+                $params[] = ['type' => 's', 'value' => $value];
+            }
+        }
+
+        if (empty($setStatements)) {
+            return false;
+        }
+
+        $sql .= implode(', ', $setStatements);
+
+        $sql .= ' WHERE id = ?';
+        $params[] = ['type' => 'i', 'value' => $movimento_id];
+
+        $stmt = $this->db->prepareAndBindParams($sql, $params);
+
+        if (!$stmt) {
+            error_log("Failed to prepare statement");
+            return false;
+        }
+
+        $result = $stmt->execute();
+
+        if (!$result) {
+            error_log("Failed to execute statement");
+            return false;
+        }
+
+        return true;
 	}
 
 	public function get($project_id)

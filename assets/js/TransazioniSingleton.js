@@ -59,7 +59,7 @@ class TransazioniSingleton {
 
 		if (TransazioniSingleton.tag != null) {
 			transazioni = transazioni.filter((transazione) => {
-				transazione.tag === TransazioniSingleton.tag
+				return transazione.tag === TransazioniSingleton.tag
 			})
 		}
 

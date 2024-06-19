@@ -1,29 +1,30 @@
 <!-- <title>Home - Penny Wise</title> -->
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Resource Not Found</title>
+	<title>Risorsa non trovata</title>
 	<!--<base href="/">-->
 	<meta name="description" content="un sito per mostrare cose">
 	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
-	<link rel="stylesheet" type="text/css" href="views\index.css">
+	<link rel="stylesheet" type="text/css" href="views/index.css">
 	<script src="assets/js/modifica.js"></script>
 </head>
 
 
 <body>
+	<a href="#main-content" class="skip-link">Salta al contenuto principale</a>
 
 	<header>
 		<nav>
 			<div class="Logo">
-				<a href="/"><img src="assets/img/logo.png" alt="logo"></a>
+				<a href="/" aria-label="Torna alla home page"><img src="assets/img/logo.png" alt="logo della web app PennyWise"></a>
 			</div>
 			{{ header }}
 		</nav>
-		<h1>Penny Wise</h1>
+		<h1><span lang="en">Penny Wise</span></h1>
 	</header>
 
 	<section id="accedi" class="hidden">
@@ -34,12 +35,12 @@
 
 	<script type="module" src="assets/js/nav.js"></script>
 
-	<main>
+	<main id="main-content">
 		<div id="error404">
 			<h1>Risorsa non trovata - 404</h1>
 			<input type="button" onclick="window.location.href='/'" value="Torna alla Home">
 			<img src="./assets/img/angry_paperone.png"
-				alt="Paperone dice: Ahia, ahia, ahia! Sembra che la mia preziosa risorsa sia svanita nel nulla">
+				alt="vignetta di Paperone che dice che la rirsorsa non c'è>
 		</div>
 	</main>
 
@@ -56,8 +57,8 @@
 			<ul>
 				<li><a href="/"><span lang="en">Homepage</span></a></li>
 				<li><a href="release_notes"><span lang="en">Release Notes</span></a></li>
-				<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
-																				id="github-mark"><span lang="en">GitHub</span></a></li>
+				<li><a href="https://github.com/Sdraiati" target="_blank" aria-label="Vai alla pagina di Github"> <img src="assets/img/github-mark-white.png"
+																													   id="github-mark" alt="logo di Github"><span lang="en">GitHub</span></a></li>
 			</ul>
 		</div>
 	</footer>

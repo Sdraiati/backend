@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 	<meta charset="utf-8">
@@ -8,21 +8,23 @@
 	<!--<base href="/">-->
 	<meta name="description" content="Tieni traccia delle tue spese tramite progetti personali o condivisi">
 	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
-	<link rel="stylesheet" type="text/css" href="views\index.css">
+	<link rel="stylesheet" type="text/css" href="views/index.css">
 	<script src="assets/js/modifica.js"></script>
 </head>
 
 
 <body>
+	<a href="#main-content" class="skip-link">Salta al contenuto principale</a>
+
 	<header>
 		<nav>
 			<div class="Logo">
-				<a href="/"><img src="assets/img/logo.png" alt="logo"></a>
+				<a href="/" aria-label="Torna alla home page"><img src="assets/img/logo.png" alt="logo della web app PennyWise"></a>
 			</div>
 			{{ header }}
 		</nav>
 		<h1>{{ Project Name }}</h1>
-		<div aria-label="descrizione">{{ Project Description }}</div>
+		<div>{{ Project Description }}</div>
 		<input type="button" data-button-kind="editProject" value="Modifica Progetto">
 		<input type="button" data-button-kind="deleteProject" value="Elimina">
 		<input type="button" data-button-kind="disjoinProject" value="Abbandona Progetto">
@@ -46,7 +48,7 @@
 	<section id="disjoinProject" class="hidden">
 	</section>
 
-	<main>
+	<main id="main-content">
 		<!-- Condividi Progetto -->
 		<section id="shareProject" class="hidden">
 			<h2>Condividi Progetto</h2>
@@ -76,6 +78,8 @@
 			<input type="button" data-button-kind="newTransaction" value="Nuova Transazione">
 			<!-- Inserisci qui la tabella delle transazioni -->
 			<table id="transazioniTable">
+				<!-- Nome accessibile della tabella -->
+				<caption>Elenco delle transazioni del progetto</caption>
 				<!-- Intestazione della tabella -->
 				<thead>
 					<tr>
@@ -146,8 +150,8 @@
 			<ul>
 				<li><a href="/"><span lang="en">Homepage</span></a></li>
 				<li><a href="release_notes"><span lang="en">Release Notes</span></a></li>
-				<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
-							id="github-mark"><span lang="en">GitHub</span></a></li>
+				<li><a href="https://github.com/Sdraiati" target="_blank" aria-label="Vai alla pagina di Github"> <img src="assets/img/github-mark-white.png"
+																													   id="github-mark" alt="logo di Github"><span lang="en">GitHub</span></a></li>
 			</ul>
 		</div>
 	</footer>

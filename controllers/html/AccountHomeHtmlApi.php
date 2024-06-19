@@ -21,7 +21,7 @@ class AccountHomeHtmlApi extends HtmlApi
 		$user = $this->getUser();
 		$projects = $projectManager->getProjectList($user['email']);
 		if (count($projects) === 1 && $projects[0] === null) {
-			return '<p>Non hai nessun progetto</p>';
+			return '<li><p>Non hai nessun progetto</p></li>';
 		}
 		$project_list = '';
 		foreach ($projects as $project) {

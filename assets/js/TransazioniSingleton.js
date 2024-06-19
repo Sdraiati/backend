@@ -90,6 +90,12 @@ class TransazioniSingleton {
 		TransazioniSingleton.update();
 	}
 
+	static removeTag(tag) {
+		TransazioniSingleton.tag = null
+		TransazioniSingleton.update();
+
+	}
+
 	/** Aggiunge un observer alla lista degli observer
 	* @param {function} fn - Funzione da aggiungere alla lista degli observer
 	*/

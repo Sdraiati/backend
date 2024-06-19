@@ -43,7 +43,14 @@ document.getElementById("transazioni-successive").addEventListener("click", func
 let tags = document.querySelectorAll("#tag_sidebar input[type=\"button\"]")
 tags.forEach((tag) => {
 	tag.addEventListener("click", function() {
-		let tag_name = tag.value
-		TransazioniSingleton.setTag(tag_name)
-	})
-})
+		let tag_name = tag.value;
+
+		if (tag.classList.contains("disabled")) {
+			TransazioniSingleton.removeTag(tag_name);
+			tag.classList.remove("disabled");
+		} else {
+			TransazioniSingleton.setTag(tag_name);
+			tag.classList.add("disabled");
+		}
+	});
+});

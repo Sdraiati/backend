@@ -367,26 +367,8 @@ function makePopUpAppear(id, message) {
 	}, 3000);
 }
 
-function postRequest(event /*,isModifyProject = false*/) {
-	// PARTE NUOVA
-	//   var datas = {};
-
-	data = Object.fromEntries(new FormData(event.target).entries());
-
-	const urlString = window.location.href;
-	const url = new URL(urlString);
-	const upar = url.searchParams;
-	console.log(upar);
-
-	upar.forEach((value, key) => {
-		const decodedKey = decodeURIComponent(key);
-		const decodedValue = decodeURIComponent(value);
-		data[decodedKey] = decodedValue;
-	});
-
-	console.log(data);
-
-	fetch(event.target.action, { method: "POST", body: JSON.stringify(data) })
+function post_request(url, body) {
+	fetch(url, { method: "POST", body: JSON.stringify(body) })
 		.then(async (data) => {
 			if (!data.ok) {
 				throw await data.json();
@@ -414,8 +396,24 @@ function postRequest(event /*,isModifyProject = false*/) {
 		.catch((err) => {
 			console.log(err);
 			makePopUpAppear("error", err.error);
-			// document.getElementById("error").innerText = err.error;
 		});
+}
+
+function postRequest(event) {
+	data = Object.fromEntries(new FormData(event.target).entries());
+
+	const urlString = window.location.href;
+	const url = new URL(urlString);
+	const upar = url.searchParams;
+	console.log(upar);
+
+	upar.forEach((value, key) => {
+		const decodedKey = decodeURIComponent(key);
+		const decodedValue = decodeURIComponent(value);
+		data[decodedKey] = decodedValue;
+	});
+
+	post_request(event.target.action, data);
 }
 
 function joinProject() {
@@ -429,29 +427,9 @@ function joinProject() {
 			link: params.get('link'),
 		};
 
-		fetch('/project/join', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(datas)
-		})
-			.then(async response => {
-				if (!response.ok) {
-					throw await response.json()
-				} else {
-					return response.json();
-				}
-			})
-			.then(_ => {
-				makePopUpAppear("success", 'Progetto aggiunto con successo!');
-			})
-			.catch((error) => {
-				makePopUpAppear("error", error.error);
-			});
-	}
-	else {
-		makePopUpAppear("error", "Prima effettuare il login.");
+		post_request('/project/join', datas);
+	} else {
+		makePopUpAppear("error", "Devi fare prima il Login");
 	}
 }
 

@@ -120,7 +120,7 @@ $joinProject = (new JsonApiBuilder())
 				$joinProget->joinProject($email, $id_project);
 
 				http_response_code(201);
-				echo json_encode(['message' => 'Project joined']);
+				echo json_encode(['message' => 'Project joined', "redirect" => "project_home?project_id=" . $id_project]);
 			} catch (Exception $e) {
 				http_response_code(400);
 				echo json_encode(['error' => 'You are already in the project']);

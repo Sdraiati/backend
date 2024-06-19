@@ -17,21 +17,21 @@ class TagPageHtmlApi extends HtmlApi
 	{
 		global $tagManager;
 		$project_id = $_GET['project_id'];
-		$tags = $tagManager->getTagsByIdProgetto($project_id);
-		if (count($tags) != 0) {
-			return '<p> vi sono tag associati a questo progetto</p>';
+		$tags = $tagManager->getTagList($project_id);
+		if (count($tags) === 0) {
+			return 'NON vi sono tag associati a questo progetto';
+		} else {
+			$tag_list = '';
+			foreach ($tags as $tag) {
+				// fare la stessa cosa con i tag.
+				if ($tag) {
+					$tag_item = $this->getContent('tag_item');
+					$tag_item = str_replace('{{ tag-name }}', $tag, $tag_item);
+					$tag_list .= $tag_item;
+				}
+			}
 		}
-		$tag_list = '';
-		foreach ($tags as $tag) {
-			// fare la stessa cosa con i tag.
-			$project_layout = $this->getContent('project_item');
-			$project_layout = str_replace('{{ project-name }}', $project['nome'], $project_layout);
-			$project_layout = str_replace('{{ project-description }}', $project['descrizione'], $project_layout);
-			$project_layout = str_replace('{{ project-id }}', $project['id'], $project_layout);
-			$project_layout = str_replace('{{ project-link }}', $project['link_condivisione'], $project_layout);
-			$project_list .= $project_layout;
-		}
-		return $project_list;
+		return $tag_list;
 	}
 
 	public function handle()
@@ -41,6 +41,8 @@ class TagPageHtmlApi extends HtmlApi
 			$content = $this->getContent('resource_not_found');
 		}
 		$content = str_replace('{{ header }}', $this->getHeader(), $content);
+		$content = str_replace('{{ tag-list }}', $this->get_tag_list(), $content);
 		echo $content;
+		// echo json_encode($this->get_tag_list());
 	}
 }

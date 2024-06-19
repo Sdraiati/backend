@@ -7,8 +7,8 @@ class TagInfo extends DatabaseManager {
     }
 
     public function getTagsByIdProgetto($projectId) {
-        $query = "SELECT tag.id, tag.nome, tag.descrizione FROM tag
-			WHERE tag.id_progetto = ?";
+        $sql= "SELECT * FROM tag
+			WHERE id_progetto = ?";
 
         $params = [
             ['type' => 'i', 'value' => $projectId],
@@ -17,6 +17,8 @@ class TagInfo extends DatabaseManager {
         $stmt = $this->db->prepareAndBindParams($sql, $params);
 
         $stmt->execute() or die($stmt->error);
+
+        $result = $stmt->get_result();
 
         return $result->fetch_assoc();
     }

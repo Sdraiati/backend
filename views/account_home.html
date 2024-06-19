@@ -44,8 +44,10 @@
 				<li>Nome Utente: <span id="username">{{ username }}</span></li>
 				<li>Email: <span id="email">{{ email }}</span></li>
 			</ul>
-			<input type="button" data-button-kind="modificaCredenziali" value="Modifica Credenziali">
-			<input type="button" value="Esci" onclick="logOut()">
+			<form>
+				<input type="button" data-button-kind="modificaCredenziali" value="Modifica Credenziali">
+				<input type="button" aria-label="tasto per effettuare il logout" value="Esci" onclick="logOut()">
+			</form>
 		</section>
 
 		<!-- Modifica informazioni dell'account -->

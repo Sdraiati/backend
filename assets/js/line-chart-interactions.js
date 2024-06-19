@@ -38,19 +38,15 @@ document.getElementById("transazioni-successive").addEventListener("click", func
 	}
 	document.getElementById("transazioni-precedenti").disabled = false
 })
-
-//prendo tutti i tasti il form con id tag_sidebar
-let tags = document.querySelectorAll("#tag_sidebar input[type=\"button\"]")
+let tags = document.querySelectorAll("#tag_sidebar input[type=\"button\"]");
 tags.forEach((tag) => {
 	tag.addEventListener("click", function() {
-		let tag_name = tag.value;
-
-		if (tag.classList.contains("disabled")) {
-			TransazioniSingleton.removeTag(tag_name);
-			tag.classList.remove("disabled");
+		if (tag.classList.contains("disabled-button")) {
+			TransazioniSingleton.removeTag(tag.value);
+			tag.classList.remove("disabled-button");
 		} else {
-			TransazioniSingleton.setTag(tag_name);
-			tag.classList.add("disabled");
+			TransazioniSingleton.setTag(tag.value);
+			tag.classList.add("disabled-button");
 		}
 	});
 });

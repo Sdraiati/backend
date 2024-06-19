@@ -209,10 +209,10 @@ button:hover, input[type="button"]:hover, input[type="sumbit"]:hover
     background-color: var(--textButtonHoverColor);
 }
 
-button[disabled]
+button[disabled],
+input[type="button"].disabled-button
 {
     opacity: 0.7;
-    cursor: not-allowed;
 }
 
 .mask

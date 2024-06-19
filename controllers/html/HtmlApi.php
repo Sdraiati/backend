@@ -14,7 +14,8 @@ class HtmlApi extends Api
 	public function match($path, $method): bool
 	{
 		$path = explode('?', $path)[0];
-		return "/" . $this->path === $path && $this->method === $method;
+		//return "/" . $this->path === $path && $this->method === $method;
+		return parent::match($path, $method);
 	}
 
 	protected function getContent($path)

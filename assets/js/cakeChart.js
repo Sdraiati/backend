@@ -139,11 +139,12 @@ class Cake {
     }
 
     addSlice(angle) {
+        const epsilon = 0.0001; // small value to handle floating point precision
         this.#context.closePath();
         this.#context.stroke();
 
         this.#last_angle = this.#offset_angle + this.#used_angle;
-        if (angle > Cake.total_angle - this.#used_angle) { console.log("Overflow usable angle"); return -1; }
+        if (angle > Cake.total_angle - this.#used_angle + epsilon) { console.log("Overflow usable angle"); return -1; }
         else {
             this.#context.beginPath();
 

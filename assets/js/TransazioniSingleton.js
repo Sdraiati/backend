@@ -1,4 +1,5 @@
 import { Transazione } from "./transazione.js"
+import { rebaseUrl } from "./modifica.js"
 
 const ms_per_day = 1000 * 60 * 60 * 24
 
@@ -18,7 +19,7 @@ class TransazioniSingleton {
 			body: JSON.stringify({ project_id: project_id }),
 		}
 
-		fetch(`movimento/get`, options)
+		fetch(rebaseUrl(`movimento/get`), options)
 			.then(async response => {
 				if (response.ok) {
 					let data = await response.json()

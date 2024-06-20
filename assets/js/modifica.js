@@ -353,7 +353,7 @@ function makePopUpAppear(id, message) {
 }
 
 function post_request(url, body) {
-	fetch(url, { method: "POST", body: JSON.stringify(body) })
+	fetch(rebaseUrl(url), { method: "POST", body: JSON.stringify(body) })
 		.then(async (data) => {
 			if (!data.ok) {
 				throw await data.json();
@@ -419,7 +419,7 @@ async function getTags() {
 	const url = new URL(urlString);
 	let data={'project_id': url.searchParams.get("project_id")};
 
-	return fetch("/tag/get", {
+	return fetch(rebaseUrl("/tag/get"), {
 		method: "POST", body: JSON.stringify(data)
 	})
 		.then(async (data) => {
@@ -455,3 +455,11 @@ function toogleView(name = "password") {
 		}
 	}
 }
+
+function rebaseUrl(link){
+	link= link.replace('https://localhost:8080' || 'http://tecweb.studenti.math.unipd.it', '');
+	link = '/scaregna' + link;
+	return link;
+}
+
+export { rebaseUrl }

@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function(_) {
 	// Example: Remove 'param1' from the URL
 
 	let popUpAccedi = `<h2>Login</h2>
-		<div id="loginError" class="hidden">{{ LoginError }}</div>
 		<form id="loginForm" action="/user/login" method="POST">
 			<label for="loginEmail">Email:</label>
 			<input type="email" id="loginEmail" name="email" required autocomplete="email">
@@ -46,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		</form>`;
 
 	let popUpRegistrati = `<h2>Registrazione</h2>
-		<div id="registrationError" class="hidden">{{ RegistratioError }}</div>
 		<form id="registratiForm" action="/user/register">
 			<label for="signupUsername">Nome Utente:</label>
 			<input type="text" id="signupUsername" name="username" required autocomplete="username">
@@ -66,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		</form>`;
 
 	let popUpNewProject = `<h2>Crea un Nuovo Progetto</h2>
-		<div id="newProjectError" class="hidden">{{ NewProjectError }}</div>
 		<form id="nuovoProgettoForm" action="/project/new">
 			<label for=" inputNomeProgetto">Nome Progetto:</label>
 			<input type="text" id="inputNomeProgetto" name="nomeProgetto" required>
@@ -77,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		</form>`;
 
 	let popUpModifyCredentials = `<h2>Modifica informazioni dell'account</h2>
-		<div id="modifyError" class="hidden">{{ ModifyError }}</div>
 		<form id="modificaCredenzialiForm" action="/user/modify" onsubmit="return validaForm()">
 			<label for="newEmail">Nuova <span lang="en">Email</span>:</label>
 			<input type="email" id="newEmail" name="newEmail">
@@ -99,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		</form>`;
 
 	let popUpEditProject = `<h2>Modifica Progetto</h2>
-		<div id="modifyProjectError" class="hidden">{{ ModifyProjectError }}</div>
 		<form id="modificaProgettoForm" action="/project/modify">
 			<label for="inputNewNomeProgetto">Nuovo Nome Progetto:</label>
 			<input type="text" id="newNewNomeProgetto" name="newNomeProgetto">
@@ -110,7 +105,6 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		</form>`;
 
 	let popupDeleteProject = `<h2>Conferma Eliminazione Progetto</h2>
-	<div id="deleteProjectError" class="hidden">{{ DeleteProjectError }}</div>
 	<form id="eliminaProgettoForm" action="/project/delete">
 		<label for="inputPassword">Inserisci la <span lang="en">Password</span>:</label>
 		<input type="password" id="checkPassword" name="checkPassword" required>
@@ -122,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function(_) {
 	</form>`;
 
 	let popUpDisjoinProject = `<h2>Conferma Abbandono Progetto</h2>
-		<div id="disjoinProjectError" class="hidden">{{ DisjoinProjectError }}</div>
 		<form id="abbandonaProgettoForm" action="/project/disjoin">
 			<label for="inputPassword">Inserisci la <span lang="en">Password</span>:</label>
 			<input type="password" id="checkPassword" name="checkPassword" required>
@@ -147,9 +140,6 @@ document.addEventListener("DOMContentLoaded", function(_) {
 				<option value="opel">Opel</option>
 				<option value="audi">Audi</option>
 			</select>
-			<!-- Datalist per i tag -->
-			<datalist id="tags-datalist">
-			</datalist>
 			<label for="newDescrizione">Descrizione:</label>
 			<input type="text" id="newDescrizione" name="newDescrizione">
 			<input type="button" data-button-kind="newTransaction" value="Annulla">

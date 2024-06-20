@@ -374,13 +374,10 @@ function post_request(url, body) {
 				throw await data.json();
 			}
 			data = await data.json();
-			console.log(data);
 
-			// redirezione 
 			let params = new URLSearchParams({
 				redirect_message: data["message"]
 			});
-			console.log(params);
 			const redirect = data["redirect"];
 			if (redirect && redirect !== "") {
 				let page = `${redirect}`;

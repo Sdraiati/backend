@@ -634,3 +634,8 @@ li.projectContainer form input{
     display: flex;
     gap: 10px;
 }
+
+.tag-container {
+    display: flex;
+    gap: 10px;
+}

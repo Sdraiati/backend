@@ -1,10 +1,16 @@
 <li>
-	<h3 class='nome'>{{ tag-name }}</h3>
-	<p class='descrizione'>{{ tag-desc }}</p>
-	<input type="button" data-button-kind="modificaTag" data-tag-index="{{ tag-id }}" value="Modifica">
-	<form action="tag/delete">
-		<input type="number" name="tag_id" value="{{ tag-id }}" class="hidden">
-		<input type="submit" value="Elimina">
-	</form>
+	<div>
+		<div class="tag-container">
+			<h3 class='nome'>{{ tag-name }}</h3>
+			<p class='descrizione'>{{ tag-desc }}</p>
+		</div>
+		<div class="tag-container">
+			<input type="button" data-button-kind="modificaTag" data-tag-index="{{ tag-id }}" value="Modifica">
+			<form action="tag/delete">
+				<input type="number" name="tag_id" value="{{ tag-id }}" class="hidden">
+				<input type="submit" value="Elimina">
+			</form>
+		</div>
+	</div>
 </li>
 

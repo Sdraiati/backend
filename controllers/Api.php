@@ -110,7 +110,7 @@ abstract class Api
 
 	public function match($path, $method): bool
 	{
-		return "/" . $this->path === $path && $this->method === $method;
+		return "/scaregna/" . $this->path === $path && $this->method === $method;
 	}
 
 	abstract public function handle();

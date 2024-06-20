@@ -47,9 +47,20 @@ class TransazioniSingleton {
 		let project_id = get_project_id()
 		let transazioni = []
 		if (sessionStorage.getItem(`${project_id}`) == null) {
-			transazioni = await TransazioniSingleton.fetch()
+			transazioni = await TransazioniSingleton.fetch();
+			if (!Array.isArray(transazioni)) {
+				transazioni = [];  // Assicurarsi che sia sempre un array
+			}
 		} else {
-			transazioni = JSON.parse(sessionStorage.getItem(`${project_id}`))
+			try {
+				transazioni = JSON.parse(sessionStorage.getItem(`${project_id}`));
+				if (!Array.isArray(transazioni)) {
+					transazioni = [];  // Assicurarsi che sia sempre un array
+				}
+			} catch (e) {
+				transazioni = [];  // Gestire JSON non valido
+				console.error("Errore nel parsing JSON:", e);
+			}
 		}
 		transazioni = transazioni.map((obj) => Transazione.fromJsonObj(obj))
 		return transazioni

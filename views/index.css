@@ -471,11 +471,11 @@ li.projectContainer form input{
 }
 
 #transazioniTable tbody tr:nth-child(even) {
-    background-color: #FF5733;
+    background-color: #556B2F;
 }
 
 #transazioniTable tbody tr:nth-child(odd) {
-    background-color: #33C1FF;
+    background-color: #8FBC8F;
 }
 
 #transazioniTable tbody td:nth-child(-n+4) {

@@ -14,3 +14,9 @@ main
 a[href^="/"]:after{
     content: "(http://www.PennyWise.it" attr(href) ")";
 }
+
+.site-map {
+    width: 80%;
+    background: black;
+    display: inline-block;
+}

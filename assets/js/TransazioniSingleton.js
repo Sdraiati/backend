@@ -24,7 +24,7 @@ class TransazioniSingleton {
 			body: JSON.stringify({ project_id: project_id }),
 		}
 
-		fetch(rebaseUrl(`movimento/get`), options)
+		fetch(rebaseUrl(`/movimento/get`), options)
 			.then(async response => {
 				if (response.ok) {
 					let data = await response.json()

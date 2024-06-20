@@ -450,12 +450,6 @@ li.projectContainer form input{
     height: 40px;
 }
 
-/*
-section#tabella{
-    display: block;
-    text-align: center;
-}*/
-
 #transazioniTable {
     width: 100%;
     border-collapse: collapse;
@@ -634,4 +628,9 @@ section#tabella{
         height: 40px;
         margin: auto;
     }
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
 }

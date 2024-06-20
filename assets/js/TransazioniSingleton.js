@@ -1,7 +1,12 @@
 import { Transazione } from "./transazione.js"
-import { rebaseUrl } from "./modifica.js"
 
 const ms_per_day = 1000 * 60 * 60 * 24
+
+function rebaseUrl(link){
+	link= link.replace('https://localhost:8080' || 'http://tecweb.studenti.math.unipd.it', '');
+	link = '/scaregna' + link;
+	return link;
+}
 
 class TransazioniSingleton {
 	static observers_fn = []

@@ -461,5 +461,3 @@ function rebaseUrl(link){
 	link = '/scaregna' + link;
 	return link;
 }
-
-export { rebaseUrl }

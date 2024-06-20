@@ -4,13 +4,13 @@ const ms_per_day = 1000 * 60 * 60 * 24
 
 class TransazioniSingleton {
 	static observers_fn = []
-	static tag = null
+	static tags = []
 	static end = new Date()
 	static begin = new Date(TransazioniSingleton.end.getTime() - 30 * ms_per_day)
 
-	/** Restituiscj un array di oggetti Transazione
-	* setta transazioni in sessionStorage
-	*/
+	/** Restituisce un array di oggetti Transazione
+	 * setta transazioni in sessionStorage
+	 */
 	static async fetch() {
 		let project_id = get_project_id()
 		let options = {
@@ -34,11 +34,10 @@ class TransazioniSingleton {
 	}
 
 	/** Restituisce un array di oggetti Transazione
-	* @returns {Promise<Transazione[]>} Array di oggetti Transazione dal server e setta
-	* transazioni in sessionStorage
-	*/
+	 * @returns {Promise<Transazione[]>} Array di oggetti Transazione dal server e setta
+	 * transazioni in sessionStorage
+	 */
 	static async get_all() {
-		// Supponiamo che tu abbia un array di oggetti che rappresentano le transazioni
 		let project_id = get_project_id()
 		let transazioni = []
 		if (sessionStorage.getItem(`${project_id}`) == null) {
@@ -51,15 +50,15 @@ class TransazioniSingleton {
 	}
 
 	/** Restituisce un array di oggetti Transazione
-	* filtrati per tag, data di inizio e data di fine
-	* @returns {Promise<Transazione[]>} 
-	*/
+	 * filtrati per tag, data di inizio e data di fine
+	 * @returns {Promise<Transazione[]>}
+	 */
 	static async get() {
 		let transazioni = await TransazioniSingleton.get_all()
 
-		if (TransazioniSingleton.tag != null) {
+		if (TransazioniSingleton.tags.length > 0) {
 			transazioni = transazioni.filter((transazione) => {
-				return transazione.tag === TransazioniSingleton.tag
+				return TransazioniSingleton.tags.includes(transazione.tag)
 			})
 		}
 
@@ -86,20 +85,30 @@ class TransazioniSingleton {
 	}
 
 	static setTag(tag) {
-		TransazioniSingleton.tag = tag
-		TransazioniSingleton.update();
+		if (!TransazioniSingleton.tags.includes(tag)) {
+			TransazioniSingleton.tags.push(tag)
+			TransazioniSingleton.update()
+		}
+	}
+
+	static removeTag(tag) {
+		const index = TransazioniSingleton.tags.indexOf(tag)
+		if (index > -1) {
+			TransazioniSingleton.tags.splice(index, 1)
+			TransazioniSingleton.update()
+		}
 	}
 
 	/** Aggiunge un observer alla lista degli observer
-	* @param {function} fn - Funzione da aggiungere alla lista degli observer
-	*/
+	 * @param {function} fn - Funzione da aggiungere alla lista degli observer
+	 */
 	static addObserver(fn) {
 		TransazioniSingleton.observers_fn.push(fn);
 	}
 
 	/** Update the observers
-	* @param {Transazione[]} transazioni - Array di oggetti Transazione
-	*/
+	 * @param {Transazione[]} transazioni - Array di oggetti Transazione
+	 */
 	static update() {
 		TransazioniSingleton.get().then((transazioni) => {
 			TransazioniSingleton.observers_fn.forEach((observer_fn) => {
@@ -109,8 +118,8 @@ class TransazioniSingleton {
 	}
 
 	/** Restituisce l'intervallo di tempo
-	* @returns {{begin: Date, end: Date}} Intervallo di tempo
-	*/
+	 * @returns {{begin: Date, end: Date}} Intervallo di tempo
+	 */
 	static getPeriod() {
 		return { begin: TransazioniSingleton.begin, end: TransazioniSingleton.end }
 	}

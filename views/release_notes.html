@@ -1,25 +1,26 @@
 <!-- <title>Release Notes - Versione 0.1</title> -->
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Release Notes</title>
 	<!--<base href="/">-->
-	<meta name="description" content="un sito per mostrare cose">
-	<meta name="keywords" content="sito, cose, dati, UN BEL GRAFICONE A TORTA">
-	<link rel="stylesheet" type="text/css" href="views\index.css">
+	<meta name="description" content="Leggi le note di rilascio di Penny Wise per scoprire le nuove versioni, le funzionalità aggiornate per la gestione delle spese personali e condivise e la visualizzazione di grafici dettagliati per aiutarti a risparmiare.">
+	<meta name="keywords" content="release notes, note di rilascio, versioni, Penny Wise, spese, gestione spese, spese condivise, risparmio, monitoraggio spese, grafici">
+	<link rel="stylesheet" type="text/css" href="views/index.css">
 	<script src="assets/js/modifica.js"></script>
 </head>
 
 
 <body>
+	<a href="#main-content" class="skip-link">Salta al contenuto principale</a>
 
 	<header>
 		<nav>
 			<div class="Logo">
-				<a href="/"><img src="assets/img/logo.png" alt="logo"></a>
+				<a href="/" aria-label="Torna alla home page"><img src="assets/img/logo.png" alt="logo della web app PennyWise"></a>
 			</div>
 			{{ header }}
 		</nav>
@@ -34,11 +35,11 @@
 
 	<script type="module" src="assets/js/nav.js"></script>
 
-	<main>
+	<main id="main-content">
 		<section>
 			<h2>Aggiornamenti della Versione 0.1</h2>
 			<p>In questa versione, abbiamo completato la struttura
-				progettata per il nostro sito web. I seguenti HTML sono stati
+				progettata per il nostro sito <span lang="en">web</span>. I seguenti HTML sono stati
 				creati:</p>
 			<ul>
 				<li><span lang="en">Homepage</span></li>
@@ -53,7 +54,7 @@
 			<img src="assets/img/sitemap.svg" alt="Mappa del sito e azioni
 		possibili per ogni pagina" />
 		</section>
-	</main>
+	</>
 
 	<script src="assets/js/footerColors.js"></script>
 
@@ -69,8 +70,8 @@
 			<ul>
 				<li><a href="/"><span lang="en">Homepage</span></a></li>
 				<li><a href="release_notes"><span lang="en">Release Notes</span></a></li>
-				<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
-							id="github-mark"><span lang="en">GitHub</span></a></li>
+				<li><a href="https://github.com/Sdraiati" target="_blank" aria-label="Vai alla pagina di Github"> <img src="assets/img/github-mark-white.png"
+																													   id="github-mark" alt="logo di Github"><span lang="en">GitHub</span></a></li>
 			</ul>
 		</div>
 	</footer>

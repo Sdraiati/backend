@@ -1,6 +1,6 @@
 <!-- <title>Home - Penny Wise</title> -->
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 	<meta charset="utf-8">
@@ -8,17 +8,19 @@
 	<title>Home</title>
 	<!--<base href="/">-->
 	<meta name="description" content="Gestisci le tue spese personali e condivise con facilità e visualizzale in grafici dettagliati con Penny Wise.">
-	<meta name="keywords" content="spese, budget, risparmio, monitoraggio spese, grafici">
-	<link rel="stylesheet" type="text/css" href="views\index.css">
+	<meta name="keywords" content="Penny Wise, spese, gestione spese, spese condivise, risparmio, monitoraggio spese, grafici">
+	<link rel="stylesheet" type="text/css" href="views/index.css">
 	<script src="assets/js/modifica.js"></script>
 </head>
 
 <body>
 
+	<a href="#main-content" class="skip-link">Salta al contenuto principale</a>
+
 	<header>
 		<nav>
 			<div class="Logo">
-				<a href="/"><img src="assets/img/logo.png" alt="logo"></a>
+				<a href="/" aria-label="Torna alla home page"><img src="assets/img/logo.png" alt="logo della web app PennyWise"></a>
 			</div>
 			{{ header }}
 		</nav>
@@ -34,7 +36,7 @@
 	<!-- <script type="module" src="assets/js/nav.js"></script> -->
 
 
-	<main>
+	<main id="main-content">
 		<!-- <title>Home - Penny Wise</title> -->
 		<section id="first-para">
 			<div>
@@ -68,7 +70,7 @@
 					</ul>
 				</div>
 				<div class="item">
-					<img src="./screenshot.jpg" alt="grafico dell'andamento patrimoniale">
+					<img src="./screenshot.jpg" alt="grafico dell'andamento delle spese">
 				</div>
 				<div class="item">
 					<img src="./screenshot.jpg" alt="analisi delle spese suddivise per tag">
@@ -84,7 +86,7 @@
 			</div>
 			<div>
 				<h2>Perché scegliere <span lang="en">Penny Wise</span>?</h2>
-				<p>La nostra webapp è progettata pensando alle tue esigenze specifiche:</p>
+				<p>La nostra <span lang="en">web app</span> è progettata pensando alle tue esigenze specifiche:</p>
 				<ul>
 					<li><strong>Facile da usare:</strong> Un'interfaccia utente intuitiva rende la registrazione delle
 						transazioni e la navigazione nell'app un gioco da ragazzi.</li>
@@ -104,10 +106,9 @@
 		<div class="footer-list">
 			<h3>Risorse</h3>
 			<ul>
-				<li><a href="/"><span lang="en">Homepage</span></a></li>
 				<li><a href="release_notes"><span lang="en">Release Notes</span></a></li>
-				<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
-							id="github-mark"><span lang="en">GitHub</span></a></li>
+				<li><a href="https://github.com/Sdraiati" target="_blank" aria-label="Vai alla pagina di Github"> <img src="assets/img/github-mark-white.png"
+							id="github-mark" alt="logo di Github"><span lang="en">GitHub</span></a></li>
 			</ul>
 		</div>
 	</footer>

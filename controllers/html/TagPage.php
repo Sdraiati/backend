@@ -19,7 +19,7 @@ class TagPageHtmlApi extends HtmlApi
 		$project_id = $_GET['project_id'];
 		$tags = $tagManager->getTagList($project_id);
 		if (count($tags) === 0) {
-			return 'NON vi sono tag associati a questo progetto';
+			return 'NON vi sono <span lang="en">tag</span> associati a questo progetto';
 		} else {
 			// html generato
 			$tag_list = '';

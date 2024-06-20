@@ -1,26 +1,25 @@
 <!-- <title>Account Page</title> -->
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Account Home</title>
 	<!--<base href="/">-->
-	<meta name="description" content="Gestisci il tuo account personale, visualizza le tue informazioni di profilo e gestisci i tuoi progetti">
-	<meta name="keywords" content="account, profilo utente, gestione account, progetti">
-	<link rel="stylesheet" type="text/css" href="views\index.css">
+	<link rel="stylesheet" type="text/css" href="views/index.css">
 	<script src="assets/js/modifica.js"></script>
 </head>
 
 
 <body>
 
+	<a href="#main-content" class="skip-link">Salta al contenuto principale</a>
 
 	<header>
 		<nav>
 			<div class="Logo">
-				<a href="/"><img src="assets/img/logo.png" alt="logo"></a>
+				<a href="/" aria-label="Torna alla home page"><img src="assets/img/logo.png" alt="logo della web app PennyWise"></a>
 			</div>
 			{{ header }}
 		</nav>
@@ -35,16 +34,18 @@
 
 	<script type="module" src="assets/js/nav.js"></script>
 
-	<main>
+	<main id="main-content">
 		<!-- Informazioni dell'account -->
 		<section>
 			<h2>Informazioni dell'<span lang="en">Account</span></h2>
-			<ul>
-				<li>Nome Utente: <span id="username">{{ username }}</span></li>
-				<li>Email: <span id="email">{{ email }}</span></li>
-			</ul>
-			<input type="button" data-button-kind="modificaCredenziali" value="Modifica Credenziali">
-			<input type="button" value="Esci" onclick="logOut()">
+			<div>
+				<div>Nome Utente: <span id="username">{{ username }}</span></div>
+				<div>Email: <span id="email">{{ email }}</span></div>
+			</div>
+			<form>
+				<input type="button" data-button-kind="modificaCredenziali" value="Modifica Credenziali">
+				<input type="button" aria-label="tasto per effettuare il logout" value="Esci" onclick="logOut()">
+			</form>
 		</section>
 
 		<!-- Modifica informazioni dell'account -->
@@ -87,8 +88,8 @@
 			<ul>
 				<li><a href="/"><span lang="en">Homepage</span></a></li>
 				<li><a href="release_notes"><span lang="en">Release Notes</span></a></li>
-				<li><a href="https://github.com/Sdraiati" target="_blank"> <img src="assets/img/github-mark-white.png"
-																				id="github-mark"><span lang="en">GitHub</span></a></li>
+				<li><a href="https://github.com/Sdraiati" target="_blank" aria-label="Vai alla pagina di Github"> <img src="assets/img/github-mark-white.png"
+																													   id="github-mark" alt="logo di Github"><span lang="en">GitHub</span></a></li>
 			</ul>
 		</div>
 	</footer>

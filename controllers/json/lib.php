@@ -17,6 +17,7 @@ $projectDel = new DeleteProject($database);
 $projectDJ = new DisjoinProject($database);
 $projectNew = new NewProject($database);
 $modProject = new ModifyProject($database);
+$tagManager = new TagInfo($database);
 
 $movimentoDb = new Movimento($database);
 $projectDb = new UserProject($database);

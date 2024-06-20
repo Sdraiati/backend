@@ -82,7 +82,30 @@ $modifyTag = (new JsonApiBuilder())
 	)
 	->createApi();
 
+$getTags = (new JsonApiBuilder())
+    ->setPath('tag/get')
+    ->setInputParams(['project_id'])
+    ->setLogicFn(
+        function ($params) {
+            try {
+                if (!isLogged() && !isUserInProject($params[0])) {
+                    http_response_code(400);
+                    echo json_encode(['error' => "user not authorized"]);
+                }
+                global $tagManager;
+                $tags = $tagManager->getTagList($params[0]);
+                http_response_code(200);
+                echo json_encode($tags);
+            } catch (Exception $_) {
+                http_response_code(400);
+                echo json_encode(['error' => "Tag not found"]);
+            }
+        }
+    )
+    ->createApi();
+
 $tag_router = new Router();
 $tag_router->addRoute($deleteTag);
 $tag_router->addRoute($newTag);
 $tag_router->addRoute($modifyTag);
+$tag_router->addRoute($getTags);

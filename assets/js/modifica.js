@@ -13,9 +13,6 @@ document.addEventListener("DOMContentLoaded", function(_) {
 
 		// se vi è un feedback da visualizzare nella pagina destinazione.
 		if (params["redirect_message"]) {
-			console.log(
-				"messaggio di redirezione presente all'interno dei parametri"
-			);
 			const message = params["redirect_message"];
 			makePopUpAppear("success", message);
 			removeUrlParameter("redirect_message");
@@ -132,13 +129,9 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="date" id="newData" name="newData" required>
 			<label for="newImporto">Importo (€):</label>
 			<input type="number" id="newImporto" name="newImporto" step="0.01" required>
-			<label for="newTag"><span lang="en">Tag</span>:</label> -->
+			<label for="newTag"><span lang="en">Tag</span>:</label>
 			<select id="newTag" name="newTag">
-				<option value=""></option>
-				<option value="volvo">Volvo</option>
-				<option value="saab">Saab</option>
-				<option value="opel">Opel</option>
-				<option value="audi">Audi</option>
+				{{ tag_list }}
 			</select>
 			<label for="newDescrizione">Descrizione:</label>
 			<input type="text" id="newDescrizione" name="newDescrizione">
@@ -155,10 +148,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 			<input type="number" id="editImporto" name="editImporto" step="0.01">
 			<label for="editTag"><span lang="en">Tag</span>:</label>
 			<select id="editTag" name="editTag">
-				<option value="volvo">Volvo</option>
-				<option value="saab">Saab</option>
-				<option value="opel">Opel</option>
-				<option value="audi">Audi</option>
+				{{ tag_list }}
 			</select>
 			<!-- Datalist per i tag -->
 			<datalist id="tags-datalist">
@@ -216,7 +206,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
 		creaTag: popUpCreaTag
 	};
 
-	document.body.addEventListener("click", function(event) {
+	document.body.addEventListener("click", async function(event) {
 		// Check if the clicked element is a button
 		if (event.target.tagName === "INPUT") {
 			// Show an alert with the ID of the clicked button
@@ -269,6 +259,11 @@ document.addEventListener("DOMContentLoaded", function(_) {
 						"{{ tag-id }}",
 						event.target.dataset.tagIndex
 					);
+					diz[id] = content;
+				}
+				else if (id === "newTransaction" || id === "editTransaction") {
+					let content = popupNewTransaction.toString();
+					content = content.replace("{{ tag_list }}", await optionsTags());
 					diz[id] = content;
 				}
 				// else if (id === "creaTag") {
@@ -392,7 +387,6 @@ function postRequest(event) {
 	const urlString = window.location.href;
 	const url = new URL(urlString);
 	const upar = url.searchParams;
-	console.log(upar);
 
 	upar.forEach((value, key) => {
 		const decodedKey = decodeURIComponent(key);
@@ -418,6 +412,37 @@ function joinProject() {
 	} else {
 		makePopUpAppear("error", "Devi fare prima il Login");
 	}
+}
+
+async function getTags() {
+	const urlString = window.location.href;
+	const url = new URL(urlString);
+	let data={'project_id': url.searchParams.get("project_id")};
+
+	return fetch("/tag/get", {
+		method: "POST", body: JSON.stringify(data)
+	})
+		.then(async (data) => {
+			if (!data.ok) {
+				throw await data.json();
+			}
+			data = await data.json();
+
+			return data;
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+}
+
+async function optionsTags() {
+	let data = await getTags();
+	const genericOption = `<option value="{{ tag_name }}">{{ tag_name }}</option>`;
+	let options = "";
+	data.forEach((element) => {
+		options += genericOption.replace(/{{ tag_name }}/g, element["nome"]);
+	})
+	return options;
 }
 
 function toogleView(name = "password") {

@@ -458,6 +458,6 @@ function toogleView(name = "password") {
 
 function rebaseUrl(link){
 	link= link.replace('http://localhost:8080' || 'http://tecweb.studenti.math.unipd.it', '');
-	link = '/scaregna' + link;
+	link = '/scaregna/' + link;
 	return link;
 }
